@@ -6,6 +6,8 @@ if (async_load[? "size"] > 0)
 	
 	if Topic != ""
 	{
+		if Texto = ""
+		{Texto = "Inicio"}
 		scrCharactersDefine()
 		scrCharactersFix()
 	}
