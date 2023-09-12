@@ -2,12 +2,12 @@ function scrCharactersDefine()
 {
 	switch(Responde)
 	{
-		case "Flaky": NickDetected = "Flaky" break;
-		case "Toothy": NickDetected = "Toothy" break;
-		case "Cuddles": NickDetected = "Cuddles" break;
-		case "Giggles": NickDetected = "Giggles" break;
-		case "Petunia": NickDetected = "Petunia" break;
-		case "Nutty": NickDetected = "Nutty" break;
+		case "Flaky": NickDetected = "Flaky"		global.VoiceID = 9	break;
+		case "Toothy": NickDetected = "Toothy"		global.VoiceID = 7	break;
+		case "Cuddles": NickDetected = "Cuddles"	global.VoiceID = 11	break;
+		case "Giggles": NickDetected = "Giggles"	global.VoiceID = 8	break;
+		case "Petunia": NickDetected = "Petunia"	global.VoiceID = 4	break;
+		case "Nutty": NickDetected = "Nutty"		global.VoiceID = 2	break;
 	}
 }
 

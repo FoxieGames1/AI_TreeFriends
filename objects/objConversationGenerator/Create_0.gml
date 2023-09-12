@@ -11,11 +11,14 @@ alarm[0] = 5
 
 TopicOpen = false
 
-TolkDebugSet(1);//Turn this off in release builds. Prints results of the API to better understand how each function works.
-TolkTrySAPI(1);//Whether or not to include Micorsoft Speech API (SAPI) as an API to use.
-TolkPreferSAPI(1);//Whether or not to prioritize SAPI over other screen readers.
-TolkFallbackSet(1);//Whether or not to enable the fallback option if no other screen reader is installed.
-TolkPowerOn();//Must be turned on before any output can be used.
+
+/// @description Demo Object Creation
+dlc_initialize(true); // If not called first, every other extension function will always fail
+
+global.VoiceID = -1
+
+if global.VoiceID = -1
+{global.VoiceID = 9}
 
 Texto = "";
 Topic = ""

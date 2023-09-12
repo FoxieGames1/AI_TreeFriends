@@ -28,7 +28,7 @@ shader_reset();
 if SPR3D = "Idle"
 {
 	image_index_3d = 0
-	if TolkIsSpeaking()
+	if dlc_tts_is_talking()
 	{
 		SPR3D = "Talk"
 	}

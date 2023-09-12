@@ -19,4 +19,3 @@ draw_text(0,48,"NickDetected: "+string(NickDetected))
 draw_text(0,64,"Texto: "+string(Texto))
 
 draw_text(0,80,"Instances: "+string(instance_number(all)))
-draw_text(0,96,"TolkIsSpeaking: "+string(TolkIsSpeaking()))

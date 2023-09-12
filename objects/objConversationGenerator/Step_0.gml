@@ -1,11 +1,3 @@
-/*
-if keyboard_check_pressed(vk_space)
-{
-	TolkSilence();
-	TolkOutput(TextPending[listNumber]);
-}
-*/
-
 if listNumber > listMax
 {
 	listNumber = 0	
@@ -35,10 +27,10 @@ if Texto = "Voces..."
 	{
 		if (listNumber < listLimit-1)
 		{
-			if (!TolkIsSpeaking())
+			if (!dlc_tts_is_talking())
 			{
-				TolkSilence();
-				TolkSpeak(TextPending[listNumber])
+				dlc_tts_stop_talking()
+				dlc_text_to_speech(TextPending[listNumber], 100, 0, global.VoiceID)
 				listNumber++
 				Voces = 3
 			}
@@ -47,7 +39,7 @@ if Texto = "Voces..."
 	else
 	if Voces = 3
 	{
-		if (TolkIsSpeaking())
+		if (dlc_tts_is_talking())
 		{
 			alarm[1] = TIME_TO_TALK
 			Voces = 4
@@ -64,13 +56,13 @@ if Texto = "Voces..."
 			case "Flaky":
 			if SPR3D = "Idle"
 			{
-				if TolkIsSpeaking()
+				if dlc_tts_is_talking()
 				{SPR3D = "Talk"}
 			}
 			else
 			if SPR3D = "Talk"
 			{
-				if !TolkIsSpeaking()
+				if !dlc_tts_is_talking()
 				{SPR3D = "Talk_Stop"}
 			}
 			break;
