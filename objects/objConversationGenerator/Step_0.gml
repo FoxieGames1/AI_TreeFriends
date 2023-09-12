@@ -25,7 +25,7 @@ if Texto = "Voces..."
 	else
 	if Voces = 2
 	{
-		if (listNumber < listLimit-1)
+		if (listNumber <= listLimit-1)
 		{
 			if (!dlc_tts_is_talking())
 			{
@@ -54,15 +54,13 @@ if Texto = "Voces..."
 					if !dlc_tts_is_talking()
 					{
 						SPR3D = "Talk_Stop"
+						State = "Idle"
+						
+						other.alarm[1] = TIME_TO_TALK
+						other.Voces = 4
 					}
 				}
 			}
-		}
-		
-		if !dlc_tts_is_talking()
-		{
-			alarm[1] = TIME_TO_TALK
-			Voces = 4
 		}
 	}
 }

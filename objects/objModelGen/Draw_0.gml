@@ -14,7 +14,7 @@ shader_set_uniform_f(UG,GREEN)
 shader_set_uniform_f(UB,BLUE)
 shader_set_uniform_f(UA,ALPHA)
 
-matrix_set(matrix_world, matrix_multiply(matrix_build(x,y,z,0,0,ROT,SCALE,SCALE,SCALE), MODELMAT));
+matrix_set(matrix_world, matrix_multiply(matrix_build(x,y,z,0,0,ROT-90,SCALE,SCALE,SCALE), MODELMAT));
 MODELINSTANCE.draw();
 matrix_set(matrix_world, matrix_build_identity());
 
@@ -65,4 +65,11 @@ if State = "Walk"
 	}
 	var ANIMLRP = 0.01;
 	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
+}
+else
+if State = "Talk"
+{
+	var _dir = point_direction(global.PlayerXX[ID_CHARA], global.PlayerYY[ID_CHARA], global.TalkerDirectionX, global.TalkerDirectionY);
+	var _diff = angle_difference(_dir, ROT);
+	ROT += _diff * 0.1;
 }

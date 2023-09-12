@@ -17,4 +17,6 @@ ALPHA = 1;
 State = "Idle"
 image_index_3d = 0
 
+ID_CHARA = 0
+
 image_index = 0
