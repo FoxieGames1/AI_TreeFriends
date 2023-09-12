@@ -77,7 +77,6 @@
     {"id":{"name":"texpack_create","path":"scripts/texpack_create/texpack_create.yy",},},
     {"id":{"name":"mbuff_combine_ext","path":"scripts/mbuff_combine_ext/mbuff_combine_ext.yy",},},
     {"id":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},},
-    {"id":{"name":"rmVoiceTest","path":"rooms/rmVoiceTest/rmVoiceTest.yy",},},
     {"id":{"name":"texpack_replace_sprite","path":"scripts/texpack_replace_sprite/texpack_replace_sprite.yy",},},
     {"id":{"name":"vbuff_draw","path":"scripts/vbuff_draw/vbuff_draw.yy",},},
     {"id":{"name":"sprFlakyTalk","path":"sprites/sprFlakyTalk/sprFlakyTalk.yy",},},
@@ -103,7 +102,7 @@
     {"id":{"name":"dlcext","path":"extensions/dlcext/dlcext.yy",},},
     {"id":{"name":"mbuff_transform","path":"scripts/mbuff_transform/mbuff_transform.yy",},},
     {"id":{"name":"mbuff_get_vertices","path":"scripts/mbuff_get_vertices/mbuff_get_vertices.yy",},},
-    {"id":{"name":"objDemo2","path":"objects/objDemo2/objDemo2.yy",},},
+    {"id":{"name":"objVoiceTester","path":"objects/objVoiceTester/objVoiceTester.yy",},},
     {"id":{"name":"mbuff_load","path":"scripts/mbuff_load/mbuff_load.yy",},},
     {"id":{"name":"mbuff_create_smooth_normals","path":"scripts/mbuff_create_smooth_normals/mbuff_create_smooth_normals.yy",},},
     {"id":{"name":"sprFlakyTalk2","path":"sprites/sprFlakyTalk2/sprFlakyTalk2.yy",},},
@@ -131,7 +130,6 @@
     {"id":{"name":"rmWorld","path":"rooms/rmWorld/rmWorld.yy",},},
   ],
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmVoiceTest","path":"rooms/rmVoiceTest/rmVoiceTest.yy",},},
     {"roomId":{"name":"rmWorld","path":"rooms/rmWorld/rmWorld.yy",},},
   ],
   "TextureGroups": [

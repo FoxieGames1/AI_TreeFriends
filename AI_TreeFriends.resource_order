@@ -68,7 +68,7 @@
     {"name":"_mbuff_init","order":5,"path":"scripts/_mbuff_init/_mbuff_init.yy",},
     {"name":"mbuff_transform","order":14,"path":"scripts/mbuff_transform/mbuff_transform.yy",},
     {"name":"mbuff_get_vertices","order":10,"path":"scripts/mbuff_get_vertices/mbuff_get_vertices.yy",},
-    {"name":"objDemo2","order":4,"path":"objects/objDemo2/objDemo2.yy",},
+    {"name":"objVoiceTester","order":4,"path":"objects/objVoiceTester/objVoiceTester.yy",},
     {"name":"mbuff_load","order":5,"path":"scripts/mbuff_load/mbuff_load.yy",},
     {"name":"mbuff_create_smooth_normals","order":6,"path":"scripts/mbuff_create_smooth_normals/mbuff_create_smooth_normals.yy",},
     {"name":"sprFlakyTalk2","order":2,"path":"sprites/sprFlakyTalk2/sprFlakyTalk2.yy",},
