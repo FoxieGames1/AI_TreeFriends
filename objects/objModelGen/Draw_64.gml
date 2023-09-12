@@ -1,0 +1,1 @@
+draw_text(520,520,"SPR3D: "+string(SPR3D)+"\n II3D: "+string(image_index_3d))

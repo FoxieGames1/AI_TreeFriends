@@ -16,7 +16,7 @@ if (BufferList < Buff)
 	
 	listLimit++
 	listNumber++
-	BufferList += BufferCharge
+	BufferList = Buff
 	buffer_delete(Buffer)
 	Buffer = -1
 }

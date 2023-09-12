@@ -22,12 +22,18 @@ if Texto = "Andando..." && TopicOpen = 1 && Responde = "Closed Topic"
 
 if Texto = "Voces..."
 {
-	if Voces = false
-	{listNumber = 1 alarm[1] = 60 Voces = true}
+	var TIME_TO_TALK = 40;
+	
+	if Voces = 0
+	{
+		listNumber = 0 
+		alarm[1] = TIME_TO_TALK
+		Voces = 1
+	}
 	else
 	if Voces = 2
 	{
-		if (listNumber < listLimit)
+		if (listNumber < listLimit-1)
 		{
 			if (!TolkIsSpeaking())
 			{
@@ -41,10 +47,33 @@ if Texto = "Voces..."
 	else
 	if Voces = 3
 	{
-		if (!TolkIsSpeaking())
+		if (TolkIsSpeaking())
 		{
-			alarm[1] = 30
+			alarm[1] = TIME_TO_TALK
 			Voces = 4
+		}
+	}
+}
+
+if Texto = "Voces..."
+{
+	with(objModelGen)
+	{
+		switch(Character)
+		{
+			case "Flaky":
+			if SPR3D = "Idle"
+			{
+				if TolkIsSpeaking()
+				{SPR3D = "Talk"}
+			}
+			else
+			if SPR3D = "Talk"
+			{
+				if !TolkIsSpeaking()
+				{SPR3D = "Talk_Stop"}
+			}
+			break;
 		}
 	}
 }
