@@ -31,6 +31,7 @@
   "properties": [
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"SPR3D","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"Idle","varType":2,},
     {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"Character","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"Nobody","varType":2,},
+    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"M3D","filters":[],"listItems":[],"multiselect":false,"rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"value":"Models/","varType":2,},
   ],
   "solid": false,
   "spriteId": {

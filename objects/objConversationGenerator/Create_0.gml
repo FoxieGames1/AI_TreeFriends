@@ -16,6 +16,7 @@ TopicOpen = false
 dlc_initialize(true); // If not called first, every other extension function will always fail
 
 global.VoiceID = -1
+global.Character = "Flaky"
 
 if global.VoiceID = -1
 {global.VoiceID = 9}
@@ -27,6 +28,7 @@ Message = "";
 Voces = false
 
 Talk = false
+listCurrentNumber = 0
 listNumber = 0
 listLimit = 0
 listMax = 100
@@ -43,3 +45,9 @@ for(var list = 0; list <= listMax; list++)
 Responde = ""
 NickDetected = "";
 Buff = 0
+
+for(var chara = 1; chara <= 2; chara++)
+{
+	global.PlayerXX[chara] = 0
+	global.PlayerYY[chara] = 0
+}

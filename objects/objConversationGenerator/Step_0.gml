@@ -30,7 +30,7 @@ if Texto = "Voces..."
 			if (!dlc_tts_is_talking())
 			{
 				dlc_tts_stop_talking()
-				dlc_text_to_speech(TextPending[listNumber], 100, 0, global.VoiceID)
+				scrCharaTalk()
 				listNumber++
 				Voces = 3
 			}
@@ -39,7 +39,27 @@ if Texto = "Voces..."
 	else
 	if Voces = 3
 	{
-		if (dlc_tts_is_talking())
+		with(objModelGen)
+		{
+			if Character = global.Character
+			{
+				if SPR3D = "Idle"
+				{
+					if dlc_tts_is_talking()
+					{SPR3D = "Talk"}
+				}
+				else
+				if SPR3D = "Talk"
+				{
+					if !dlc_tts_is_talking()
+					{
+						SPR3D = "Talk_Stop"
+					}
+				}
+			}
+		}
+		
+		if !dlc_tts_is_talking()
 		{
 			alarm[1] = TIME_TO_TALK
 			Voces = 4
@@ -47,25 +67,4 @@ if Texto = "Voces..."
 	}
 }
 
-if Texto = "Voces..."
-{
-	with(objModelGen)
-	{
-		switch(Character)
-		{
-			case "Flaky":
-			if SPR3D = "Idle"
-			{
-				if dlc_tts_is_talking()
-				{SPR3D = "Talk"}
-			}
-			else
-			if SPR3D = "Talk"
-			{
-				if !dlc_tts_is_talking()
-				{SPR3D = "Talk_Stop"}
-			}
-			break;
-		}
-	}
-}
+scrPosition()

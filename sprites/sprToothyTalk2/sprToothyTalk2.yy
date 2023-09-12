@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "sprFlakyTalk",
+  "name": "sprToothyTalk2",
   "bbox_bottom": 511,
   "bbox_left": 0,
   "bbox_right": 511,
@@ -13,26 +13,26 @@
   "edgeFiltering": false,
   "For3D": true,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"52dfbf0a-57a9-4b16-9cae-6c4002208831",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"9637fd8a-ea25-43c0-8080-6fb34a1922c1",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 512,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"f32e5247-939d-43ac-83e9-06b559ac2361","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"52024b36-94ad-406a-bfce-20f69a7bb580","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "Flaky",
-    "path": "folders/Sprites/Flaky.yy",
+    "name": "grupo1",
+    "path": "folders/Sprites/grupo1.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "sprFlakyTalk",
+    "name": "sprToothyTalk2",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"52dfbf0a-57a9-4b16-9cae-6c4002208831","path":"sprites/sprFlakyTalk/sprFlakyTalk.yy",},},},"Disabled":false,"id":"89688ad3-3e7e-4166-99e3-0edd1cc01bc8","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"9637fd8a-ea25-43c0-8080-6fb34a1922c1","path":"sprites/sprToothyTalk2/sprToothyTalk2.yy",},},},"Disabled":false,"id":"e8a06637-0bde-4644-93b6-c1e4e56d3194","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

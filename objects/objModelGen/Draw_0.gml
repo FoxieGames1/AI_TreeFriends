@@ -27,13 +27,6 @@ shader_reset();
 
 if SPR3D = "Idle"
 {
-	image_index_3d = 0
-	if dlc_tts_is_talking()
-	{
-		SPR3D = "Talk"
-	}
-	
-	if image_speed != 0{image_speed = 0.12}
 	image_index_3d += image_speed
 	sprite_index_3d(SPR3D)
 }
@@ -53,7 +46,11 @@ if SPR3D = "Talk_Stop"
 if State = "Idle"
 {
 	var ANIMSPD = 0.005;
-	var ANIM = "Flaky_Idle";
+	switch(Character)
+	{
+		case "Flaky": var ANIM = "Flaky_Idle"; break;
+		case "Toothy": var ANIM = "Toothy_Idle"; break;
+	}
 	var ANIMLRP = 0.01;
 	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
 }
@@ -61,7 +58,11 @@ else
 if State = "Walk"
 {
 	var ANIMSPD = 0.005,;
-	var ANIM = "Flaky_Walk";
+	switch(Character)
+	{
+		case "Flaky": var ANIM = "Flaky_Walk"; break;
+		case "Toothy": var ANIM = "Toothy_Walk"; break;
+	}
 	var ANIMLRP = 0.01;
 	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
 }
