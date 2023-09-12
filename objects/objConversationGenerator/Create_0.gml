@@ -40,10 +40,3 @@ for(var list = 0; list <= listMax; list++)
 Responde = ""
 NickDetected = "";
 Buff = 0
-
-/*
-- PENDING -
-
-(node:5484) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 message listeners added to [Socket]. Use emitter.setMaxListeners() to increase limit
-(Use `node --trace-warnings ...` to show where the warning was created)
-*/
