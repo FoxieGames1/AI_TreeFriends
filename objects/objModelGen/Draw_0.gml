@@ -72,7 +72,7 @@ if State = "Talk"
 	
 	if global.Talker > 0
 	{
-		var _dir = point_direction(global.PlayerXX[ID_CHARA], global.PlayerYY[ID_CHARA], global.TalkerDirectionX, global.TalkerDirectionY);
+		var _dir = point_direction(global.TalkerDirectionX, global.TalkerDirectionY, global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore]);
 		var _diff = angle_difference(_dir, ROT);
 		ROT += _diff * 0.1;
 	}

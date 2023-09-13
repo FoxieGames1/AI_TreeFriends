@@ -61,6 +61,7 @@ for(var chara = 0; chara <= 6; chara++)
 }
 
 global.Talker = 0
+global.TalkerBefore = 0
 
 global.TalkerDirectionX = global.PlayerXX[0]
 global.TalkerDirectionY = global.PlayerYY[0]

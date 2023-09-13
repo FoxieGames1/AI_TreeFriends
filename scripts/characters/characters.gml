@@ -54,7 +54,6 @@ function sprite_index_3d(TAG)
 			else
 			if TAG = "Idle"
 			{
-				ID_CHARA = 1
 				if image_index_3d = 0 {MODEL.texPack[0] = sprFlakyTalk}
 				if image_index_3d > 0 {MODEL.texPack[0] = sprFlakyTalk}
 				if image_index_3d > 1 {MODEL.texPack[0] = sprFlakyTalk1}
@@ -88,7 +87,6 @@ function sprite_index_3d(TAG)
 			else
 			if TAG = "Idle"
 			{
-				ID_CHARA = 2
 				if image_index_3d = 0 {MODEL.texPack[0] = sprToothyTalk}
 				if image_index_3d > 0 {MODEL.texPack[0] = sprToothyTalk}
 				if image_index_3d > 1 {MODEL.texPack[0] = sprToothyTalk1}
