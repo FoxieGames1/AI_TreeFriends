@@ -38,7 +38,8 @@ function sprite_index_3d(TAG)
 		case "Flaky":
 			if TAG = "Talk"
 			{
-				with(objModelGen){State = "Talk"}
+				with(objModelGen){State = "Listening"}
+				State = "Talk"
 				if image_index_3d = 0 {MODEL.texPack[0] = sprFlakyTalk}
 				if image_index_3d > 0 {MODEL.texPack[0] = sprFlakyTalk}
 				if image_index_3d > 1 {MODEL.texPack[0] = sprFlakyTalk1}
@@ -71,7 +72,8 @@ function sprite_index_3d(TAG)
 		case "Toothy":
 			if TAG = "Talk"
 			{
-				with(objModelGen){State = "Talk"}
+				with(objModelGen){State = "Listening"}
+				State = "Talk"
 				if image_index_3d = 0 {MODEL.texPack[0] = sprToothyTalk}
 				if image_index_3d > 0 {MODEL.texPack[0] = sprToothyTalk}
 				if image_index_3d > 1 {MODEL.texPack[0] = sprToothyTalk1}

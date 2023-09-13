@@ -72,8 +72,29 @@ if State = "Talk"
 	
 	if global.Talker > 0
 	{
-		var _dir = point_direction(global.TalkerDirectionX, global.TalkerDirectionY, global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore]);
-		var _diff = angle_difference(_dir, ROT);
-		ROT += _diff * 0.1;
+		if global.Talker != global.TalkerBefore
+		{
+			var _dir = point_direction(global.TalkerDirectionX, global.TalkerDirectionY, global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore]);
+			var _diff = angle_difference(_dir, ROT);
+			ROT += _diff * 0.1;
+		}
+	}
+}
+else
+if State = "Listening"
+{
+	var ANIMSPD = 0.005;
+	scrIdleFun()
+	var ANIMLRP = 0.01;
+	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
+	
+	if global.Talker > 0
+	{
+		if global.Talker != global.TalkerBefore
+		{
+			var _dir = point_direction(global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore], global.TalkerDirectionX, global.TalkerDirectionY);
+			var _diff = angle_difference(_dir, ROT);
+			ROT += _diff * 0.1;
+		}
 	}
 }
