@@ -46,13 +46,21 @@ Responde = ""
 NickDetected = "";
 Buff = 0
 
-for(var chara = 1; chara <= 2; chara++)
+for(var chara = 0; chara <= 6; chara++)
 {
-	global.PlayerXX[chara] = 0
-	global.PlayerYY[chara] = 0
+	if chara = 0
+	{
+		global.PlayerXX[chara] = 544
+		global.PlayerYY[chara] = 488
+	}
+	else
+	{
+		global.PlayerXX[chara] = 0
+		global.PlayerYY[chara] = 0
+	}
 }
 
-global.Talker = 2
+global.Talker = 0
 
-global.TalkerDirectionX = global.PlayerXX[global.Talker]
-global.TalkerDirectionY = global.PlayerYY[global.Talker]
+global.TalkerDirectionX = global.PlayerXX[0]
+global.TalkerDirectionY = global.PlayerYY[0]

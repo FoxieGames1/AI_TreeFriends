@@ -46,11 +46,7 @@ if SPR3D = "Talk_Stop"
 if State = "Idle"
 {
 	var ANIMSPD = 0.005;
-	switch(Character)
-	{
-		case "Flaky": var ANIM = "Flaky_Idle"; break;
-		case "Toothy": var ANIM = "Toothy_Idle"; break;
-	}
+	scrIdleFun()
 	var ANIMLRP = 0.01;
 	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
 }
@@ -60,8 +56,8 @@ if State = "Walk"
 	var ANIMSPD = 0.005,;
 	switch(Character)
 	{
-		case "Flaky": var ANIM = "Flaky_Walk"; break;
-		case "Toothy": var ANIM = "Toothy_Walk"; break;
+		case "Flaky": ANIM = "Flaky_Walk"; break;
+		case "Toothy": ANIM = "Toothy_Walk"; break;
 	}
 	var ANIMLRP = 0.01;
 	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
@@ -69,7 +65,15 @@ if State = "Walk"
 else
 if State = "Talk"
 {
-	var _dir = point_direction(global.PlayerXX[ID_CHARA], global.PlayerYY[ID_CHARA], global.TalkerDirectionX, global.TalkerDirectionY);
-	var _diff = angle_difference(_dir, ROT);
-	ROT += _diff * 0.1;
+	var ANIMSPD = 0.005;
+	scrIdleFun()
+	var ANIMLRP = 0.01;
+	MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
+	
+	if global.Talker > 0
+	{
+		var _dir = point_direction(global.PlayerXX[ID_CHARA], global.PlayerYY[ID_CHARA], global.TalkerDirectionX, global.TalkerDirectionY);
+		var _diff = angle_difference(_dir, ROT);
+		ROT += _diff * 0.1;
+	}
 }

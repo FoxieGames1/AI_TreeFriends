@@ -10,7 +10,7 @@ if Texto = "Inicio" && TopicOpen = 0
 {TopicOpen = 1 Texto = "Andando..."}
 else
 if Texto = "Andando..." && TopicOpen = 1 && Responde = "Closed Topic"
-{Texto = "Voces..."}
+{Texto = "Voces..." TopicOpen = 0}
 
 if Texto = "Voces..."
 {
@@ -55,7 +55,6 @@ if Texto = "Voces..."
 					{
 						SPR3D = "Talk_Stop"
 						State = "Idle"
-						
 						other.alarm[1] = TIME_TO_TALK
 						other.Voces = 4
 					}
@@ -63,6 +62,7 @@ if Texto = "Voces..."
 			}
 		}
 	}
+	
+	scrPosition()
 }
 
-scrPosition()
