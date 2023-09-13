@@ -1,8 +1,3 @@
-if listNumber > listMax
-{
-	listNumber = 0	
-}
-
 if !buffer_exists(Buffer)
 {Buffer = buffer_create(100, buffer_fixed, 100)}
 
@@ -66,3 +61,5 @@ if Texto = "Voces..."
 	scrPosition()
 }
 
+if listNumber >= listLimit && TopicOpen = 0 && Texto = "Voces..." && End = false
+{alarm[2] = 60 global.BufferNewSize = Buff End = true}

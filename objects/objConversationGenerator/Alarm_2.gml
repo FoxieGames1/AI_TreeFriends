@@ -1,0 +1,4 @@
+with(objCamera)
+{
+	TimeCard = true
+}

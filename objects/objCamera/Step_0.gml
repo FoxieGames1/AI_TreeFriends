@@ -6,6 +6,9 @@ with(objConversationGenerator)
 	other.FirstName = NicksPending[1]
 }
 
+if TimeCard = false
+{TimeCardNumber = irandom_range(1,4)}
+
 if FirstName = "Flaky"
 {Player = 1;}
 else

@@ -4,7 +4,8 @@ if Voces = 1
 	if Texto = "Voces..."
 	{global.TalkerBefore = global.Talker;}
 	
-	listCurrentNumber++ Voces = 2
+	if listNumber < listLimit
+	{listCurrentNumber++ Voces = 2}
 }
 else
 if Voces = 4
@@ -12,5 +13,6 @@ if Voces = 4
 	if Texto = "Voces..."
 	{global.TalkerBefore = global.Talker;}
 	
-	listCurrentNumber++ Voces = 2
+	if listNumber < listLimit
+	{listCurrentNumber++ Voces = 2}
 }

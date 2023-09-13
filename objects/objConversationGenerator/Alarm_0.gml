@@ -5,9 +5,6 @@ if buffer_exists(Buffer)
 
 if (BufferList < Buff)
 {
-	show_debug_message("Buffer: "+string(Buff))
-	show_debug_message("listNumber: "+string(listNumber))
-	
 	if listNumber != 0
 	{
 		NicksPending[listNumber] = NickDetected
