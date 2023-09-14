@@ -1,21 +1,40 @@
-if buffer_exists(Buffer)
+if Topic = ""
 {
-	buffer_seek(Buffer, buffer_seek_start, 0) network_send_udp_raw(Socket, "localhost", PortToReciveMessages, Buffer, 100);
-}
-
-if (BufferList < Buff)
-{
-	if listNumber != 0
-	{
-		NicksPending[listNumber] = NickDetected
-		TextPending[listNumber] = Responde
-	}
+	var Buffer = buffer_create(1, buffer_grow ,1);
+	var data = ds_map_create();
+	data[? "eventName"] = "Send_Topic";
 	
-	listLimit++
-	listNumber++
-	BufferList = Buff
+	buffer_write(Buffer , buffer_text  , json_encode(data));
+	network_send_raw(Socket , Buffer , buffer_tell(Buffer));
+	ds_map_destroy(data);
 	buffer_delete(Buffer)
-	Buffer = -1
+}
+else
+if Topic != "" && TopicOpen = 1 &&
+(TextPending[listNumber+1] = "" && NicksPending[listNumber+1] = "")
+{
+	var Buffer = buffer_create(1, buffer_grow, 1);
+	var data = ds_map_create();
+	data[? "eventName"] = "Send_Message";
+	data[? "eventPlus"] = listLimit;
+
+	buffer_write(Buffer, buffer_text , json_encode(data));
+	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
+	ds_map_destroy(data);
+	buffer_delete(Buffer)
 }
 
-alarm[0] = 5
+if Texto = "Andando..." && TopicOpen = 1
+{
+	var Buffer = buffer_create(1, buffer_grow, 1);
+	var data = ds_map_create();
+	data[? "eventName"] = "Close_Topic";
+	data[? "changeNumber"] = OneTime;
+
+	buffer_write(Buffer, buffer_text , json_encode(data));
+	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
+	ds_map_destroy(data);
+	buffer_delete(Buffer)
+}
+
+alarm[0] = TIMER

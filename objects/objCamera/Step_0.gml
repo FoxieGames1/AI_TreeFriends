@@ -3,7 +3,7 @@ with(objConversationGenerator)
 	other.Topic = TopicOpen
 	other.Event = Texto;
 	
-	other.FirstName = NicksPending[1]
+	other.FirstName = NicksPending[0]
 }
 
 if TimeCard = false

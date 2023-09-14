@@ -13,7 +13,7 @@ function scrCharactersDefine()
 
 function scrCharaTalk()
 {
-	switch(NicksPending[listCurrentNumber])
+	switch(NicksPending[listNumber])
 	{
 		case "Flaky":	global.Character = "Flaky"  dlc_text_to_speech(TextPending[listNumber], 100, 0, 9) global.Talker = 1 break;
 		case "Toothy":	global.Character = "Toothy" dlc_text_to_speech(TextPending[listNumber], 100, 0, 7) global.Talker = 2 break;

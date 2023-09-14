@@ -1,11 +1,14 @@
-if !buffer_exists(Buffer)
-{Buffer = buffer_create(100, buffer_fixed, 100)}
-
 if Texto = "Inicio" && TopicOpen = 0
-{TopicOpen = 1 Texto = "Andando..."}
+{
+	TopicOpen = 1 
+	Texto = "Andando..."
+}
 else
-if Texto = "Andando..." && TopicOpen = 1 && Responde = "Closed Topic"
-{Texto = "Voces..." TopicOpen = 0}
+if Texto = "Terminando" && TopicOpen = 1
+{
+	Texto = "Voces..." 
+	TopicOpen = 2
+}
 
 if Texto = "Voces..."
 {
@@ -13,14 +16,14 @@ if Texto = "Voces..."
 	
 	if Voces = 0
 	{
-		listNumber = 0 
+		listNumber = 0
 		alarm[1] = TIME_TO_TALK
 		Voces = 1
 	}
 	else
 	if Voces = 2
 	{
-		if (listNumber <= listLimit-1)
+		if listNumber < listLimit-1
 		{
 			if (!dlc_tts_is_talking())
 			{
@@ -29,6 +32,14 @@ if Texto = "Voces..."
 				listNumber++
 				Voces = 3
 			}
+		}
+		else
+		if listNumber >= listLimit-1
+		{
+			alarm[2] = 60
+			End = true
+			TopicOpen = 3
+			Voces = 3
 		}
 	}
 	else
@@ -61,5 +72,22 @@ if Texto = "Voces..."
 	scrPosition()
 }
 
-if listNumber >= listLimit && TopicOpen = 0 && Texto = "Voces..." && End = false
-{alarm[2] = 60 global.BufferNewSize = Buff End = true}
+if !instance_exists(objCamera) && Start=false
+{
+	var Buffer = buffer_create(1, buffer_grow, 1);
+	var data = ds_map_create();
+	data[? "eventName"] = "Restart_Values";
+	data[? "eventPlus"] = listLimit 
+	data[? "message_topic"] = Topic
+	
+	for (var i = 0; i < listMax; ++i) 
+	{
+		data[? "message_text"] = TextPending[i] 
+		data[? "message_nick"] = NicksPending[i]
+	}
+	
+	buffer_write(Buffer, buffer_text , json_encode(data));
+	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
+	ds_map_destroy(data);
+	buffer_delete(Buffer)
+}

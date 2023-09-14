@@ -6,7 +6,7 @@ Topic = false
 Event = ""
 FirstName = 0
 
-Player = 1;
+Player = 0;
 
 TimeCardSound = false
 TimeCardNumber = irandom_range(1,4)
