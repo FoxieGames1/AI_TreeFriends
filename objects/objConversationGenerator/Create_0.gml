@@ -4,7 +4,10 @@ Socket = network_create_socket(network_socket_ws)
 
 network_connect_raw_async(Socket, "localhost", PortToReciveMessages)
 
+Writing = false;
 TIMER = 1
+
+TrueValue = 0
 
 TopicBefore = ""
 

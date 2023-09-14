@@ -69,6 +69,15 @@ switch(async_load[? "type"])
 					NicksPending[i] = realData[? "message_nick"];
 				}
 			break;
+			case "Restart_New":
+				TrueValue = realData[? "setNew"];
+			
+				if TrueValue = true && Writing = 1
+				{
+					Writing = false
+					TrueValue = false
+				}
+			break;
 		}
 	break;
 }

@@ -5,7 +5,6 @@ function scrDefaultValues()
 	CreateNicks = false
 	
 	alarm[1] = -1
-	alarm[2] = -1
 
 	TopicOpen = 0
 	

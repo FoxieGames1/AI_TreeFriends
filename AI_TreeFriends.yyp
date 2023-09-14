@@ -98,6 +98,7 @@
     {"id":{"name":"sndLater","path":"sounds/sndLater/sndLater.yy",},},
     {"id":{"name":"vbuff_create_from_mbuff","path":"scripts/vbuff_create_from_mbuff/vbuff_create_from_mbuff.yy",},},
     {"id":{"name":"mbuff_create_flat_normals","path":"scripts/mbuff_create_flat_normals/mbuff_create_flat_normals.yy",},},
+    {"id":{"name":"fntDmSans","path":"fonts/fntDmSans/fntDmSans.yy",},},
     {"id":{"name":"_array_delete","path":"scripts/_array_delete/_array_delete.yy",},},
     {"id":{"name":"mbuff_load_obj_from_buffer","path":"scripts/mbuff_load_obj_from_buffer/mbuff_load_obj_from_buffer.yy",},},
     {"id":{"name":"mbuff_flip_triangles","path":"scripts/mbuff_flip_triangles/mbuff_flip_triangles.yy",},},
