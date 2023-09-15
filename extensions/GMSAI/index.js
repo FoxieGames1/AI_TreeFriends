@@ -43,7 +43,7 @@ var MSG = "";
 var MESSAGE = "";
 
 const prefix = '!';
-const Names = 'Flaky, '+'Toothy, ';
+const Names = 'Flaky '+"&"+'Toothy.';
 
 let topicOpen = false; // Variable para rastrear si el tema está abierto o cerrado
 let currentTopic = ''; // Variable para almacenar el tema actual
