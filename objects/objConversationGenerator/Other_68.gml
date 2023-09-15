@@ -66,18 +66,6 @@ switch(async_load[? "type"])
 				}
 			}
 			break;
-			case "Restart_Values":
-				listNumber = 0
-				listLimit = realData[? "eventPlus"];
-				
-				Topic = realData[? "message_topic"];
-				
-				for (var i = 0; i < listMax; ++i) 
-				{
-				    TextPending[i] = realData[? "message_text"];
-					NicksPending[i] = realData[? "message_nick"];
-				}
-			break;
 			
 			//TEMPORAL
 			case "Restart_New":

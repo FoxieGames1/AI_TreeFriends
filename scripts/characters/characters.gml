@@ -2,8 +2,8 @@ function scrCharaTalk()
 {
 	switch(NicksPending[listNumber])
 	{
-		case "Flaky":	global.Character = "Flaky"  dlc_text_to_speech(TextPending[listNumber], 100, 0, 9) global.Talker = 1 break;
-		case "Toothy":	global.Character = "Toothy" dlc_text_to_speech(TextPending[listNumber], 100, 0, 7) global.Talker = 2 break;
+		case "Flaky":	global.Character = "Flaky"  dlc_tts_set_opt(9, 100, 0, 0)  global.Talker = 1 break;
+		case "Toothy":	global.Character = "Toothy" dlc_tts_set_opt(7, 100, 0, 10) global.Talker = 2 break;
 		case "Public":	global.Character = "Public" global.Talker = 10 break;
 	}
 }

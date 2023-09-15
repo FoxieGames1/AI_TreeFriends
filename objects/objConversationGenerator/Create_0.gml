@@ -24,6 +24,14 @@ ReOpen = false; //TEMPORAL
 Public = false
 PublicTalking = true
 
-alarm[0] = TIMER
+buffer_first = 0
+data_first = 0
+
+clean = 0;
+
+//alarm[0] = TIMER
+
+//Catch memory
+alarm[11] = 60*10
 
 scrDefaultValues()

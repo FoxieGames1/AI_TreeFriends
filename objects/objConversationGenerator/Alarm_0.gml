@@ -1,40 +1,44 @@
 if Topic = ""
 {	
-	var Buffer = buffer_create(1, buffer_grow ,1);
-	var data = ds_map_create();
-	data[? "eventName"] = "Send_Topic";
+	buffer_first = buffer_create(1, buffer_grow ,1);
+	data_first = ds_map_create()
 	
-	buffer_write(Buffer , buffer_text  , json_encode(data));
-	network_send_raw(Socket , Buffer , buffer_tell(Buffer));
-	ds_map_destroy(data);
-	buffer_delete(Buffer)
+	data_first[? "eventName"] = "Send_Topic";
+	
+	buffer_write(buffer_first, buffer_text, json_encode(data_first));
+	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	ds_map_destroy(data_first)
+	buffer_delete(buffer_first)
 }
 else
 if Topic != "" && TopicOpen = 1 &&
 (TextPending[listNumber+1] = "" && NicksPending[listNumber+1] = "")
 {
-	var Buffer = buffer_create(1, buffer_grow, 1);
-	var data = ds_map_create();
-	data[? "eventName"] = "Send_Message";
-	data[? "eventPlus"] = listLimit;
+	buffer_first = buffer_create(1, buffer_grow ,1);
+	data_first = ds_map_create()
+	
+	data_first[? "eventName"] = "Send_Message";
+	data_first[? "eventPlus"] = listLimit;
 
-	buffer_write(Buffer, buffer_text , json_encode(data));
-	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
-	ds_map_destroy(data);
-	buffer_delete(Buffer)
+	buffer_write(buffer_first, buffer_text , json_encode(data_first));
+	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	ds_map_destroy(data_first)
+	buffer_delete(buffer_first)
 }
 
 if Texto = "Andando..." && TopicOpen = 1 || TopicOpen = -1
 {
-	var Buffer = buffer_create(1, buffer_grow, 1);
-	var data = ds_map_create();
-	data[? "eventName"] = "Close_Topic";
-	data[? "changeNumber"] = OneTime;
+	buffer_first = buffer_create(1, buffer_grow ,1);
+	data_first = ds_map_create()
+	
+	data_first[? "eventName"] = "Close_Topic";
+	data_first[? "changeNumber"] = OneTime;
 
-	buffer_write(Buffer, buffer_text , json_encode(data));
-	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
-	ds_map_destroy(data);
-	buffer_delete(Buffer)
+	buffer_write(buffer_first, buffer_text , json_encode(data_first));
+	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+	ds_map_destroy(data_first)
+	buffer_delete(buffer_first)
 }
 
 alarm[0] = TIMER

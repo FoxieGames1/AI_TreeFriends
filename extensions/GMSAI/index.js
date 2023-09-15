@@ -29,7 +29,7 @@ var CheckTopic = 1
 var Writing = false;
 var NewValue = false;
 
-var MessageMax = 5
+var MessageMax = 2
 var MessageNum = 0
 
 var Messages = [];
@@ -43,7 +43,7 @@ var MSG = "";
 var MESSAGE = "";
 
 const prefix = '!';
-const Names = 'Flaky '+"&"+'Toothy.';
+const Names = 'Flaky '+"&"+' Toothy.';
 
 let topicOpen = false; // Variable para rastrear si el tema está abierto o cerrado
 let currentTopic = ''; // Variable para almacenar el tema actual
@@ -151,7 +151,7 @@ client.on('messageCreate', (message) =>
               else
               if (MessageNum < MessageMax)
               {
-                  message.reply(`Minimum number of messages is ${MessageNum}/5.`);
+                  message.reply(`Minimum number of messages is ${MessageNum}/${MessageMax}.`);
               }
             } 
             else 
@@ -204,25 +204,25 @@ wss.on("connection", ws =>
               console.log("Connected")
             break;
             case "Send_Topic":
-              CheckTopic = 0;
+                console.log("Send_Topic")
+                CheckTopic = 0;
 
-              if (mesCon != MESSAGE){MESSAGE = mesCon}
-                              
-              var Topic_send = {
-                id: clientID,
-                message_topic: mesCon
-              }
-              
-              Messages.push(Topic_send)
-  
-              ws.send(
-                JSON.stringify({
-                  eventName: "Send_Topic",
+                if (mesCon != MESSAGE){MESSAGE = mesCon}
+                                
+                var Topic_send = {
                   id: clientID,
                   message_topic: mesCon
-                }));
+                }
+                Messages.push(Topic_send)
+                
+                ws.send(
+                  JSON.stringify({
+                    eventName: "Send_Topic",
+                    id: clientID,
+                    message_topic: mesCon
+                  }
+                  ));
             break;
-
             case "Send_Message":
               if (CharacterToTalk != Chara){CharacterToTalk = Chara;}
               if (mesTex != MESSAGE){MESSAGE = mesTex}
@@ -253,31 +253,6 @@ wss.on("connection", ws =>
                   changeNumber: CheckTopic
                 }));
             break;
-
-            //TEMPORAL
-            case "Restart_Value":
-              EVENTPLUS = 1
-
-              var Restart = {
-                id: clientID,
-                message_topic: "",
-                message_nick: "",
-                message_text: "",
-                eventPlus: 0
-              }
-              
-              Messages.push(Restart)
-
-              ws.send(
-                JSON.stringify({
-                  id: clientID,
-                  eventName: "Restart_Value",
-                  message_nick: "",
-                  message_text: "",
-                  message_topic: "",
-                  eventPlus: 0
-                }));
-            break;
             case "Restart_New": //TEMPORAL
               NewValue = true
 
@@ -293,7 +268,9 @@ wss.on("connection", ws =>
     })
     
     // handling what to do when clients disconnects from server
-    ws.on("close", () => { })
+    ws.on("close", () => { 
+      console.log("Application Closed.");
+    })
                 
     // handling client connection error
     ws.onerror = function () {

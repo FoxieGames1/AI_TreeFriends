@@ -22,3 +22,6 @@ image_index_3d = 0
 ANIM = ""
 
 image_index = 0
+
+//Make some sub-models invisible
+//MODELINSTANCE.model.vis[0] = false

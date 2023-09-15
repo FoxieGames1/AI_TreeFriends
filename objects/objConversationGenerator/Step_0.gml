@@ -1,6 +1,5 @@
 scrCharactersFix()
 
-
 if Texto = "Inicio" && TopicOpen = 0
 {
 	TopicOpen = 1 
@@ -70,6 +69,7 @@ if Texto = "Voces..."
 				{
 					dlc_tts_stop_talking()
 					scrCharaTalk()
+					dlc_text_to_speech(TextPending[listNumber])
 					listNumber++
 					Voces = 3
 				}	
@@ -115,26 +115,6 @@ if Texto = "Voces..."
 	}
 	
 	scrPosition()
-}
-
-if !instance_exists(objCamera) && Start=false
-{
-	var Buffer = buffer_create(1, buffer_grow, 1);
-	var data = ds_map_create();
-	data[? "eventName"] = "Restart_Values";
-	data[? "eventPlus"] = listLimit 
-	data[? "message_topic"] = Topic
-	
-	for (var i = 0; i < listMax; ++i) 
-	{
-		data[? "message_text"] = TextPending[i] 
-		data[? "message_nick"] = NicksPending[i]
-	}
-	
-	buffer_write(Buffer, buffer_text , json_encode(data));
-	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
-	ds_map_destroy(data);
-	buffer_delete(Buffer)
 }
 
 if Voces = 10

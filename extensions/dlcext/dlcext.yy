@@ -16,7 +16,7 @@
   "date": "2020-08-27T03:23:17",
   "description": "",
   "exportToGame": true,
-  "extensionVersion": "1.5.0",
+  "extensionVersion": "1.6.0",
   "files": [
     {"resourceType":"GMExtensionFile","resourceVersion":"1.0","name":"","constants":[
         {"resourceType":"GMExtensionConstant","resourceVersion":"1.0","name":"DLC_PF_TYPE_UPNP","hidden":false,"value":"0",},
@@ -67,10 +67,13 @@
           ],"documentation":"","externalName":"clear_port_fwd","help":"port, protocol, type","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_text_to_speech","argCount":0,"args":[
             1,
+          ],"documentation":"","externalName":"text_to_speech","help":"text","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_tts_set_opt","argCount":0,"args":[
             2,
             2,
             2,
-          ],"documentation":"","externalName":"text_to_speech","help":"text, volume, rate, voice","hidden":false,"kind":1,"returnType":2,},
+            2,
+          ],"documentation":"","externalName":"tts_set_opt","help":"voice, volume, rate, pitch","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_tts_stop_talking","argCount":0,"args":[],"documentation":"","externalName":"tts_stop_talking","help":"","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_tts_is_talking","argCount":0,"args":[],"documentation":"","externalName":"tts_is_talking","help":"","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_tts_get_voice_count","argCount":0,"args":[],"documentation":"","externalName":"tts_get_voice_count","help":"","hidden":false,"kind":1,"returnType":2,},
@@ -275,6 +278,34 @@
           ],"documentation":"","externalName":"chess_move_do","help":"move","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_chess_move_undo","argCount":0,"args":[],"documentation":"","externalName":"chess_move_undo","help":"","hidden":false,"kind":1,"returnType":2,},
         {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_chess_resign","argCount":0,"args":[],"documentation":"","externalName":"chess_resign","help":"","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_create","argCount":0,"args":[
+            2,
+          ],"documentation":"","externalName":"bitset_create","help":"flag","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_get_bit","argCount":0,"args":[
+            2,
+            2,
+          ],"documentation":"","externalName":"bitset_get_bit","help":"bitset, pos","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_set_bit","argCount":0,"args":[
+            2,
+            2,
+            2,
+          ],"documentation":"","externalName":"bitset_set_bit","help":"bitset, pos, flag","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_flip","argCount":0,"args":[
+            2,
+          ],"documentation":"","externalName":"bitset_flip","help":"bitset","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_test","argCount":0,"args":[
+            2,
+            2,
+          ],"documentation":"","externalName":"bitset_test","help":"bitset, test","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_count","argCount":0,"args":[
+            2,
+          ],"documentation":"","externalName":"bitset_count","help":"bitset","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_from_string","argCount":0,"args":[
+            1,
+          ],"documentation":"","externalName":"bitset_from_string","help":"bitstring","hidden":false,"kind":1,"returnType":2,},
+        {"resourceType":"GMExtensionFunction","resourceVersion":"1.0","name":"dlc_bitset_to_string","argCount":0,"args":[
+            2,
+          ],"documentation":"","externalName":"bitset_to_string","help":"bitset","hidden":false,"kind":1,"returnType":1,},
       ],"init":"","kind":1,"order":[
         {"name":"RegisterCallbacks","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_initialize","path":"extensions/dlcext/dlcext.yy",},
@@ -289,6 +320,7 @@
         {"name":"dlc_set_port_fwd","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_clear_port_fwd","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_text_to_speech","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_tts_set_opt","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_tts_stop_talking","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_tts_is_talking","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_tts_get_voice_count","path":"extensions/dlcext/dlcext.yy",},
@@ -353,6 +385,14 @@
         {"name":"dlc_chess_move_do","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_chess_move_undo","path":"extensions/dlcext/dlcext.yy",},
         {"name":"dlc_chess_resign","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_create","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_get_bit","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_set_bit","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_flip","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_test","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_count","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_from_string","path":"extensions/dlcext/dlcext.yy",},
+        {"name":"dlc_bitset_to_string","path":"extensions/dlcext/dlcext.yy",},
       ],"origname":"","ProxyFiles":[],"uncompress":false,"usesRunnerInterface":false,},
   ],
   "gradleinject": "",
@@ -378,8 +418,8 @@
   "optionsFile": "options.json",
   "packageId": "",
   "parent": {
-    "name": "Extensiones",
-    "path": "folders/Extensiones.yy",
+    "name": "Extensions",
+    "path": "folders/Extensions.yy",
   },
   "productId": "",
   "sourcedir": "",

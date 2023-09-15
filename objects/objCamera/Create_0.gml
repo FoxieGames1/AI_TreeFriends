@@ -14,6 +14,6 @@ TimeCard = false
 
 WaitingText = "Waiting for a new message...\nHold on, stay tunned!"
 WaitingANewRequester = false
-WaitTime = 60*60
+WaitTime = 60*(60*2)
 
 depth = -100
