@@ -6,16 +6,8 @@ draw_set_font(fntDmSans)
 var VisualX = display_get_gui_width()
 var VisualY = display_get_gui_height()
 
-draw_set_color(c_red)
 with(objConversationGenerator)
 {
-	draw_text(VisualX/2,32,"alarm[2]: "+string(alarm[2]))
-	draw_text(VisualX/2,64,"TopicOpen: "+string(TopicOpen))
-	draw_text(VisualX/2,96,"OneTime: "+string(OneTime))
-	draw_text(VisualX/2,128,"SetSleep: "+string(SetSleep))
-	draw_text(VisualX/2,128+32,"ReOpen: "+string(ReOpen))
-	
-	draw_set_color(c_white)
 	
 	if TopicOpen = 0 && Texto = "Voces..."
 	{
@@ -31,3 +23,4 @@ with(objConversationGenerator)
 		draw_text(VisualX/2,VisualY/2+224,string(TextPending[listNumber-1]))
 	}
 }
+draw_set_color(c_white)

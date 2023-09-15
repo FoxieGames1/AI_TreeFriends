@@ -48,13 +48,13 @@ switch(async_load[? "type"])
 			OneTime = realData[? "changeNumber"];
 			if OneTime > 0
 			{
-				if ReOpen = true
+				if ReOpen = true //TEMPORAL
 				{
 					TrueValue = 1
 					with(objCamera)
 					{TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
 					ReOpen = false	
-				}
+				}//TEMPORAL
 				
 				if Topic != ""
 				{	

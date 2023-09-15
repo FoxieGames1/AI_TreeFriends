@@ -16,7 +16,7 @@ if Texto = "Terminando" && TopicOpen = 1 || TopicOpen = 1.5
 	TopicOpen = 2
 }
 
-if SetSleep = true
+if SetSleep = true //TEMPORAL
 {
 	if TrueValue = 1
 	{
@@ -36,7 +36,7 @@ if SetSleep = true
 		ReOpen = true
 	}
 	SetSleep = false
-}
+} //TEMPORAL
 
 if Texto = "Voces..."
 {
