@@ -1,4 +1,4 @@
-with(objConversationGenerator)
+with(objConversationGenerator) //TEMPORAL
 {
 	if Writing = 0
 	{
@@ -17,4 +17,4 @@ with(objConversationGenerator)
 		other.alarm[1] = 1
 		Writing = true
 	}
-}
+}//TEMPORAL

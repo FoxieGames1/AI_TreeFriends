@@ -12,4 +12,7 @@ TimeCardSound = false
 TimeCardNumber = irandom_range(1,4)
 TimeCard = false
 
+WaitingText = "Waiting for a new message...\nHold on, stay tunned!"
+WaitingANewRequester = false
+
 depth = -100

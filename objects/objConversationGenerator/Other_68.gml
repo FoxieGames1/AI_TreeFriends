@@ -52,7 +52,7 @@ switch(async_load[? "type"])
 				{
 					TrueValue = 1
 					with(objCamera)
-					{TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
+					{WaitingANewRequester = false TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
 					ReOpen = false	
 				}//TEMPORAL
 				

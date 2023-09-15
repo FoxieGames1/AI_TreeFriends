@@ -1,3 +1,11 @@
+draw_set_halign(fa_center);
+draw_set_valign(fa_center);
+
+draw_set_font(fntDmSans)
+
+var VisualX = display_get_gui_width()
+var VisualY = display_get_gui_height()
+
 if TimeCard > 0
 {
 	var Scale = 0.70;
@@ -11,7 +19,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndAFewMomentsLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
 		}
 	}
 	else
@@ -22,7 +30,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndOneEternityLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
 		}
 	}
 	else
@@ -33,7 +41,7 @@ if TimeCard > 0
 			
 		if !audio_is_playing(sndTwoSecondsLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
 		}
 	}
 	else
@@ -44,8 +52,16 @@ if TimeCard > 0
 		
 		if !audio_is_playing(sndLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
 		}
 	}
 }
 
+if WaitingANewRequester = true
+{
+	draw_set_color(make_color_rgb(000,000,060))
+	draw_text(VisualX/2+4,VisualY/2-240+4,string(WaitingText))
+		
+	draw_set_color(c_yellow)
+	draw_text(VisualX/2,VisualY/2-240,string(WaitingText))
+}
