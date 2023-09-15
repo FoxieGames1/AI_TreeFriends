@@ -1,17 +1,15 @@
+scrCharactersFix()
+
+
 if Texto = "Inicio" && TopicOpen = 0
 {
 	TopicOpen = 1 
 	Texto = "Andando..."
 }
 else
-if Texto = "New Topic..." && TopicOpen = 1 //TEMPORAL
-{
-	TopicOpen = 1.5
-	Texto = "Andando..."
-}
-else //TEMPORAL
 if Texto = "Terminando" && TopicOpen = 1 || TopicOpen = 1.5
 {
+	with(objVars){alarm[0] = -1}
 	Texto = "Voces..." 
 	TopicOpen = 2
 }
@@ -53,12 +51,28 @@ if Texto = "Voces..."
 	{
 		if listNumber < listLimit-1
 		{
-			if (!dlc_tts_is_talking())
+			if NicksPending[listNumber] = "Public"
 			{
-				dlc_tts_stop_talking()
-				scrCharaTalk()
-				listNumber++
-				Voces = 3
+				if Public = false
+				{
+					listNumber++
+					PublicTalking = 2
+					audio_stop_sound(sndPublic)
+					audio_play_sound(sndPublic,0,0)
+					Public = true
+					Voces = 10
+				}
+			}
+			else
+			{
+				PublicTalking = false
+				if (!dlc_tts_is_talking() && !PublicTalking)
+				{
+					dlc_tts_stop_talking()
+					scrCharaTalk()
+					listNumber++
+					Voces = 3
+				}	
 			}
 		}
 		else
@@ -73,6 +87,9 @@ if Texto = "Voces..."
 	else
 	if Voces = 3
 	{
+		if Public = true
+		{alarm[1] = TIME_TO_TALK Public = false}
+		
 		with(objModelGen)
 		{
 			if Character = global.Character
@@ -118,4 +135,21 @@ if !instance_exists(objCamera) && Start=false
 	network_send_raw(Socket, Buffer, buffer_tell(Buffer));
 	ds_map_destroy(data);
 	buffer_delete(Buffer)
+}
+
+if Voces = 10
+{
+	var TIME_TO_TALK = 40;
+	
+	if !audio_is_playing(sndPublic) && PublicTalking = 2
+	{
+		if Public = true
+		{
+			listCurrentNumber = listNumber;
+			alarm[1] = TIME_TO_TALK
+			PublicTalking = false
+			Voces = 4
+			Public = 2
+		}
+	}
 }

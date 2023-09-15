@@ -19,7 +19,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndAFewMomentsLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
 	else
@@ -30,7 +30,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndOneEternityLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
 	else
@@ -41,7 +41,7 @@ if TimeCard > 0
 			
 		if !audio_is_playing(sndTwoSecondsLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
 	else
@@ -52,7 +52,7 @@ if TimeCard > 0
 		
 		if !audio_is_playing(sndLater) && TimeCardSound = true
 		{
-			alarm[1] = 60 alarm[0] = 60*10 TimeCardSound = 2
+			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
 }

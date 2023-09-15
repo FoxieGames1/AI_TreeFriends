@@ -1,34 +1,20 @@
-function scrCharactersDefine()
-{
-	switch(Responde)
-	{
-		case "Flaky": NickDetected = "Flaky"		break;
-		case "Toothy": NickDetected = "Toothy"		break;
-		case "Cuddles": NickDetected = "Cuddles"	break;
-		case "Giggles": NickDetected = "Giggles"	break;
-		case "Petunia": NickDetected = "Petunia"	break;
-		case "Nutty": NickDetected = "Nutty"		break;
-	}
-}
-
 function scrCharaTalk()
 {
 	switch(NicksPending[listNumber])
 	{
 		case "Flaky":	global.Character = "Flaky"  dlc_text_to_speech(TextPending[listNumber], 100, 0, 9) global.Talker = 1 break;
 		case "Toothy":	global.Character = "Toothy" dlc_text_to_speech(TextPending[listNumber], 100, 0, 7) global.Talker = 2 break;
+		case "Public":	global.Character = "Public" global.Talker = 10 break;
 	}
 }
 
 function scrCharactersFix()
 {
-	if !(Responde = "Flaky"
-	|| Responde = "Toothy"
-	|| Responde = "Cuddles"
-	|| Responde = "Giggles"
-	|| Responde = "Petunia"
-	|| Responde = "Nutty")
-	{NickDetected = "Nobody"}	
+	if !(NicksPending[listNumber] = "Flaky"
+	|| NicksPending[listNumber] = "Toothy")
+	{
+		NicksPending[listNumber] = "Public" 
+	}	
 }
 
 function sprite_index_3d(TAG)
@@ -120,6 +106,12 @@ function scrPosition()
 		{	
 			global.PlayerXX[2] = x
 			global.PlayerYY[2] = y
+		}
+		else
+		if Character = "Public"
+		{	
+			global.PlayerXX[10] = global.TalkerDirectionX
+			global.PlayerYY[10] = global.TalkerDirectionY
 		}
 	}	
 }

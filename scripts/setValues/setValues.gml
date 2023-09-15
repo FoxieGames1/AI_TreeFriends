@@ -12,7 +12,7 @@ function scrDefaultValues()
 	dlc_initialize(true); // If not called first, every other extension function will always fail
 
 	global.VoiceID = -1
-	global.Character = "Flaky"
+	global.Character = "Public"
 
 	if global.VoiceID = -1
 	{global.VoiceID = 9}
@@ -35,7 +35,7 @@ function scrDefaultValues()
 		NicksPending[list] = ""
 	}
 	
-	for(var chara = 0; chara <= 6; chara++)
+	for(var chara = 0; chara <= 10; chara++)
 	{
 		global.PlayerXX[chara] = 0
 		global.PlayerYY[chara] = 0

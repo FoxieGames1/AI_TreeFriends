@@ -1,1 +1,4 @@
-MODELINSTANCE.step(1)
+if M3D != ""
+{
+	MODELINSTANCE.step(1)
+}

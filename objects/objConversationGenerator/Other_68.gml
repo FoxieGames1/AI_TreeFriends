@@ -45,12 +45,14 @@ switch(async_load[? "type"])
 			}
 			break;
 			case "Close_Topic":
+			with(objCamera){alarm[0] = -1}
 			OneTime = realData[? "changeNumber"];
 			if OneTime > 0
 			{
 				if ReOpen = true //TEMPORAL
 				{
 					TrueValue = 1
+					with(objVars){if Music = true{audio_stop_all() Music = false}}
 					with(objCamera)
 					{WaitingANewRequester = false TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
 					ReOpen = false	

@@ -4,7 +4,7 @@ YY = 448
 
 Topic = false
 Event = ""
-FirstName = 0
+FirstName = ""
 
 Player = 0;
 
@@ -14,5 +14,6 @@ TimeCard = false
 
 WaitingText = "Waiting for a new message...\nHold on, stay tunned!"
 WaitingANewRequester = false
+WaitTime = 60*60
 
 depth = -100

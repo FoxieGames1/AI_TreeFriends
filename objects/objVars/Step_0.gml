@@ -1,3 +1,22 @@
+if EasterEgg = 100 && Music = false
+{
+	audio_play_sound(musHTFPC98,0,1)	
+	Music = 3
+}
+else
+if EasterEgg < 100 && Music = false
+{
+	audio_play_sound(musHTF,0,1)	
+	Music = 3
+}
+
+if Music = 2
+{
+	audio_play_sound(musJeopardy,0,1)
+	Music = true
+}
+
+EasterEgg = irandom_range(1,100)
 
 if keyboard_check_pressed(vk_f4)
 {

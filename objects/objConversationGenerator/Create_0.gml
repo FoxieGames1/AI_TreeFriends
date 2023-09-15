@@ -21,7 +21,8 @@ listNumber = 0
 listLimit = 1
 ReOpen = false; //TEMPORAL
 
-
+Public = false
+PublicTalking = true
 
 alarm[0] = TIMER
 

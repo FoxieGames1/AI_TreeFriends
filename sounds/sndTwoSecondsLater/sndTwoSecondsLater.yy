@@ -12,8 +12,8 @@
   "conversionMode": 0,
   "duration": 1.191247,
   "parent": {
-    "name": "Sonidos",
-    "path": "folders/Sonidos.yy",
+    "name": "Sounds",
+    "path": "folders/Sonidos/Sounds.yy",
   },
   "preload": false,
   "sampleRate": 44100,

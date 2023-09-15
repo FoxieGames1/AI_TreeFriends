@@ -8,6 +8,8 @@ var VisualY = display_get_gui_height()
 
 with(objConversationGenerator)
 {
+	draw_set_color(c_white)
+	
 	if TopicOpen = 0 && Texto = "Voces..."
 	{
 		other.TextNumber = listNumber

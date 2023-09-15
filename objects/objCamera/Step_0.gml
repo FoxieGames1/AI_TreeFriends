@@ -14,7 +14,9 @@ if FirstName = "Flaky"
 else
 if FirstName = "Toothy"
 {Player = 2;}
-
+else
+if FirstName = "Public"
+{Player = 10}
 if global.Talker > 0 && Player > 0
 {
 	global.TalkerDirectionX = lerp(global.TalkerDirectionX, global.PlayerXX[global.Talker], 0.1)

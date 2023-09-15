@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSound",
   "resourceVersion": "1.0",
-  "name": "sndOneEternityLater",
+  "name": "musJeopardy",
   "audioGroupId": {
     "name": "audiogroup_default",
     "path": "audiogroups/audiogroup_default",
@@ -10,14 +10,14 @@
   "bitRate": 128,
   "compression": 0,
   "conversionMode": 0,
-  "duration": 1.957732,
+  "duration": 29.933924,
   "parent": {
-    "name": "Sounds",
-    "path": "folders/Sonidos/Sounds.yy",
+    "name": "Music",
+    "path": "folders/Sonidos/Music.yy",
   },
   "preload": false,
   "sampleRate": 44100,
-  "soundFile": "sndOneEternityLater.ogg",
+  "soundFile": "musJeopardy.ogg",
   "type": 0,
   "volume": 1.0,
 }
