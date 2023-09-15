@@ -1,6 +1,8 @@
-Texto = "Restarting..."
-Writing = true;
-with(objCamera)
+if Texto = "Voces..."
 {
-	TimeCard = true
+	Texto = "Restarting..."
+	with(objCamera)
+	{
+		TimeCard = true
+	}
 }

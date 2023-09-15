@@ -22,7 +22,6 @@ switch(async_load[? "type"])
 			if Topic = ""
 			{
 				Topic = realData[? "message_topic"];
-				
 				if Topic != ""{Texto = "Inicio"}
 			}
 			break;
@@ -49,6 +48,14 @@ switch(async_load[? "type"])
 			OneTime = realData[? "changeNumber"];
 			if OneTime > 0
 			{
+				if ReOpen = true
+				{
+					TrueValue = 1
+					with(objCamera)
+					{TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
+					ReOpen = false	
+				}
+				
 				if Topic != ""
 				{	
 					if Texto = "Andando..."
@@ -69,15 +76,13 @@ switch(async_load[? "type"])
 					NicksPending[i] = realData[? "message_nick"];
 				}
 			break;
+			
+			//TEMPORAL
 			case "Restart_New":
 				TrueValue = realData[? "setNew"];
-			
-				if TrueValue = true && Writing = 1
-				{
-					Writing = false
-					TrueValue = false
-				}
+				SetSleep = true
 			break;
+			//TEMPORAL
 		}
 	break;
 }

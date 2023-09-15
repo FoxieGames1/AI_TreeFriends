@@ -1,5 +1,5 @@
 if Topic = ""
-{
+{	
 	var Buffer = buffer_create(1, buffer_grow ,1);
 	var data = ds_map_create();
 	data[? "eventName"] = "Send_Topic";
@@ -24,7 +24,7 @@ if Topic != "" && TopicOpen = 1 &&
 	buffer_delete(Buffer)
 }
 
-if Texto = "Andando..." && TopicOpen = 1
+if Texto = "Andando..." && TopicOpen = 1 || TopicOpen = -1
 {
 	var Buffer = buffer_create(1, buffer_grow, 1);
 	var data = ds_map_create();

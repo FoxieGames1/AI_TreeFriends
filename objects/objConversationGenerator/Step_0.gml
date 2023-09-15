@@ -4,10 +4,38 @@ if Texto = "Inicio" && TopicOpen = 0
 	Texto = "Andando..."
 }
 else
-if Texto = "Terminando" && TopicOpen = 1
+if Texto = "New Topic..." && TopicOpen = 1 //TEMPORAL
+{
+	TopicOpen = 1.5
+	Texto = "Andando..."
+}
+else //TEMPORAL
+if Texto = "Terminando" && TopicOpen = 1 || TopicOpen = 1.5
 {
 	Texto = "Voces..." 
 	TopicOpen = 2
+}
+
+if SetSleep = true
+{
+	if TrueValue = 1
+	{
+		SetQueue = -1
+		with(objCamera){alarm[1] = -1}
+		scrDefaultValues() 
+		Writing = 0
+		TrueValue = 0
+		Texto = "";
+		
+		OneTime = 0
+		
+		listCurrentNumber = 0
+		listNumber = 0
+		listLimit = 1
+		TopicBefore = Topic
+		ReOpen = true
+	}
+	SetSleep = false
 }
 
 if Texto = "Voces..."
