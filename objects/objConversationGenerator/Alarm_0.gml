@@ -7,6 +7,9 @@ if Topic = ""
 	
 	buffer_write(buffer_first, buffer_text, json_encode(data_first));
 	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+	ds_map_clear(data_first)
+	
 	ds_map_destroy(data_first)
 	buffer_delete(buffer_first)
 }
@@ -22,6 +25,9 @@ if Topic != "" && TopicOpen = 1 &&
 
 	buffer_write(buffer_first, buffer_text , json_encode(data_first));
 	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+	ds_map_clear(data_first)
+	
 	ds_map_destroy(data_first)
 	buffer_delete(buffer_first)
 }
@@ -36,6 +42,8 @@ if Texto = "Andando..." && TopicOpen = 1 || TopicOpen = -1
 
 	buffer_write(buffer_first, buffer_text , json_encode(data_first));
 	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+	ds_map_clear(data_first)
 	
 	ds_map_destroy(data_first)
 	buffer_delete(buffer_first)

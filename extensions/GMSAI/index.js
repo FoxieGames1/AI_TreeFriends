@@ -42,6 +42,8 @@ var mesCon = "";
 var MSG = "";
 var MESSAGE = "";
 
+var OpenToCall = false;
+
 const prefix = '!';
 const Names = 'Flaky '+"&"+' Toothy.';
 
@@ -63,14 +65,10 @@ client.on('messageCreate', (message) =>
             // Comando !topic open para abrir un tema
             if (topicOpen) 
             {
-              if (Writing == false)
-              {message.reply("You can't create a new topic, is already open!");}
-              else
-              if (Writing == true)
-              {message.reply("Reading the Values on streaming...");}         
+               message.reply("You can't create a new topic, is already open!")    
             } 
             else 
-            if (!topicOpen) 
+            if (topicOpen == false && OpenToCall == false) 
             {
               const topicName = args.slice(1).join(' ');
               if (topicName.length === 0) 
@@ -85,6 +83,8 @@ client.on('messageCreate', (message) =>
               {
                   if (Writing == true && NewValue == true)
                   {
+                    OpenToCall = true;
+
                     Writing = false;
                     currentTopic = topicName
                     topicOpen = true;
@@ -97,11 +97,14 @@ client.on('messageCreate', (message) =>
                     message.reply(Suggested_Topic);
                     MSG = MSG_TEXT;
                     mesCon = MSG;
+                    
                     RestartEntornVars(true)
                   }
                   else
                   if (Writing == false && NewValue == false)
                   {
+                    OpenToCall = true;
+
                     currentTopic = topicName
                     topicOpen = true;
                     Suggested_Topic = `Suggested Topic: ${currentTopic}`;
@@ -120,6 +123,8 @@ client.on('messageCreate', (message) =>
                   {message.reply("Reading the Values on streaming...");}  
               }
             }
+            else
+            {message.reply("Reading the Values on streaming...");}
           }
             else if (args[0].toLowerCase() === 'status') {
                 if (topicOpen) {
@@ -136,6 +141,7 @@ client.on('messageCreate', (message) =>
               {
                   if (Writing == false)
                   {
+                    OpenToCall = 2;
                     topicOpen = false;
                     Writing = true;
                     CheckTopic++;
@@ -171,6 +177,7 @@ client.on('messageCreate', (message) =>
             var messageContent = args.join(' '); // Obtener el contenido del mensaje
             if (messageContent)
             {
+                OpenToCall = 5;
                 MessageNum++
                 EVENTPLUS++;
                 mesTex = messageContent;
@@ -204,7 +211,8 @@ wss.on("connection", ws =>
               console.log("Connected")
             break;
             case "Send_Topic":
-                console.log("Send_Topic")
+              if (OpenToCall == true)
+              { 
                 CheckTopic = 0;
 
                 if (mesCon != MESSAGE){MESSAGE = mesCon}
@@ -222,47 +230,65 @@ wss.on("connection", ws =>
                     message_topic: mesCon
                   }
                   ));
+                  console.log("Send Topic")
+                  OpenToCall = false
+              }
             break;
             case "Send_Message":
-              if (CharacterToTalk != Chara){CharacterToTalk = Chara;}
-              if (mesTex != MESSAGE){MESSAGE = mesTex}
-                              
-              var Messages_send = {
-                id: clientID,
-                message_nick: Chara,
-                message_text: mesTex,
-                eventPlus: EVENTPLUS
-              }
-              
-              Messages.push(Messages_send)
-  
-              ws.send(
-                JSON.stringify({
-                  eventName: "Send_Message",
+              if (OpenToCall == 5)
+              {
+                if (CharacterToTalk != Chara){CharacterToTalk = Chara;}
+                if (mesTex != MESSAGE){MESSAGE = mesTex}
+                                
+                var Messages_send = {
                   id: clientID,
                   message_nick: Chara,
                   message_text: mesTex,
                   eventPlus: EVENTPLUS
-                }));
+                }
+                
+                Messages.push(Messages_send)
+    
+                ws.send(
+                  JSON.stringify({
+                    eventName: "Send_Message",
+                    id: clientID,
+                    message_nick: Chara,
+                    message_text: mesTex,
+                    eventPlus: EVENTPLUS
+                  }));
+                  console.log("Send Message")
+                  OpenToCall = false;
+              }
             break;
-
             case "Close_Topic":
-              ws.send(
-                JSON.stringify({
-                  eventName: "Close_Topic",
-                  changeNumber: CheckTopic
-                }));
+              if (OpenToCall == 2)
+              {
+                  ws.send(
+                    JSON.stringify({
+                      eventName: "Close_Topic",
+                      changeNumber: CheckTopic
+                    }));          
+
+                  console.log("Close Topic")
+                  OpenToCall = 3;
+              }
             break;
             case "Restart_New": //TEMPORAL
-              NewValue = true
+            if (OpenToCall == 3)
+            {
+                NewValue = true
 
-              ws.send(
-                JSON.stringify({
-                  id: clientID,
-                  eventName: "Restart_New",
-                  setNew: NewValue,
-                  setReading: Writing
-                }));
+                ws.send(
+                  JSON.stringify({
+                    id: clientID,
+                    eventName: "Restart_New",
+                    setNew: NewValue,
+                    setReading: Writing
+                  }));  
+                  console.log("Restarting")
+                OpenToCall = false;
+            }
             break; //TEMPORAL
         }
     })
