@@ -19,6 +19,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndAFewMomentsLater) && TimeCardSound = true
 		{
+			global.DisableModelsDuringPause = true
 			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
@@ -30,6 +31,7 @@ if TimeCard > 0
 
 		if !audio_is_playing(sndOneEternityLater) && TimeCardSound = true
 		{
+			global.DisableModelsDuringPause = true
 			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
@@ -41,6 +43,7 @@ if TimeCard > 0
 			
 		if !audio_is_playing(sndTwoSecondsLater) && TimeCardSound = true
 		{
+			global.DisableModelsDuringPause = true
 			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
@@ -52,6 +55,7 @@ if TimeCard > 0
 		
 		if !audio_is_playing(sndLater) && TimeCardSound = true
 		{
+			global.DisableModelsDuringPause = true
 			alarm[1] = 60 alarm[0] = WaitTime TimeCardSound = 2
 		}
 	}
