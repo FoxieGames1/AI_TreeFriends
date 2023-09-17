@@ -105,7 +105,7 @@ client.on('messageCreate', (message) =>
                 else
                 if (Writing == true)
                 {
-                    if (Lenguaje == "English")
+                  if (Lenguaje == "English")
                   {
                     message.reply("Reading the Values on streaming...");
                   }
@@ -125,8 +125,16 @@ client.on('messageCreate', (message) =>
                     Writing = false;
                     currentTopic = topicName
                     topicOpen = true;
-                    Suggested_Topic = `Suggested Topic: ${currentTopic}`;
-    
+                    if (Lenguaje == "English")
+                    {
+                      Suggested_Topic = `Suggested Topic: ${currentTopic}`;
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      Suggested_Topic = `Tema sugerido: ${currentTopic}`;
+                    }
+                    
                     if (currentTopic == "Closed Topic")
                     {currentTopic = "Closed Topic.";}
                     
@@ -144,8 +152,16 @@ client.on('messageCreate', (message) =>
 
                     currentTopic = topicName
                     topicOpen = true;
-                    Suggested_Topic = `Suggested Topic: ${currentTopic}`;
-    
+                    if (Lenguaje == "English")
+                    {
+                      Suggested_Topic = `Suggested Topic: ${currentTopic}`;
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      Suggested_Topic = `Tema sugerido: ${currentTopic}`;
+                    }
+                    
                     if (currentTopic == "Closed Topic")
                     {currentTopic = "Closed Topic.";}
                     
@@ -349,6 +365,7 @@ client.on('messageCreate', (message) =>
       }
   }
 })
+
 
 wss.on("connection", ws => 
 {
