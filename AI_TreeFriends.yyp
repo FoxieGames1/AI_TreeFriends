@@ -128,6 +128,7 @@
     {"id":{"name":"mbuff_create_smooth_tangents","path":"scripts/mbuff_create_smooth_tangents/mbuff_create_smooth_tangents.yy",},},
     {"id":{"name":"smf_samplestrip","path":"scripts/smf_samplestrip/smf_samplestrip.yy",},},
     {"id":{"name":"Utility","path":"scripts/Utility/Utility.yy",},},
+    {"id":{"name":"draw_text_fixed","path":"scripts/draw_text_fixed/draw_text_fixed.yy",},},
     {"id":{"name":"smf_model","path":"scripts/smf_model/smf_model.yy",},},
     {"id":{"name":"mbuff_combine_to_texpage","path":"scripts/mbuff_combine_to_texpage/mbuff_combine_to_texpage.yy",},},
     {"id":{"name":"dlcext","path":"extensions/dlcext/dlcext.yy",},},

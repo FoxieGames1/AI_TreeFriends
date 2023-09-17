@@ -88,6 +88,7 @@
     {"name":"mbuff_create_smooth_tangents","order":7,"path":"scripts/mbuff_create_smooth_tangents/mbuff_create_smooth_tangents.yy",},
     {"name":"smf_samplestrip","order":3,"path":"scripts/smf_samplestrip/smf_samplestrip.yy",},
     {"name":"Utility","order":3,"path":"scripts/Utility/Utility.yy",},
+    {"name":"draw_text_fixed","order":2,"path":"scripts/draw_text_fixed/draw_text_fixed.yy",},
     {"name":"smf_model","order":5,"path":"scripts/smf_model/smf_model.yy",},
     {"name":"mbuff_combine_to_texpage","order":3,"path":"scripts/mbuff_combine_to_texpage/mbuff_combine_to_texpage.yy",},
     {"name":"_load_bmp","order":3,"path":"scripts/_load_bmp/_load_bmp.yy",},

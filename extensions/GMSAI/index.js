@@ -177,11 +177,19 @@ client.on('messageCreate', (message) =>
             var messageContent = args.join(' '); // Obtener el contenido del mensaje
             if (messageContent)
             {
+              if (messageContent.length > 1000) 
+              {
+                 message.reply('The message exceeds 1000 characters.');
+              }
+              else
+              if (messageContent.length <= 1000) 
+              {
                 OpenToCall = 5;
                 MessageNum++
                 EVENTPLUS++;
                 mesTex = messageContent;
                 Chara = CharacterToTalk;
+              }
             }
             else
             {
