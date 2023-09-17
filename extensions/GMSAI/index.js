@@ -8,8 +8,7 @@ const config = require('./config.json');
 
 const client = new Client({
     intents:[Object.keys(GatewayIntentBits)],
-    partials:[Object.keys(Partials)],
-
+    partials:[Object.keys(Partials)]
 });
 
 // Importing the required modules
@@ -28,6 +27,8 @@ var CheckTopic = 1
 
 var Writing = false;
 var NewValue = false;
+
+var Lenguaje = "English";
 
 var MessageMax = 2
 var MessageNum = 0
@@ -60,12 +61,28 @@ client.on('messageCreate', (message) =>
         if (command === 'topic') {
           if (args.length === 0) {
             // Comando !topic sin argumento muestra el estado actual
-            message.reply(`Use "**!topic open**" to create a topic.\nUse "**!topic close**" to close the topic.\nUse "**!topic status**" to check the status of topic.`);
+            if (Lenguaje == "English")
+            {
+              message.reply(`Use "**!topic open**" to create a topic.\nUse "**!topic close**" to close the topic.\nUse "**!topic status**" to check the status of topic.`);
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply(`Utiliza "**!topic open**" para crear un tema.\nUtiliza "**!topic close**" para cerrar el tema.\nUtiliza "**!topic status**" para comprobar el estado del tema.`);
+            }
           } else if (args[0].toLowerCase() === 'open') {
             // Comando !topic open para abrir un tema
             if (topicOpen) 
             {
-               message.reply("You can't create a new topic, is already open!")    
+              if (Lenguaje == "English")
+              {
+                message.reply("You can't create a new topic, is already open!")    
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply("No puedes crear un nuevo tema, ¡ya está abierto!")    
+              }
             } 
             else 
             if (topicOpen == false && OpenToCall == false) 
@@ -74,10 +91,30 @@ client.on('messageCreate', (message) =>
               if (topicName.length === 0) 
               {
                 if (Writing == false)
-                {message.reply("You can't create a new topic without a text.");}
+                {
+                  if (Lenguaje == "English")
+                  {
+                    message.reply("You can't create a new topic without a text.");
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    message.reply(`No puedes crear un nuevo tema sin un texto.`);
+                  }
+                }
                 else
                 if (Writing == true)
-                {message.reply("Reading the Values on streaming...");}  
+                {
+                    if (Lenguaje == "English")
+                  {
+                    message.reply("Reading the Values on streaming...");
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    message.reply("Leyendo los valores en directo...");
+                  }
+                }  
               }
               else
               {
@@ -120,18 +157,51 @@ client.on('messageCreate', (message) =>
                   }
                   else
                   if (Writing == true && NewValue == false)
-                  {message.reply("Reading the Values on streaming...");}  
+                  {
+                    if (Lenguaje == "English")
+                    {
+                      message.reply("Reading the Values on streaming...");
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      message.reply("Leyendo los valores en directo...");
+                    }
+                  }  
               }
             }
             else
-            {message.reply("Reading the Values on streaming...");}
+            {
+              if (Lenguaje == "English")
+              {
+                message.reply("Reading the Values on streaming...");
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply("Leyendo los valores en directo...");
+              }
+            }
           }
-            else if (args[0].toLowerCase() === 'status') {
+            else if (args[0].toLowerCase() === 'status')
+            {
+              if (Lenguaje == "English")
+              {
                 if (topicOpen) {
-                    message.reply(`Topic Theme: ${currentTopic} (Open)`);
-                  } else {
-                    message.reply(`Topic is Closed.`);
-                  }
+                  message.reply(`Topic Theme: ${currentTopic} (Open)`);
+                } else {
+                  message.reply(`Topic is Closed.`);
+                }
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                if (topicOpen) {
+                  message.reply(`Tema: ${currentTopic} (Abierto)`);
+                } else {
+                  message.reply(`Tema esta Cerrado.`);
+                }
+              }
             } 
             else if (args[0].toLowerCase() === 'close') {
             // Comando !topic close para cerrar el tema
@@ -146,7 +216,15 @@ client.on('messageCreate', (message) =>
                     Writing = true;
                     CheckTopic++;
                     RestartFun(true)
-                    message.reply('Topic Closed.');
+                    if (Lenguaje == "English")
+                    {
+                      message.reply('Topic Closed.');
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      message.reply('Tema Cerrado.');
+                    }
                   }
                   else
                   if (Writing == true && NewValue == true)
@@ -157,12 +235,28 @@ client.on('messageCreate', (message) =>
               else
               if (MessageNum < MessageMax)
               {
+                if (Lenguaje == "English")
+                {
                   message.reply(`Minimum number of messages is ${MessageNum}/${MessageMax}.`);
+                }
+                else
+                if (Lenguaje == "Español")
+                {
+                  message.reply(`El Minimo de mensajes es ${MessageNum}/${MessageMax}.`);
+                }
               }
             } 
             else 
             {
-              message.reply('Topic is already Closed.');
+              if (Lenguaje == "English")
+              {
+                message.reply('Topic is already Closed.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('Tema ya esta Cerrado.');
+              }
             }
           }
       }
@@ -179,7 +273,15 @@ client.on('messageCreate', (message) =>
             {
               if (messageContent.length > 1000) 
               {
-                 message.reply('The message exceeds 1000 characters.');
+                 if (Lenguaje == "English")
+                 {
+                  message.reply('The message exceeds 1000 characters.');
+                 }
+                 else
+                 if (Lenguaje == "Español")
+                 {
+                  message.reply('El Message excede los 1000 caracteres.');
+                 }
               }
               else
               if (messageContent.length <= 1000) 
@@ -193,13 +295,57 @@ client.on('messageCreate', (message) =>
             }
             else
             {
-              message.reply('Add a message.');
+              if (Lenguaje == "English")
+              {
+                message.reply('Add a message.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('Añade un mensaje.');
+              }
             }
           } 
           else 
           {
-             message.reply('Add a character.\n**-Character List-**\n'+Names);
+            if (Lenguaje == "English")
+            {
+              message.reply('Add a character.\n**-Character List-**\n'+Names);
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply('Añade un personaje.\n**-Lista de personajes-**\n'+Names);
+            }
           }
+      }
+      else
+      if (command == 'language')
+      {
+        if (args.length === 0) 
+        {
+          if (Lenguaje == "English")
+          {
+            message.reply('Select you language...\n**English** or **Spanish**.\n\nExample: !language esp')
+          }
+          else
+          if (Lenguaje == "Español")
+          {
+            message.reply('Selecciona un idioma...\n**Ingles** o **Español**.\n\nEjemplo: !language eng')
+          }
+        } 
+        else 
+        if (args[0].toLowerCase() === 'eng')
+        {
+             message.reply("Language Selected: English") 
+             Lenguaje = "English";  
+        } 
+        else 
+        if (args[0].toLowerCase() === 'esp')
+        {
+             message.reply("Idioma seleccionado: Español") 
+             Lenguaje = "Español";    
+        } 
       }
   }
 })
@@ -316,10 +462,10 @@ wss.on("connection", ws =>
 // Configurar body-parser para analizar JSON
 app.use(bodyParser.json());
 
-app.post('/enviar-informacion', (req, res) => {
+app.post('/send-info', (req, res) => {
     const data = req.body; // Datos enviados desde Discord.js
     // Procesar la información aquí
-    res.send('Información recibida y procesada con éxito');
+    res.send('Information received and successfully processed');
   });
 
 

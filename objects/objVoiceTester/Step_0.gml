@@ -20,6 +20,5 @@ if (keyboard_check_pressed(vk_enter))
 if keyboard_check_pressed(vk_space)
 {
 	dlc_tts_set_opt(tts_voice_index, tts_volume, 0, 0)
-	dlc_text_to_speech("Hello World.");
+	dlc_text_to_speech("Hola mundo.");
 }
-
