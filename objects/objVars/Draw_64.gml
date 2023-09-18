@@ -25,3 +25,9 @@ with(objConversationGenerator)
 	}
 }
 draw_set_color(c_white)
+
+if global.StartStream = true
+{
+	
+	draw_sprite_ext(sprStartup, 0, VisualX/2, VisualY/2,0.7,0.7,0,c_white,1)
+}

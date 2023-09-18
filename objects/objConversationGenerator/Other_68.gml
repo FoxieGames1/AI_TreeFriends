@@ -45,6 +45,8 @@ switch(async_load[? "type"])
 			}
 			break;
 			case "Close_Topic":
+			if global.StartStream = true
+			{global.StartStream = false}
 			global.DisableModelsDuringPause = false
 			with(objCamera){alarm[0] = -1}
 			OneTime = realData[? "changeNumber"];

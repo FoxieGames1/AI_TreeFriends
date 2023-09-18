@@ -43,6 +43,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Flaky","folderPath":"folders/Sprites/Flaky.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Time Cards","folderPath":"folders/Sprites/Time Cards.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Toothy","folderPath":"folders/Sprites/Toothy.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"StartUp","folderPath":"folders/Sprites/StartUp.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"asrm1.bin","CopyToMask":-1,"filePath":"datafiles",},
@@ -60,6 +61,7 @@
   },
   "resources": [
     {"id":{"name":"smf_system","path":"scripts/smf_system/smf_system.yy",},},
+    {"id":{"name":"sprStartup","path":"sprites/sprStartup/sprStartup.yy",},},
     {"id":{"name":"spr2_Seconds_later","path":"sprites/spr2_Seconds_later/spr2_Seconds_later.yy",},},
     {"id":{"name":"vbuff_load_obj","path":"scripts/vbuff_load_obj/vbuff_load_obj.yy",},},
     {"id":{"name":"sndPublic","path":"sounds/sndPublic/sndPublic.yy",},},

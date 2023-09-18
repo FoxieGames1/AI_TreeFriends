@@ -27,8 +27,9 @@
     {"name":"Sonidos","order":2,"path":"folders/Sonidos.yy",},
     {"name":"Music","order":1,"path":"folders/Sonidos/Music.yy",},
     {"name":"Flaky","order":2,"path":"folders/Sprites/Flaky.yy",},
-    {"name":"Time Cards","order":4,"path":"folders/Sprites/Time Cards.yy",},
+    {"name":"Time Cards","order":5,"path":"folders/Sprites/Time Cards.yy",},
     {"name":"Toothy","order":3,"path":"folders/Sprites/Toothy.yy",},
+    {"name":"StartUp","order":6,"path":"folders/Sprites/StartUp.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"smf_system","order":6,"path":"scripts/smf_system/smf_system.yy",},
