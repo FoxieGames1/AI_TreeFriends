@@ -28,8 +28,6 @@ var CheckTopic = 1
 var Writing = false;
 var NewValue = false;
 
-var Lenguaje = "English";
-
 var MessageMax = 2
 var MessageNum = 0
 
@@ -43,10 +41,18 @@ var mesCon = "";
 var MSG = "";
 var MESSAGE = "";
 
+var SelectedLan = "English";
+var CharLan = "English";
+var Lenguaje = "English";
+
+var OpenToCallLan = false;
 var OpenToCall = false;
+
+var TemaAbierto = false
 
 const prefix = '!';
 const Names = 'Flaky '+"&"+' Toothy.';
+
 
 let topicOpen = false; // Variable para rastrear si el tema está abierto o cerrado
 let currentTopic = ''; // Variable para almacenar el tema actual
@@ -125,6 +131,7 @@ client.on('messageCreate', (message) =>
                     Writing = false;
                     currentTopic = topicName
                     topicOpen = true;
+                    TemaAbierto = true;
                     if (Lenguaje == "English")
                     {
                       Suggested_Topic = `Suggested Topic: ${currentTopic}`;
@@ -353,15 +360,51 @@ client.on('messageCreate', (message) =>
         else 
         if (args[0].toLowerCase() === 'eng')
         {
-             message.reply("Language Selected: English") 
-             Lenguaje = "English";  
+          if (TemaAbierto == false)
+          {
+            OpenToCallLan = true
+            SelectedLan = "English"
+            message.reply("Language Selected: English") 
+          }
+          else
+          {
+            if (Lenguaje == "English")
+            {message.reply("You Can't Select Languages during the open topic.") }
+            else
+            if (Lenguaje == "Español")
+            {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
+          }
         } 
         else 
         if (args[0].toLowerCase() === 'esp')
         {
-             message.reply("Idioma seleccionado: Español") 
-             Lenguaje = "Español";    
-        } 
+          if (TemaAbierto == false)
+          {
+            OpenToCallLan = true
+            SelectedLan = "Español"
+            message.reply("Idioma seleccionado: Español") 
+          }
+          else
+          {
+            if (Lenguaje == "English")
+            {message.reply("You Can't Select Languages during the open topic.") }
+            else
+            if (Lenguaje == "Español")
+            {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
+          }
+        }
+        else
+        {
+          if (Lenguaje == "English")
+          {
+            message.reply('Invalid Language.')
+          }
+          else
+          if (Lenguaje == "Español")
+          {
+            message.reply('Idioma Invalido.')
+          }
+        }
       }
   }
 })
@@ -381,9 +424,38 @@ wss.on("connection", ws =>
             case "Connected_Server":
               console.log("Connected")
             break;
+            case "Send_Language":
+              if (OpenToCallLan == true)
+              {
+                  if (SelectedLan == "English")
+                  {
+                      console.log("Cambio de español a ingles")
+                      Lenguaje = "English";
+                      CharLan = "English";
+                  }
+                  else
+                  if (SelectedLan == "Español")
+                  {
+                      console.log("Cambio de ingles a español")
+                      
+                      Lenguaje = "Español";
+                      CharLan = "Español";
+                  }
+
+                  ws.send(
+                    JSON.stringify({
+                      eventName: "Send_Language",
+                      language: CharLan
+                    }
+                    ));
+                    console.log("Send Language")
+                    OpenToCallLan = false;
+              }
+            break;
             case "Send_Topic":
               if (OpenToCall == true)
               { 
+                TemaAbierto = true
                 CheckTopic = 0;
 
                 if (mesCon != MESSAGE){MESSAGE = mesCon}
@@ -448,6 +520,7 @@ wss.on("connection", ws =>
             case "Restart_New": //TEMPORAL
             if (OpenToCall == 3)
             {
+                TemaAbierto = false
                 NewValue = true
 
                 ws.send(

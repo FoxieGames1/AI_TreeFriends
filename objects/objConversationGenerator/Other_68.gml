@@ -67,7 +67,9 @@ switch(async_load[? "type"])
 				}
 			}
 			break;
-			
+			case "Send_Language":
+				global.Language = realData[? "language"];
+			break;
 			//TEMPORAL
 			case "Restart_New":
 				TrueValue = realData[? "setNew"];

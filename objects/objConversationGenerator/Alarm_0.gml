@@ -49,4 +49,18 @@ if Texto = "Andando..." && TopicOpen = 1 || TopicOpen = -1
 	buffer_delete(buffer_first)
 }
 
+buffer_first = buffer_create(1, buffer_grow ,1);
+data_first = ds_map_create()
+	
+data_first[? "eventName"] = "Send_Language";
+data_first[? "language"] = global.Language
+	
+buffer_write(buffer_first, buffer_text, json_encode(data_first));
+network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+ds_map_clear(data_first)
+	
+ds_map_destroy(data_first)
+buffer_delete(buffer_first)
+
 alarm[0] = TIMER
