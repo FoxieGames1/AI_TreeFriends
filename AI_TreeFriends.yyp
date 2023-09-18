@@ -41,9 +41,9 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sounds","folderPath":"folders/Sonidos/Sounds.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprites","folderPath":"folders/Sprites.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Flaky","folderPath":"folders/Sprites/Flaky.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"StartUp","folderPath":"folders/Sprites/StartUp.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Time Cards","folderPath":"folders/Sprites/Time Cards.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Toothy","folderPath":"folders/Sprites/Toothy.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"StartUp","folderPath":"folders/Sprites/StartUp.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"asrm1.bin","CopyToMask":-1,"filePath":"datafiles",},
