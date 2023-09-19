@@ -51,7 +51,7 @@ var OpenToCall = false;
 var TemaAbierto = false
 
 const prefix = '!';
-const Names = 'Flaky '+"&"+' Toothy.';
+const Names = 'Flaky, Toothy, Handy, Giggles & Petunia';
 
 
 let topicOpen = false; // Variable para rastrear si el tema está abierto o cerrado
@@ -96,7 +96,7 @@ client.on('messageCreate', (message) =>
               const topicName = args.slice(1).join(' ');
               if (topicName.length === 0) 
               {
-                if (Writing == false)
+                if (Writing == false && NewValue == false)
                 {
                   if (Lenguaje == "English")
                   {
@@ -109,7 +109,7 @@ client.on('messageCreate', (message) =>
                   }
                 }
                 else
-                if (Writing == true)
+                if (Writing == true && NewValue == false)
                 {
                   if (Lenguaje == "English")
                   {
@@ -120,7 +120,22 @@ client.on('messageCreate', (message) =>
                   {
                     message.reply("Leyendo los valores en directo...");
                   }
-                }  
+                }
+                else
+                {
+                  if (Writing == true && NewValue == true)
+                  {
+                    if (Lenguaje == "English")
+                    {
+                      message.reply("You can't create a new topic without a text.");
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      message.reply(`No puedes crear un nuevo tema sin un texto.`);
+                    }
+                  }
+                }
               }
               else
               {

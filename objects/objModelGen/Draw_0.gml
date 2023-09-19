@@ -67,6 +67,7 @@ if global.DisableModelsDuringPause = false
 				case "Toothy": ANIM = "Toothy_Walk"; break;
 				case "Handy": ANIM = "Handy_Walk"; break;
 				case "Giggles": ANIM = "Giggles_Walk"; break;
+				case "Petunia": ANIM = "Petunia_Walk"; break;
 			}
 			var ANIMLRP = 0.01;
 			MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)

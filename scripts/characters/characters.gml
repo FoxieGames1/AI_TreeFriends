@@ -8,6 +8,7 @@ function scrCharaTalk()
 			case "Toothy":	global.Character = "Toothy"   dlc_tts_set_opt(8, 100, 0, 10)	global.Talker = 2 break;
 			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(18, 100, 0, 10)	global.Talker = 3 break;
 			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(9, 100, 0, 10)	global.Talker = 4 break;
+			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(5, 100, 0, 0)	global.Talker = 5 break;
 			case "Public":	global.Character = "Public"   global.Talker = 10 break;
 		}
 	}
@@ -20,6 +21,7 @@ function scrCharaTalk()
 			case "Toothy":	global.Character = "Toothy" dlc_tts_set_opt(15, 100, 0, 10)		global.Talker = 2 break;
 			case "Handy":	global.Character = "Handy"  dlc_tts_set_opt(23, 50, 0, 0)		global.Talker = 3 break;
 			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(22, 100, 0, 0)	global.Talker = 4 break;
+			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(24, 50, 0, 0)	global.Talker = 5 break;
 			case "Public":	global.Character = "Public" global.Talker = 10 break;
 		}
 	}
@@ -30,7 +32,8 @@ function scrCharactersFix()
 	if !(NicksPending[listNumber] = "Flaky"
 	|| NicksPending[listNumber] = "Toothy"
 	|| NicksPending[listNumber] = "Handy"
-	|| NicksPending[listNumber] = "Giggles")
+	|| NicksPending[listNumber] = "Giggles"
+	|| NicksPending[listNumber] = "Petunia")
 	{
 		NicksPending[listNumber] = "Public" 
 	}	
@@ -176,6 +179,40 @@ function sprite_index_3d(TAG)
 				}
 			}
 		break;
+		case "Petunia":
+			if TAG = "Talk"
+			{
+				with(objModelGen){State = "Listening"}
+				State = "Talk"
+				if image_index_3d = 0 {MODEL.texPack[0] = sprPetuniaTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprPetuniaTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprPetuniaTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprPetuniaTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprPetuniaTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					MODEL.texPack[0] = sprPetuniaTalk
+					image_index_3d = 0
+				}
+			}
+			else
+			if TAG = "Idle"
+			{
+				if image_index_3d = 0 {MODEL.texPack[0] = sprPetuniaTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprPetuniaTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprPetuniaTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprPetuniaTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprPetuniaTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					image_index_3d = 0
+					MODEL.texPack[0] = sprPetuniaTalk 
+					image_speed = 0 
+				}
+			}
+		break;
 	}
 }
 
@@ -207,6 +244,12 @@ function scrPosition()
 			global.PlayerYY[4] = y
 		}
 		else
+		if Character = "Petunia"
+		{	
+			global.PlayerXX[5] = x
+			global.PlayerYY[5] = y
+		}
+		else
 		if Character = "Public"
 		{	
 			global.PlayerXX[10] = global.TalkerDirectionX
@@ -223,5 +266,6 @@ function scrIdleFun()
 		case "Toothy": ANIM = "Toothy_Idle"; break;
 		case "Handy": ANIM = "Handy_Idle"; break;
 		case "Giggles": ANIM = "Giggles_Idle"; break;
+		case "Petunia": ANIM = "Petunia_Idle"; break;
 	}
 }
