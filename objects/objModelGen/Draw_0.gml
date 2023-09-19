@@ -6,11 +6,14 @@ if global.DisableModelsDuringPause = false
 
 		var MainShader = sh_smf_animate;
 
+		var Length = LightLength;
+		cluck_set_light_point(IdCharacter, c_white, x+lengthdir_x(Length, ROT), y+lengthdir_y(Length, ROT), ZLight, 200, 10)
+
 		var UR = shader_get_uniform(MainShader, "R");
 		var UG = shader_get_uniform(MainShader, "G");
 		var UB = shader_get_uniform(MainShader, "B");
 		var UA = shader_get_uniform(MainShader, "A");
-
+		
 		shader_set(MainShader);
 
 		shader_set_uniform_f(UR,RED)
@@ -62,6 +65,8 @@ if global.DisableModelsDuringPause = false
 			{
 				case "Flaky": ANIM = "Flaky_Walk"; break;
 				case "Toothy": ANIM = "Toothy_Walk"; break;
+				case "Handy": ANIM = "Handy_Walk"; break;
+				case "Giggles": ANIM = "Giggles_Walk"; break;
 			}
 			var ANIMLRP = 0.01;
 			MODELINSTANCE.play(ANIM, ANIMSPD, ANIMLRP, 0)
@@ -78,7 +83,7 @@ if global.DisableModelsDuringPause = false
 			{
 				if global.Talker != global.TalkerBefore
 				{
-					var _dir = point_direction(global.TalkerDirectionX, global.TalkerDirectionY, global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore]);
+					var _dir = point_direction(global.PlayerXX[global.Talker], global.PlayerYY[global.Talker], global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore]);
 					var _diff = angle_difference(_dir, ROT);
 					ROT += _diff * 0.1;
 				}
@@ -96,7 +101,7 @@ if global.DisableModelsDuringPause = false
 			{
 				if global.Talker != global.TalkerBefore
 				{
-					var _dir = point_direction(global.PlayerXX[global.TalkerBefore], global.PlayerYY[global.TalkerBefore], global.TalkerDirectionX, global.TalkerDirectionY);
+					var _dir = point_direction(global.PlayerXX[IdCharacter], global.PlayerYY[IdCharacter], global.PlayerXX[global.Talker], global.PlayerYY[global.Talker]);
 					var _diff = angle_difference(_dir, ROT);
 					ROT += _diff * 0.1;
 				}

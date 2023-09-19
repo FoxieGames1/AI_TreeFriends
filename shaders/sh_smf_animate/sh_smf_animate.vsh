@@ -15,6 +15,13 @@ varying vec3 v_eyeVec;
 varying vec3 v_vNormal;
 varying float v_vRim;
 
+varying vec4 v_vColour;
+
+varying vec3 v_LightWorldNormal;
+varying vec3 v_LightWorldPosition;
+varying vec3 v_FogCameraRelativePosition;
+
+
 ///////////////////////////////
 /////Animation/////////////////
 const int maxBones = 128;
@@ -66,8 +73,24 @@ vec3 anim_transform(vec3 v)
 /////Animation/////////////////
 ///////////////////////////////
 
+
+void CommonLightAndFogSetup();
+
+void CommonLightAndFogSetup() {
+    vec4 object_space_position = vec4(in_Position, 1.0);
+    v_LightWorldPosition = (gm_Matrices[MATRIX_WORLD] * object_space_position).xyz;
+    v_LightWorldNormal = normalize(gm_Matrices[MATRIX_WORLD] * vec4(in_Normal, 0.0)).xyz;
+    v_FogCameraRelativePosition = (gm_Matrices[MATRIX_WORLD_VIEW_PROJECTION] * object_space_position).xyz;
+    
+}
+
 void main()
 {
+	v_vTexcoord = in_TextureCoord;
+    v_vColour = in_Colour;
+    
+    CommonLightAndFogSetup();
+	
 	/*///////////////////////////////////////////////////////////////////////////////////////////
 	Initialize the animation system, and transform the vertex position and normal
 	/*///////////////////////////////////////////////////////////////////////////////////////////

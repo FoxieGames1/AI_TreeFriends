@@ -4,7 +4,7 @@ if global.DisableModelsDuringPause = false
 {
 	if Mode = 1
 	{
-		var MainShader = sh_smf_static_no_shade;
+		var MainShader = sh_smf_skybox;
 	}
 	else
 	if Mode = 2

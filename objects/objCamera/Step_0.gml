@@ -15,6 +15,12 @@ else
 if FirstName = "Toothy"
 {Player = 2;}
 else
+if FirstName = "Handy"
+{Player = 3;}
+else
+if FirstName = "Giggles"
+{Player = 4;}
+else
 if FirstName = "Public"
 {Player = 10}
 if global.Talker > 0 && Player > 0

@@ -4,9 +4,11 @@ function scrCharaTalk()
 	{
 		switch(NicksPending[listNumber])
 		{
-			case "Flaky":	global.Character = "Flaky"  dlc_tts_set_opt(10, 100, 0, 0)  global.Talker = 1 break;
-			case "Toothy":	global.Character = "Toothy" dlc_tts_set_opt(8, 100, 0, 10) global.Talker = 2 break;
-			case "Public":	global.Character = "Public" global.Talker = 10 break;
+			case "Flaky":	global.Character = "Flaky"    dlc_tts_set_opt(10, 100, 0, 0)	global.Talker = 1 break;
+			case "Toothy":	global.Character = "Toothy"   dlc_tts_set_opt(8, 100, 0, 10)	global.Talker = 2 break;
+			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(18, 100, 0, 10)	global.Talker = 3 break;
+			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(9, 100, 0, 10)	global.Talker = 4 break;
+			case "Public":	global.Character = "Public"   global.Talker = 10 break;
 		}
 	}
 	else
@@ -14,8 +16,10 @@ function scrCharaTalk()
 	{
 		switch(NicksPending[listNumber])
 		{
-			case "Flaky":	global.Character = "Flaky"  dlc_tts_set_opt(17, 100, 0, 7)  global.Talker = 1 break;
-			case "Toothy":	global.Character = "Toothy" dlc_tts_set_opt(15, 100, 0, 10) global.Talker = 2 break;
+			case "Flaky":	global.Character = "Flaky"  dlc_tts_set_opt(17, 100, 0, 10)		global.Talker = 1 break;
+			case "Toothy":	global.Character = "Toothy" dlc_tts_set_opt(15, 100, 0, 10)		global.Talker = 2 break;
+			case "Handy":	global.Character = "Handy"  dlc_tts_set_opt(23, 50, 0, 0)		global.Talker = 3 break;
+			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(22, 100, 0, 0)	global.Talker = 4 break;
 			case "Public":	global.Character = "Public" global.Talker = 10 break;
 		}
 	}
@@ -24,7 +28,9 @@ function scrCharaTalk()
 function scrCharactersFix()
 {
 	if !(NicksPending[listNumber] = "Flaky"
-	|| NicksPending[listNumber] = "Toothy")
+	|| NicksPending[listNumber] = "Toothy"
+	|| NicksPending[listNumber] = "Handy"
+	|| NicksPending[listNumber] = "Giggles")
 	{
 		NicksPending[listNumber] = "Public" 
 	}	
@@ -102,6 +108,74 @@ function sprite_index_3d(TAG)
 				}
 			}
 		break;
+		case "Handy":
+			if TAG = "Talk"
+			{
+				with(objModelGen){State = "Listening"}
+				State = "Talk"
+				if image_index_3d = 0 {MODEL.texPack[0] = sprHandyTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprHandyTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprHandyTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprHandyTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprHandyTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					MODEL.texPack[0] = sprHandyTalk
+					image_index_3d = 0
+				}
+			}
+			else
+			if TAG = "Idle"
+			{
+				if image_index_3d = 0 {MODEL.texPack[0] = sprHandyTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprHandyTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprHandyTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprHandyTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprHandyTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					image_index_3d = 0
+					MODEL.texPack[0] = sprHandyTalk 
+					image_speed = 0 
+				}
+			}
+		break;
+		case "Giggles":
+			if TAG = "Talk"
+			{
+				with(objModelGen){State = "Listening"}
+				State = "Talk"
+				if image_index_3d = 0 {MODEL.texPack[0] = sprGigglesTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprGigglesTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprGigglesTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprGigglesTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprGigglesTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					MODEL.texPack[0] = sprGigglesTalk
+					image_index_3d = 0
+				}
+			}
+			else
+			if TAG = "Idle"
+			{
+				if image_index_3d = 0 {MODEL.texPack[0] = sprGigglesTalk}
+				if image_index_3d > 0 {MODEL.texPack[0] = sprGigglesTalk}
+				if image_index_3d > 1 {MODEL.texPack[0] = sprGigglesTalk1}
+				if image_index_3d > 2 {MODEL.texPack[0] = sprGigglesTalk2}
+				if image_index_3d > 3 {MODEL.texPack[0] = sprGigglesTalk1}
+		
+				if image_index_3d >= 4 
+				{
+					image_index_3d = 0
+					MODEL.texPack[0] = sprGigglesTalk 
+					image_speed = 0 
+				}
+			}
+		break;
 	}
 }
 
@@ -121,6 +195,18 @@ function scrPosition()
 			global.PlayerYY[2] = y
 		}
 		else
+		if Character = "Handy"
+		{	
+			global.PlayerXX[3] = x
+			global.PlayerYY[3] = y
+		}
+		else
+		if Character = "Giggles"
+		{	
+			global.PlayerXX[4] = x
+			global.PlayerYY[4] = y
+		}
+		else
 		if Character = "Public"
 		{	
 			global.PlayerXX[10] = global.TalkerDirectionX
@@ -135,5 +221,7 @@ function scrIdleFun()
 	{
 		case "Flaky": ANIM = "Flaky_Idle"; break;
 		case "Toothy": ANIM = "Toothy_Idle"; break;
+		case "Handy": ANIM = "Handy_Idle"; break;
+		case "Giggles": ANIM = "Giggles_Idle"; break;
 	}
 }

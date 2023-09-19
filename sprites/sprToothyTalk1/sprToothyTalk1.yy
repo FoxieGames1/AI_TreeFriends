@@ -26,7 +26,7 @@
   "origin": 0,
   "parent": {
     "name": "Toothy",
-    "path": "folders/Sprites/Toothy.yy",
+    "path": "folders/Sprites/Characters/Toothy.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

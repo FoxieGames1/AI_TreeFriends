@@ -47,7 +47,7 @@ function smf_vector_rotate(v, axis, radians)
 function smf_cast_ray_sphere(sx, sy, sz, r, x1, y1, z1, x2, y2, z2, doublesided = false) 
 {	
 	/*	
-		Finds the intersection between a line segment going from [x1, y1, z1] to [x2, y2, z2], and a sphere centered at (sx,sy,sz) with radius r.
+		Finds the intersection between a line segment going from [x1, y1, z1] to [, y2, z2], and a sphere centered at (sx,sy,sz) with radius r.
 		Returns false if the ray hits the sphere but the line segment is too short,
 		returns true if the ray misses completely, 
 		returns an array of the following format if there was and intersection between the line segment and the sphere:

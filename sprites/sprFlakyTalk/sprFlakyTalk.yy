@@ -26,7 +26,7 @@
   "origin": 0,
   "parent": {
     "name": "Flaky",
-    "path": "folders/Sprites/Flaky.yy",
+    "path": "folders/Sprites/Characters/Flaky.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

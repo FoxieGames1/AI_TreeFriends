@@ -30,6 +30,8 @@
     {"name":"inst_698BF4FE","path":"rooms/rmWorld/rmWorld.yy",},
     {"name":"inst_41D67375","path":"rooms/rmWorld/rmWorld.yy",},
     {"name":"inst_79074155","path":"rooms/rmWorld/rmWorld.yy",},
+    {"name":"inst_3BF38E5F","path":"rooms/rmWorld/rmWorld.yy",},
+    {"name":"inst_504F945E","path":"rooms/rmWorld/rmWorld.yy",},
   ],
   "isDnd": false,
   "layers": [
@@ -120,11 +122,19 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_698BF4FE","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"properties":[
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"Character","path":"objects/objModelGen/objModelGen.yy",},"value":"Flaky",},
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"M3D","path":"objects/objModelGen/objModelGen.yy",},"value":"Models/Flaky.m3d",},
-          ],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":320.0,"y":352.0,},
+          ],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":320.0,"y":448.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_41D67375","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"properties":[
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"Character","path":"objects/objModelGen/objModelGen.yy",},"value":"Toothy",},
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"M3D","path":"objects/objModelGen/objModelGen.yy",},"value":"Models/Toothy.m3d",},
-          ],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":384.0,"y":288.0,},
+          ],"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":512.0,"y":256.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_3BF38E5F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"properties":[
+            {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"Character","path":"objects/objModelGen/objModelGen.yy",},"value":"Handy",},
+            {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"M3D","path":"objects/objModelGen/objModelGen.yy",},"value":"Models/Handy.m3d",},
+          ],"rotation":0.0,"scaleX":-1.0,"scaleY":1.0,"x":800.0,"y":608.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_504F945E","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"properties":[
+            {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"Character","path":"objects/objModelGen/objModelGen.yy",},"value":"Giggles",},
+            {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","objectId":{"name":"objModelGen","path":"objects/objModelGen/objModelGen.yy",},"propertyId":{"name":"M3D","path":"objects/objModelGen/objModelGen.yy",},"value":"Models/Giggles.m3d",},
+          ],"rotation":0.0,"scaleX":-1.0,"scaleY":1.0,"x":704.0,"y":736.0,},
       ],"layers":[],"properties":[],"userdefinedDepth":false,"visible":true,},
     {"resourceType":"GMRBackgroundLayer","resourceVersion":"1.0","name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4278190080,"depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"properties":[],"spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":true,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],

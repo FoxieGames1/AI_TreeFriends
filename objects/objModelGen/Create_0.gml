@@ -16,6 +16,10 @@ GREEN = 1;
 BLUE = 1;
 ALPHA = 1;
 
+IdCharacter = 0
+ZLight = 16
+LightLength = 16
+
 State = "Idle"
 image_index_3d = 0
 

@@ -31,7 +31,29 @@ function smf_model_load(path)
 	{
 		return smf_model_load_obj(path);
 	}
+	
+	//Cargar Modelo de personaje
 	if (ext == ".m3d")
+	{
+		var loadBuff = buffer_load(path); 
+		var model = smf_model_load_from_buffer(loadBuff, path);
+		buffer_delete(loadBuff);
+
+		return model;
+	}
+	
+	//Cargar Modelo de Textura de mapa
+	if (ext == ".m3dtx")
+	{
+		var loadBuff = buffer_load(path); 
+		var model = smf_model_load_from_buffer(loadBuff, path);
+		buffer_delete(loadBuff);
+
+		return model;
+	}
+	
+	//Cargar Modelo de Layout (solo para este proyecto)
+	if (ext == ".m3dly")
 	{
 		var loadBuff = buffer_load(path); 
 		var model = smf_model_load_from_buffer(loadBuff, path);
