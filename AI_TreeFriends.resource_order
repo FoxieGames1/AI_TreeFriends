@@ -31,10 +31,10 @@
     {"name":"Characters","order":2,"path":"folders/Sprites/Characters.yy",},
     {"name":"Giggles","order":3,"path":"folders/Sprites/Characters/Giggles.yy",},
     {"name":"Handy","order":2,"path":"folders/Sprites/Characters/Handy.yy",},
+    {"name":"Petunia","order":7,"path":"folders/Sprites/Characters/Petunia.yy",},
     {"name":"Toothy","order":1,"path":"folders/Sprites/Characters/Toothy.yy",},
     {"name":"StartUp","order":6,"path":"folders/Sprites/StartUp.yy",},
     {"name":"Time Cards","order":5,"path":"folders/Sprites/Time Cards.yy",},
-    {"name":"Petunia","order":7,"path":"folders/Sprites/Characters/Petunia.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"_load_bmp","order":3,"path":"scripts/_load_bmp/_load_bmp.yy",},
