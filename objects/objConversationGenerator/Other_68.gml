@@ -24,9 +24,9 @@ switch(async_load[? "type"])
 				TopicID++
 				TopicNameFile    = realData[? "message_topic"];
 				
-				if !file_exists("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
+				if !file_exists("Topics" + "/" + string(TopicID) + " [PENDING] "+string(TopicNameFile)+".txt")
 				{
-					createFileWithDatetime("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
+					createFileWithDatetime("Topics" + "/" + string(TopicID) + " [PENDING] "+string(TopicNameFile)+".txt")
 				}
 			break;
 			
@@ -35,7 +35,7 @@ switch(async_load[? "type"])
 				NicksPendingList = realData[? "message_nick"];
 				TextPendingList  = realData[? "message_text"];
 				
-				saveInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt", NicksPendingList, TextPendingList, TopicNameFile)
+				saveInfo("Topics" + "/" + string(TopicID) + " [PENDING] "+string(TopicNameFile)+".txt", NicksPendingList, TextPendingList, TopicNameFile)
 			break;
 			
 			case "Close_Topic": //DONE
@@ -51,7 +51,7 @@ switch(async_load[? "type"])
 				
 				for (var i = 1; i <= SizeOfTopic; ++i)
 				{
-				    loadInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic)+".txt", i-1)
+				    loadInfo("Topics" + "/" + string(TopicID) + " [PENDING] "+string(NameOfTopic)+".txt", i-1)
 					listLimit = i
 				}
 				ClosedTopicWaitToNext = true
@@ -64,7 +64,7 @@ switch(async_load[? "type"])
 			
 			case "Cancel_Topic": //DONE
 				TopicNameFile    = realData[? "message_topic"];
-				deleteInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
+				deleteInfo("Topics" + "/" + string(TopicID) + " [PENDING] "+string(TopicNameFile)+".txt")
 			break;
 		}	
 	}
