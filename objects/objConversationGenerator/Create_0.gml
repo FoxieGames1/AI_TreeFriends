@@ -29,12 +29,14 @@ TopicRealCount = -1
 
 TopicNameFile = "";
 TopicID = 0
+TopicIDReal = 0
 TextPendingList = ""
 NicksPendingList = ""
 
 ClosedTopicWaitToNext = false
 NameOfTopic = ""
 
+LastFile = ""
 SizeOfTopic = 0
 
 for(var I = 0; I < listMax; I++)

@@ -46,7 +46,7 @@ if Texto = "Voces..."
 					dlc_tts_stop_talking()
 					scrCharaTalk()
 					listNumber++
-					dlc_text_to_speech(TextPending[listNumber])
+					dlc_text_to_speech(TextPending[listNumber-1])
 					Voces = 3
 				}	
 			}
@@ -111,6 +111,21 @@ if Voces = 10
 
 if ClosedTopicWaitToNext = 2
 {
-	readAndSortFilesByName()
-	ClosedTopicWaitToNext = false
+	if (CheckDirectory())
+	{
+		readAndSortFilesByName()
+	}
+}
+else
+if ClosedTopicWaitToNext = 3 
+{
+	with(objCamera)
+	{alarm[0] = -1 TimeCard = false TimeCardSound = false WaitingANewRequester = false}
+
+	ClosedTopicWaitToNext = -1
+}
+
+if ClosedTopicWaitToNext = -1
+{
+	ClosedTopicWaitToNext = -2
 }

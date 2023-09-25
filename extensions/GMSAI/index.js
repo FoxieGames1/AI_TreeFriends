@@ -51,9 +51,12 @@ const talkCounts = new Map(); // Crear un Map para llevar un recuento de usos de
 
 const TemaTituloUsuarios = new Map();
 const TemaLengthUsuarios = new Map();
+const TemaIDUsuarios = new Map();
 const ValorASumar = 1
+var ValorASumar2 = 1;
 var RealTemaName = "";
 var SizeOfTopic = 1;
+var TemaIDNormal = 1
 
 client.on('messageCreate', (message) => 
 {
@@ -138,10 +141,21 @@ client.on('messageCreate', (message) =>
                       MSG = MSG_TEXT;
                       mesCon = MSG;
 
-                      const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
-                      TemaLengthUsuarios.set(message.author.id, 1);
-                      RealTemaName = TemaAlmacenado
+                      const temaCreadorID = temaID.split('_')[0];
 
+                      if (TemaTituloUsuarios.has(temaCreadorID))
+                      {
+                        const TemaAlmacenado = TemaTituloUsuarios.get(temaCreadorID);
+                        TemaLengthUsuarios.set(temaCreadorID, 1);
+                        RealTemaName = TemaAlmacenado
+
+                        TemaIDUsuarios.set(temaCreadorID, ValorASumar2)
+                        const TemaIDCreation = TemaIDUsuarios.get(temaCreadorID)
+                        TemaIDNormal = TemaIDCreation
+                      }
+
+                      ValorASumar2++
+                      
                       OpenToCall = true;
                     }
                   }
@@ -195,27 +209,7 @@ client.on('messageCreate', (message) =>
                 talkCounts.get(temaID).set(userID, maxMessageCount);
               }
             });
-
-            if (maxMessageCount >= 2) 
-            {
-              if (tema && owners.includes(message.author)) 
-              {
-                // Eliminar al autor y otros usuarios del tema
-                usuariosEnTemas.forEach((value, key) => {
-                  if (value === temaID) {
-                    usuariosEnTemas.delete(key);
-                  }
-                });
-
-                // Eliminar los registros de usos de !talk del autor y otros usuarios
-                if (talkCounts.has(temaID)) {
-                  usuariosEnEsteTema.forEach(userID => {
-                    talkCounts.get(temaID).delete(userID);
-                  });
-                }
-              }
-            
-
+                
             if (temaID) 
             {
                 const tema = temas.get(temaID);
@@ -225,24 +219,23 @@ client.on('messageCreate', (message) =>
                     if (tema && owners.includes(message.author)) 
                     {
                       const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
-                
-                        // Eliminar el registro del tema y su estado
-                        temas.delete(temaID);
-                  
-                        // Eliminar al autor y otros usuarios del tema
-                        usuariosEnTemas.forEach((value, key) => {
-                          if (value === temaID) {
-                            usuariosEnTemas.delete(key);
+                    
+                      // Eliminar el registro del tema y su estado
+                      temas.delete(temaID);
+                    
+                      // Eliminar al autor y otros usuarios del tema
+                      usuariosEnTemas.forEach((value, key) => {
+                        if (value === temaID) {
+                          usuariosEnTemas.delete(key);
                           }
                         });
-                  
+                      
                         // Eliminar los registros de usos de !talk del autor y otros usuarios
                         if (talkCounts.has(temaID)) {
                           usuariosEnEsteTema.forEach(userID => {
                             talkCounts.get(temaID).delete(userID);
                           });
                         }
-                      }
 
                         owners.forEach(owner => talkCounts.delete(owner.id));
 
@@ -251,11 +244,19 @@ client.on('messageCreate', (message) =>
                         OpenToCall = 2;
                         RestartFun(true)
 
-                        const valorActual = TemaLengthUsuarios.get(message.author.id);
-                        SizeOfTopic = valorActual
+                        const temaCreadorID = temaID.split('_')[0];
 
-                        const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
-                        RealTemaName = TemaAlmacenado
+                        if (TemaTituloUsuarios.has(temaCreadorID))
+                        {
+                          const valorActual = TemaLengthUsuarios.get(temaCreadorID);
+                          SizeOfTopic = valorActual
+      
+                          const TemaIDCreation = TemaIDUsuarios.get(temaCreadorID);
+                          TemaIDNormal = TemaIDCreation
+      
+                          const TemaAlmacenado = TemaTituloUsuarios.get(temaCreadorID);
+                          RealTemaName = TemaAlmacenado
+                        }
 
                         if (Lenguaje == "English")
                         {
@@ -279,9 +280,8 @@ client.on('messageCreate', (message) =>
                         message.reply('No tienes permiso para cerrar el tema o no eres el dueño.');
                       }
                     }
-                }
-                else
-                {
+                  }
+                  else
                   if (Lenguaje == "English")
                   {
                     if (maxMessageCount == NaN)
@@ -306,79 +306,116 @@ client.on('messageCreate', (message) =>
                     } 
                   }
                 }
-            }
-            else 
-            {
-              if (Lenguaje == "English")
-              {
-                message.reply('You are not in a topic to close.');
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply('No estás en un tema para cerrar.');
-              }
-            }
+                else
+                {
+                  if (Lenguaje == "English")
+                  {
+                    message.reply('You are not in a topic to close.');
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    message.reply('No estás en un tema para cerrar.');
+                  }
+                }
           }
           else
           if (args[0].toLowerCase() === 'cancel') 
           {
-            const temaID = usuariosEnTemas.get(message.author.id);
 
-            if (temaID) {
-              const tema = temas.get(temaID);
-          
-              if (tema && owners.includes(message.author)) 
+              const temaID = usuariosEnTemas.get(message.author.id);
+              const temaCreadorID = temaID.split('_')[0];
+              
+              if (temaID) 
               {
-                const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
-                
-                // Eliminar el registro del tema y su estado
-                temas.delete(temaID);
-          
-                // Eliminar al autor y otros usuarios del tema
-                usuariosEnTemas.forEach((value, key) => {
-                  if (value === temaID) {
-                    usuariosEnTemas.delete(key);
-                  }
-                });
-          
-                // Eliminar los registros de usos de !talk del autor y otros usuarios
-                if (talkCounts.has(temaID)) {
-                  usuariosEnEsteTema.forEach(userID => {
-                    talkCounts.get(temaID).delete(userID);
+                const tema = temas.get(temaID);
+            
+                if (tema && owners.includes(message.author)) 
+                {
+                  const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
+                  
+
+                    // Eliminar al autor y otros usuarios del tema
+                    usuariosEnTemas.forEach((value, key) => {
+                      if (value === temaID) {
+                        usuariosEnTemas.delete(key);
+                      }
+                    });
+    
+                    // Eliminar los registros de usos de !talk del autor y otros usuarios
+                    if (talkCounts.has(temaID)) {
+                      usuariosEnEsteTema.forEach(userID => {
+                        talkCounts.get(temaID).delete(userID);
+                      });
+                    }
+
+              
+
+                  // Eliminar el registro del tema y su estado
+                  temas.delete(temaID);
+                  
+                  // Eliminar al autor y otros usuarios del tema
+                  usuariosEnTemas.forEach((value, key) => {
+                      if (value === temaID) {
+                      usuariosEnTemas.delete(key);
+                      }
                   });
+                  
+                  // Eliminar los registros de usos de !talk del autor y otros usuarios
+                  if (talkCounts.has(temaID)) {
+                    usuariosEnEsteTema.forEach(userID => {
+                    talkCounts.get(temaID).delete(userID);
+                    });
+                  }
+
+                  if (Lenguaje == "English")
+                  {
+                    message.reply('Topic successfully cancelled.');
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    message.reply('Tema cancelado correctamente.');
+                  }
+
+                  if (TemaTituloUsuarios.has(temaCreadorID))
+                  {
+                    const TemaAlmacenado = TemaTituloUsuarios.get(temaCreadorID);
+                    TemaLengthUsuarios.set(temaCreadorID, 1);
+                    RealTemaName = TemaAlmacenado
+      
+                    const valorActualID = TemaIDUsuarios.get(temaCreadorID);
+                    TemaIDNormal = valorActualID
+                  }
+
+                  OpenToCall = 3;
+                  RestartFun(true)
+                }
+                else
+                {
+                  if (Lenguaje == "English")
+                  {
+                    message.reply('You do not have permission to close the topic or you are not the owner.');
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    message.reply('No tienes permiso para cerrar el tema o no eres el dueño.');
+                  }
+                }
+              } 
+              else
+              {
+                if (Lenguaje == "English")
+                {
+                  message.reply('You do not have a topic to cancel at this time.');
+                }
+                else
+                if (Lenguaje == "Español")
+                {
+                  message.reply('No tienes un tema para cancelar en este momento.');
                 }
               }
-
-              if (Lenguaje == "English")
-              {
-                message.reply('Topic successfully cancelled.');
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply('Tema cancelado correctamente.');
-              }
-
-              const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
-              TemaLengthUsuarios.set(message.author.id, 1);
-              RealTemaName = TemaAlmacenado
-
-              OpenToCall = 3;
-              RestartFun(true)
-            } 
-            else
-            {
-              if (Lenguaje == "English")
-              {
-                message.reply('You do not have a topic to cancel at this time.');
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply('No tienes un tema para cancelar en este momento.');
-              }
-            }
           }
           else
           {
@@ -392,7 +429,7 @@ client.on('messageCreate', (message) =>
               message.reply('Debes especificar un subcomando (open, status, close, cancel) para el comando !topic.');
             }
           }
-        } 
+        }
         else
         if (command == 'talk') 
         {
@@ -440,12 +477,20 @@ client.on('messageCreate', (message) =>
                               talkCounts.set(temaID, new Map());
                             }
 
-                            const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
-                            const valorActual = TemaLengthUsuarios.get(message.author.id);
-                            TemaLengthUsuarios.set(message.author.id, valorActual + ValorASumar);
-                            
-                            SizeOfTopic  = valorActual
-                            RealTemaName = TemaAlmacenado
+                            const temaCreadorID = temaID.split('_')[0]; // Extraer el ID del creador del tema
+
+                            if (TemaTituloUsuarios.has(temaCreadorID))
+                            {
+                              const TemaAlmacenado = TemaTituloUsuarios.get(temaCreadorID);
+                              const valorActual = TemaLengthUsuarios.get(temaCreadorID);
+                              TemaLengthUsuarios.set(temaCreadorID, valorActual + ValorASumar);
+                              
+                              SizeOfTopic  = valorActual
+                              RealTemaName = TemaAlmacenado
+
+                              const TemaIDCreation = TemaIDUsuarios.get(temaCreadorID);
+                              TemaIDNormal = TemaIDCreation
+                            }
                             
                             const talkCount = talkCounts.get(temaID).get(message.author.id) || 0;
                             talkCounts.get(temaID).set(message.author.id, talkCount + 1);
@@ -588,6 +633,20 @@ client.on('messageCreate', (message) =>
 
                 usuariosEnTemas.set(message.author.id, temaID); // Registrar al usuario en el mismo tema que el mencionado
                 
+                const temaCreadorID = temaID.split('_')[0];
+                
+                if (TemaTituloUsuarios.has(temaCreadorID)) 
+                {
+                  const TemaAlmacenado = TemaTituloUsuarios.get(temaCreadorID);
+                  const valorActual = TemaLengthUsuarios.get(temaCreadorID);
+                  const TemaIDCreation = TemaIDUsuarios.get(temaCreadorID);
+      
+                  // Actualizar las variables
+                  SizeOfTopic = valorActual;
+                  RealTemaName = TemaAlmacenado;
+                  TemaIDNormal = TemaIDCreation;
+                }
+
                 if (Lenguaje == "English")
                 {
                   message.reply(`You have joined the topic together with ${mentionedUser.username}`);
@@ -690,7 +749,8 @@ wss.on("connection", ws =>
                 var Topic_send = {
                   id: clientID,
                   message_topic: RealTemaName,
-                  topic_length: SizeOfTopic
+                  topic_length: SizeOfTopic,
+                  topic_id_real: TemaIDNormal
                 }
 
                 Messages.push(Topic_send)
@@ -700,10 +760,12 @@ wss.on("connection", ws =>
                     eventName: "Send_Topic",
                     id: clientID,
                     message_topic: RealTemaName,
-                    topic_length: SizeOfTopic
+                    topic_length: SizeOfTopic,
+                    topic_id_real: TemaIDNormal
                   }
                   ));
 
+                  console.log("Send Topic");
                   OpenToCall = false
               }
             break;
@@ -722,6 +784,7 @@ wss.on("connection", ws =>
                   message_text: mesTex,
                   message_topic: RealTemaName,
                   topic_length: SizeOfTopic,
+                  topic_id_real: TemaIDNormal
                 };
 
                 Messages.push(Messages_send);
@@ -733,7 +796,8 @@ wss.on("connection", ws =>
                     message_nick: Chara,
                     message_text: mesTex,
                     message_topic: RealTemaName,
-                    topic_length: SizeOfTopic
+                    topic_length: SizeOfTopic,
+                    topic_id_real: TemaIDNormal
                   })
                 );
 
@@ -747,7 +811,8 @@ wss.on("connection", ws =>
                 var Messages_send = {
                   changeNumber: CheckTopic,
                   message_topic: RealTemaName,
-                  size_to_finish: SizeOfTopic
+                  size_to_finish: SizeOfTopic,
+                  topic_id_real: TemaIDNormal
                 };
 
                 Messages.push(Messages_send);
@@ -757,8 +822,14 @@ wss.on("connection", ws =>
                       eventName: "Close_Topic",
                       changeNumber: CheckTopic, 
                       message_topic: RealTemaName,
-                      size_to_finish: SizeOfTopic
+                      size_to_finish: SizeOfTopic,
+                      topic_id_real: TemaIDNormal
                     }));          
+
+                  // Después de cerrar un tema
+                  SizeOfTopic = 0; // Reiniciar el tamaño del tema
+                  RealTemaName = ""; // Reiniciar el nombre del tema
+                  TemaIDNormal = ""; // Reiniciar el ID del tema
 
                   console.log("Close Topic")
                   OpenToCall = 4;
@@ -771,7 +842,8 @@ wss.on("connection", ws =>
                     JSON.stringify({
                       eventName: "Cancel_Topic",
                       message_topic: RealTemaName,
-                      changeNumber: CheckTopic
+                      changeNumber: CheckTopic,
+                      topic_id_real: TemaIDNormal
                     }));          
 
                   console.log("Cancel Topic")

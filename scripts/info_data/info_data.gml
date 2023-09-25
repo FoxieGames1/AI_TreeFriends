@@ -93,15 +93,6 @@ function deleteInfo(fileName)
 	{file_delete(fileName)}
 }
 
-/*
-function file_create_empty(fileName)
-{
-	// Abre el archivo en modo de escritura, esto lo limpiará
-	var fileHandle = file_text_open_write(fileName);
-	file_text_close(fileHandle);
-}
-*/
-
 function delete_all_starter()
 {
 	var directory = "Topics" + "/"; // Reemplaza con la ruta de tu directorio
@@ -140,20 +131,75 @@ function readAndSortFilesByName()
 	    ds_list_add(file_list, search);
 	    search = file_find_next();
 	}
-
+	
 	// Ordena la lista de archivos alfabéticamente por nombre en orden inverso
 	ds_list_sort(file_list, true); // Cambia a false para ordenar en orden ascendente
 
 	// Ahora puedes iterar sobre los archivos en orden inverso
 	var num_files = ds_list_size(file_list);
-	for (var i = 0; i < num_files; i++)
+	var file_name = ds_list_find_value(file_list, 0);
+	
+	var file_handle = file_text_open_read(string(directory) + string(file_name));
+	
+	var I = 0;
+	var LINE = 0;
+	
+	while (!file_text_eof(file_handle))
 	{
-	    var file_name = ds_list_find_value(file_list, i);
-    
-	    // Realiza acciones con el archivo
-	    show_debug_message("Nombre del archivo: " + file_name);
+        var linea = file_text_readln(file_handle);
+		if (I == 0)
+		{
+			LINE++
+			linea = file_text_readln(file_handle);
+		}
+		I++
+		
+		LINE = I+1
+    }
+	
+	file_text_close(file_handle);
+	
+	with(objCamera){TimeCard = false TimeCardSound = false}
+	global.DisableModelsDuringPause = false
+	Texto = "Terminando"
+	
+	var FileNameForOpen = file_name
+	SizeOfTopic = LINE
+	
+	for (var i = 1; i <= SizeOfTopic; ++i)
+	{
+		loadInfo(string(directory) + string(FileNameForOpen), i-1)
+		listLimit = i
 	}
-
+	
+	// Realiza acciones con el archivo
+	show_debug_message("Siguiente Archivo: " + FileNameForOpen);
+	
+	LastFile = string(directory) + string(FileNameForOpen)
+	
 	// Limpia la lista de archivos
 	ds_list_destroy(file_list);
+	
+	ClosedTopicWaitToNext = 3
+}
+
+function CheckDirectory()
+{
+    var directory = "Topics" + "/"; // Reemplaza con la ruta de tu directorio
+    var search = file_find_first(directory + "*.*", 0);
+
+    // Cierra la búsqueda antes de continuar
+    file_find_close();
+
+    // Verifica si se encontraron archivos en el directorio
+    if (search == "")
+    {
+        // El directorio está vacío
+        return false;
+    }
+    else
+    {
+        // Se encontraron archivos en el directorio
+        return true;
+    }
 }

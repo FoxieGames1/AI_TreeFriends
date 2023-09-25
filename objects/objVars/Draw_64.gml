@@ -45,6 +45,13 @@ with(objConversationGenerator)
 	
 	draw_text(256,300,"alarm[1]: "+string(alarm[1]))
 	draw_text(256,316,"alarm[2]: "+string(alarm[2]))
+	
+	draw_text(256,332,"ClosedTopicWaitToNext: "+string(ClosedTopicWaitToNext))
+}
+
+with(objCamera)
+{
+	draw_text(256,400,"objCamera.alarm[1]: "+string(alarm[1]))	
 }
 
 draw_set_color(c_white)

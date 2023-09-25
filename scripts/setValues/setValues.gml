@@ -2,8 +2,6 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 para más información
 function scrDefaultValues()
 {
-	CreateNicks = false
-	
 	alarm[1] = -1
 	
 	/// @description Demo Object Creation
