@@ -108,3 +108,9 @@ if Voces = 10
 		}
 	}
 }
+
+if ClosedTopicWaitToNext = 2
+{
+	readAndSortFilesByName()
+	ClosedTopicWaitToNext = false
+}

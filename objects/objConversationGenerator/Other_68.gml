@@ -24,9 +24,9 @@ switch(async_load[? "type"])
 				TopicID++
 				TopicNameFile    = realData[? "message_topic"];
 				
-				if !file_exists("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt")
+				if !file_exists("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
 				{
-					createFileWithDatetime("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt")
+					createFileWithDatetime("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
 				}
 			break;
 			
@@ -35,13 +35,10 @@ switch(async_load[? "type"])
 				NicksPendingList = realData[? "message_nick"];
 				TextPendingList  = realData[? "message_text"];
 				
-				saveInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt", NicksPendingList, TextPendingList, TopicNameFile)
+				saveInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt", NicksPendingList, TextPendingList, TopicNameFile)
 			break;
 			
 			case "Close_Topic": //DONE
-			
-			if ClosedTopicWaitToNext = 2 {ClosedTopicWaitToNext = false}
-			
 			if ClosedTopicWaitToNext = false
 			{
 				with(objCamera){TimeCard = false TimeCardSound = false}
@@ -54,12 +51,11 @@ switch(async_load[? "type"])
 				
 				for (var i = 1; i <= SizeOfTopic; ++i)
 				{
-				    loadInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic)+ " (" + string(TopicID) + ")" + ".txt", i-1)
+				    loadInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic)+".txt", i-1)
 					listLimit = i
 				}
 				ClosedTopicWaitToNext = true
 			}
-			readAndSortFilesByCreationDate()
 			break
 			
 			case "Send_Language": //DONE
@@ -68,7 +64,7 @@ switch(async_load[? "type"])
 			
 			case "Cancel_Topic": //DONE
 				TopicNameFile    = realData[? "message_topic"];
-				deleteInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" +".txt")
+				deleteInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile)+".txt")
 			break;
 		}	
 	}

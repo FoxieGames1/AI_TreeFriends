@@ -4,7 +4,7 @@ with(objConversationGenerator)
 {
 	if ClosedTopicWaitToNext = true
 	{
-		deleteInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic) + " (" + string(TopicID) + ")" + ".txt")
+		deleteInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic)+".txt")
 		
 		for(var I = 0; I < listMax; I++)
 		{

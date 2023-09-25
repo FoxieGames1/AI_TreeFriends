@@ -129,22 +129,22 @@ function delete_all_starter()
 	file_find_close(); // Cierra la búsqueda
 }
 
-function readAndSortFilesByCreationDate()
+function readAndSortFilesByName()
 {
 	var directory = "Topics" + "/" ; // Reemplaza con la ruta de tu directorio
 	var search = file_find_first(directory + "*.*", 0);
 	var file_list = ds_list_create();
 
-	while (search != "")
+	while (search != "") 
 	{
 	    ds_list_add(file_list, search);
 	    search = file_find_next();
 	}
 
-	// Ordena la lista de archivos alfabéticamente por nombre
-	ds_list_sort(file_list, false); // Cambia a true si quieres ordenar en orden ascendente
+	// Ordena la lista de archivos alfabéticamente por nombre en orden inverso
+	ds_list_sort(file_list, true); // Cambia a false para ordenar en orden ascendente
 
-	// Ahora puedes iterar sobre los archivos en el orden deseado
+	// Ahora puedes iterar sobre los archivos en orden inverso
 	var num_files = ds_list_size(file_list);
 	for (var i = 0; i < num_files; i++)
 	{
