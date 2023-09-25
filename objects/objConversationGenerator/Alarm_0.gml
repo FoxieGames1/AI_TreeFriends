@@ -1,54 +1,64 @@
-if Topic = ""
-{	
-	buffer_first = buffer_create(1, buffer_grow ,1);
-	data_first = ds_map_create()
+#region SEND TOPIC
+buffer_first = buffer_create(1, buffer_grow ,1);
+data_first = ds_map_create()
 	
-	data_first[? "eventName"] = "Send_Topic";
+data_first[? "eventName"] = "Send_Topic";
 	
-	buffer_write(buffer_first, buffer_text, json_encode(data_first));
-	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+buffer_write(buffer_first, buffer_text, json_encode(data_first));
+network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
 	
-	ds_map_clear(data_first)
+ds_map_clear(data_first)
 	
-	ds_map_destroy(data_first)
-	buffer_delete(buffer_first)
-}
-else
-if Topic != "" && TopicOpen = 1 &&
-(TextPending[listNumber+1] = "" && NicksPending[listNumber+1] = "")
-{
-	buffer_first = buffer_create(1, buffer_grow ,1);
-	data_first = ds_map_create()
-	
-	data_first[? "eventName"] = "Send_Message";
-	data_first[? "eventPlus"] = listLimit;
+ds_map_destroy(data_first)
+buffer_delete(buffer_first)
+#endregion 
 
-	buffer_write(buffer_first, buffer_text , json_encode(data_first));
-	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+#region SEND MESSAGE
+buffer_first = buffer_create(1, buffer_grow ,1);
+data_first = ds_map_create()
 	
-	ds_map_clear(data_first)
-	
-	ds_map_destroy(data_first)
-	buffer_delete(buffer_first)
-}
+data_first[? "eventName"] = "Send_Message";
 
-if Texto = "Andando..." && TopicOpen = 1 || TopicOpen = -1
-{
-	buffer_first = buffer_create(1, buffer_grow ,1);
-	data_first = ds_map_create()
+buffer_write(buffer_first, buffer_text , json_encode(data_first));
+network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
 	
-	data_first[? "eventName"] = "Close_Topic";
-	data_first[? "changeNumber"] = OneTime;
+ds_map_clear(data_first)
+	
+ds_map_destroy(data_first)
+buffer_delete(buffer_first)
+#endregion 
 
-	buffer_write(buffer_first, buffer_text , json_encode(data_first));
-	network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+#region CLOSE TOPIC
+buffer_first = buffer_create(1, buffer_grow ,1);
+data_first = ds_map_create()
 	
-	ds_map_clear(data_first)
-	
-	ds_map_destroy(data_first)
-	buffer_delete(buffer_first)
-}
+data_first[? "eventName"] = "Close_Topic"
 
+buffer_write(buffer_first, buffer_text , json_encode(data_first));
+network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+ds_map_clear(data_first)
+	
+ds_map_destroy(data_first)
+buffer_delete(buffer_first)
+#endregion
+
+#region CANCEL TOPIC
+buffer_first = buffer_create(1, buffer_grow ,1);
+data_first = ds_map_create()
+	
+data_first[? "eventName"] = "Cancel_Topic";
+	
+buffer_write(buffer_first, buffer_text , json_encode(data_first));
+network_send_raw(Socket, buffer_first, buffer_tell(buffer_first));
+	
+ds_map_clear(data_first)
+	
+ds_map_destroy(data_first)
+buffer_delete(buffer_first)
+#endregion 
+
+#region SET LANGUAGE
 buffer_first = buffer_create(1, buffer_grow ,1);
 data_first = ds_map_create()
 	
@@ -62,5 +72,6 @@ ds_map_clear(data_first)
 	
 ds_map_destroy(data_first)
 buffer_delete(buffer_first)
+#endregion
 
 alarm[0] = TIMER

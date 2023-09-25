@@ -1,39 +1,15 @@
 scrCharactersFix()
 
-if Texto = "Inicio" && TopicOpen = 0
+if Texto = "Inicio"
 {
-	TopicOpen = 1 
 	Texto = "Andando..."
 }
 else
-if Texto = "Terminando" && TopicOpen = 1 || TopicOpen = 1.5
+if Texto = "Terminando"
 {
 	with(objVars){alarm[0] = -1}
 	Texto = "Voces..." 
-	TopicOpen = 2
 }
-
-if SetSleep = true //TEMPORAL
-{
-	if TrueValue = 1
-	{
-		SetQueue = -1
-		with(objCamera){alarm[1] = -1}
-		scrDefaultValues() 
-		Writing = 0
-		TrueValue = 0
-		Texto = "";
-		
-		OneTime = 0
-		
-		listCurrentNumber = 0
-		listNumber = 0
-		listLimit = 1
-		TopicBefore = Topic
-		ReOpen = true
-	}
-	SetSleep = false
-} //TEMPORAL
 
 if Texto = "Voces..."
 {
@@ -69,8 +45,8 @@ if Texto = "Voces..."
 				{
 					dlc_tts_stop_talking()
 					scrCharaTalk()
-					dlc_text_to_speech(TextPending[listNumber])
 					listNumber++
+					dlc_text_to_speech(TextPending[listNumber])
 					Voces = 3
 				}	
 			}
@@ -80,7 +56,6 @@ if Texto = "Voces..."
 		{
 			alarm[2] = 60
 			End = true
-			TopicOpen = 3
 			Voces = 3
 		}
 	}

@@ -10,74 +10,66 @@ switch(async_load[? "type"])
 		ds_map_destroy(data);
 	break;
 	case network_type_data:
+	{
 		//example of reading data from server
 		var buffer_raw = async_load[? "buffer"];
 		var buffer_processed = buffer_read(buffer_raw , buffer_text);
 		var realData = json_decode(buffer_processed);
 		var eventName = realData[?"eventName"];
+		var Directory = "Topics";
 		
 		switch(eventName)
 		{
-			case "Send_Topic":
-			if Topic = ""
-			{
-				Topic = realData[? "message_topic"];
-				if Topic != ""{Texto = "Inicio"}
-			}
-			break;
-			case "Send_Message":
-			if Topic != ""
-			{	
-				listLimit = realData[? "eventPlus"];
-
-				if (TextPending[listNumber+1] = "" 
-				&& NicksPending[listNumber+1] = "")
-				{
-					if listNumber < listLimit-1
-					{
-						TextPending[listNumber] = realData[? "message_text"];
-						NicksPending[listNumber] = realData[? "message_nick"];
-						
-						listNumber++
-						alarm[0] = TIMER
-					}
-				}
-			}
-			break;
-			case "Close_Topic":
-			if global.StartStream = true
-			{global.StartStream = false}
-			global.DisableModelsDuringPause = false
-			with(objCamera){alarm[0] = -1}
-			OneTime = realData[? "changeNumber"];
-			if OneTime > 0
-			{
-				if ReOpen = true //TEMPORAL
-				{
-					TrueValue = 1
-					with(objVars){if Music = true{audio_stop_all() Music = false}}
-					with(objCamera)
-					{WaitingANewRequester = false TimeCard = false if TimeCardSound = 2 {TimeCardSound = false}}
-					ReOpen = false	
-				}//TEMPORAL
+			case "Send_Topic": //DONE
+				TopicID++
+				TopicNameFile    = realData[? "message_topic"];
 				
-				if Topic != ""
-				{	
-					if Texto = "Andando..."
-					{Texto = "Terminando"}
-					listNumber = 0
+				if !file_exists("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt")
+				{
+					createFileWithDatetime("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt")
 				}
-			}
 			break;
-			case "Send_Language":
+			
+			case "Send_Message": //DONE
+				TopicNameFile    = realData[? "message_topic"];
+				NicksPendingList = realData[? "message_nick"];
+				TextPendingList  = realData[? "message_text"];
+				
+				saveInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" + ".txt", NicksPendingList, TextPendingList, TopicNameFile)
+			break;
+			
+			case "Close_Topic": //DONE
+			
+			if ClosedTopicWaitToNext = 2 {ClosedTopicWaitToNext = false}
+			
+			if ClosedTopicWaitToNext = false
+			{
+				with(objCamera){TimeCard = false TimeCardSound = false}
+				
+				SizeOfTopic = realData[? "size_to_finish"];
+				NameOfTopic = realData[? "message_topic"];
+				global.DisableModelsDuringPause = false
+				if (global.StartStream = true) {global.StartStream = false}
+				Texto = "Terminando"
+				
+				for (var i = 1; i <= SizeOfTopic; ++i)
+				{
+				    loadInfo("Topics" + "/" + "[PENDING] "+string(NameOfTopic)+ " (" + string(TopicID) + ")" + ".txt", i-1)
+					listLimit = i
+				}
+				ClosedTopicWaitToNext = true
+			}
+			readAndSortFilesByCreationDate()
+			break
+			
+			case "Send_Language": //DONE
 				global.Language = realData[? "language"];
 			break;
-			//TEMPORAL
-			case "Restart_New":
-				TrueValue = realData[? "setNew"];
-				SetSleep = true
+			
+			case "Cancel_Topic": //DONE
+				TopicNameFile    = realData[? "message_topic"];
+				deleteInfo("Topics" + "/" + "[PENDING] "+string(TopicNameFile) + " (" + string(TopicID) + ")" +".txt")
 			break;
-			//TEMPORAL
-		}
-	break;
+		}	
+	}
 }

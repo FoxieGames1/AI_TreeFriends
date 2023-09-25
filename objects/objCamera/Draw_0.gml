@@ -6,7 +6,7 @@ if global.DisableModelsDuringPause = false
 	
 	cluck_set_light_point(0, c_white, room_width/2, room_height/2, 64, 2000, 500)
 	
-	if Topic = 2 && Event = "Voces..."
+	if Event = "Voces..."
 	{
 		//Draw player shadow
 		camera_set_view_mat(camera, matrix_build_lookat(XX, YY, 128, global.TalkerDirectionX, global.TalkerDirectionY, 16, 0, 0, -1));

@@ -5,8 +5,6 @@ function scrDefaultValues()
 	CreateNicks = false
 	
 	alarm[1] = -1
-
-	TopicOpen = 0
 	
 	/// @description Demo Object Creation
 	dlc_initialize(true); // If not called first, every other extension function will always fail
@@ -18,8 +16,6 @@ function scrDefaultValues()
 	{global.VoiceID = 9}
 
 	Texto = "";
-	Topic = ""
-	Message = "";
 
 	Voces = false
 
@@ -29,12 +25,6 @@ function scrDefaultValues()
 	BufferCharge = 1
 	BufferList = 0
 
-	for(var list = 0; list <= listMax; list++)
-	{
-		TextPending[list] = ""
-		NicksPending[list] = ""
-	}
-	
 	for(var chara = 0; chara <= 10; chara++)
 	{
 		global.PlayerXX[chara] = 0
@@ -46,6 +36,8 @@ function scrDefaultValues()
 
 	global.TalkerDirectionX = global.PlayerXX[0]
 	global.TalkerDirectionY = global.PlayerYY[0]
+	
+	NameOfTopic = "";
 	
 	End = false
 }

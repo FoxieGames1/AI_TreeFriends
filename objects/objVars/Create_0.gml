@@ -9,3 +9,5 @@ global.DisableModelsDuringPause = true;
 global.Language = "English"
 
 global.StartStream = true
+
+MessageText = 1

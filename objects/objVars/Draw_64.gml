@@ -10,7 +10,7 @@ with(objConversationGenerator)
 {
 	draw_set_color(c_white)
 	
-	if TopicOpen = 0 && Texto = "Voces..."
+	if Texto = "Voces..."
 	{
 		other.TextNumber = listNumber
 	}
@@ -27,7 +27,25 @@ with(objConversationGenerator)
 draw_set_color(c_white)
 
 if global.StartStream = true
-{
-	
+{	
 	draw_sprite_ext(sprStartup, 0, VisualX/2, VisualY/2,0.7,0.7,0,c_white,1)
 }
+
+draw_set_color(c_red)
+draw_set_font(fntPC98)
+
+with(objConversationGenerator)
+{
+	for (var i = 1; i <= 10; ++i)
+	{
+	    draw_text(128,32+16 + i * 16,"NicksPending "+string(i)+": "+string(NicksPending[i])+ " TEXT: "+string(TextPending[i]))	  
+	}
+	
+	draw_text(256,256,"Voces: "+string(Voces))
+	
+	draw_text(256,300,"alarm[1]: "+string(alarm[1]))
+	draw_text(256,316,"alarm[2]: "+string(alarm[2]))
+}
+
+draw_set_color(c_white)
+draw_set_font(fntDmSans)

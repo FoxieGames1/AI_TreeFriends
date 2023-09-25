@@ -21,24 +21,16 @@ const wss = new WebSocketServer.Server({ port: 3000 })
 process.setMaxListeners(0);
 require('events').EventEmitter.defaultMaxListeners = Infinity;
 
-var Version = "Beta - 0.1";
-var EVENTPLUS = 1
+var Version = "0.5b";
 var CheckTopic = 1
-
-var Writing = false;
-var NewValue = false;
-
-var MessageMax = 2
-var MessageNum = 0
 
 var Messages = [];
 var clientID = 0;
 
 var CharacterToTalk = "";
 var Chara = "";
-var mesTex = "";
-var mesCon = "";
 var MSG = "";
+var mesTex = "";
 var MESSAGE = "";
 
 var SelectedLan = "English";
@@ -48,239 +40,574 @@ var Lenguaje = "English";
 var OpenToCallLan = false;
 var OpenToCall = false;
 
-var TemaAbierto = false
-
 const prefix = '!';
 const Names = 'Flaky, Toothy, Handy, Giggles & Petunia';
 
+const usuariosEnTemas = new Map();
+let owners = [];
+const temas = new Map(); // Un mapa para realizar un seguimiento de los temas y su estado
+const temasCerradosPorUsuario = new Map(); // Usar un mapa para llevar un registro de los temas cerrados por cada usuario
+const talkCounts = new Map(); // Crear un Map para llevar un recuento de usos de !talk por cada usuario
 
-let topicOpen = false; // Variable para rastrear si el tema está abierto o cerrado
-let currentTopic = ''; // Variable para almacenar el tema actual
+const TemaTituloUsuarios = new Map();
+const TemaLengthUsuarios = new Map();
+const ValorASumar = 1
+var RealTemaName = "";
+var SizeOfTopic = 1;
 
 client.on('messageCreate', (message) => 
 {
-  if (message.content.startsWith(prefix))
-  {
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    if (message.content.startsWith(prefix))
+    {
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
         const command = args.shift().toLowerCase();
-
-        if (command === 'topic') {
-          if (args.length === 0) {
-            // Comando !topic sin argumento muestra el estado actual
+        if (command === 'topic') 
+        {
+          if (args.length === 0) 
+          {
             if (Lenguaje == "English")
             {
-              message.reply(`Use "**!topic open**" to create a topic.\nUse "**!topic close**" to close the topic.\nUse "**!topic status**" to check the status of topic.`);
+              message.reply('You must specify a subcommand (open, status, close, cancel) for the !topic command.');
             }
             else
             if (Lenguaje == "Español")
             {
-              message.reply(`Utiliza "**!topic open**" para crear un tema.\nUtiliza "**!topic close**" para cerrar el tema.\nUtiliza "**!topic status**" para comprobar el estado del tema.`);
+              message.reply('Debes especificar un subcomando (open, status, close, cancel) para el comando !topic.');
             }
-          } else if (args[0].toLowerCase() === 'open') {
-            // Comando !topic open para abrir un tema
-            if (topicOpen) 
+          } 
+          else 
+          if (args[0].toLowerCase() === 'open') 
+          {
+            // ... código para abrir un nuevo tema
+            if (!temas.has(message.author.id)) 
             {
-              if (Lenguaje == "English")
+              // Verificar si el autor no es el dueño de un tema existente
+              if (!usuariosEnTemas.has(message.author.id))
               {
-                message.reply("You can't create a new topic, is already open!")    
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply("No puedes crear un nuevo tema, ¡ya está abierto!")    
-              }
-            } 
-            else 
-            if (topicOpen == false && OpenToCall == false) 
-            {
-              const topicName = args.slice(1).join(' ');
-              if (topicName.length === 0) 
-              {
-                if (Writing == false && NewValue == false)
+                if (!temasCerradosPorUsuario.has(message.author.id)) 
                 {
-                  if (Lenguaje == "English")
-                  {
-                    message.reply("You can't create a new topic without a text.");
-                  }
-                  else
-                  if (Lenguaje == "Español")
-                  {
-                    message.reply(`No puedes crear un nuevo tema sin un texto.`);
-                  }
-                }
-                else
-                if (Writing == true && NewValue == false)
-                {
-                  if (Lenguaje == "English")
-                  {
-                    message.reply("Reading the Values on streaming...");
-                  }
-                  else
-                  if (Lenguaje == "Español")
-                  {
-                    message.reply("Leyendo los valores en directo...");
-                  }
-                }
-                else
-                {
-                  if (Writing == true && NewValue == true)
+                  const nombreDelTema = args.slice(1).join(' '); // Obtener el nombre del tema
+                  if (!nombreDelTema) 
                   {
                     if (Lenguaje == "English")
                     {
-                      message.reply("You can't create a new topic without a text.");
+                      message.reply('You must specify a name for the topic.');
                     }
                     else
                     if (Lenguaje == "Español")
                     {
-                      message.reply(`No puedes crear un nuevo tema sin un texto.`);
+                      message.reply('Debes especificar un nombre para el tema.');
                     }
                   }
-                }
-              }
-              else
-              {
-                  if (Writing == true && NewValue == true)
+                  else
                   {
-                    OpenToCall = true;
+                    // Verificar si el nombre del tema ya existe
+                    const temaExistente = Array.from(temas.values()).find(tema => tema.name === nombreDelTema);
 
-                    Writing = false;
-                    currentTopic = topicName
-                    topicOpen = true;
-                    TemaAbierto = true;
-                    if (Lenguaje == "English")
+                    if (temaExistente) 
                     {
-                      Suggested_Topic = `Suggested Topic: ${currentTopic}`;
-                    }
+                      if (Lenguaje == "English") 
+                      {
+                        message.reply('A topic with this name already exists. Please choose a different name.');
+                      } 
+                      else
+                      if (Lenguaje == "Español") 
+                      {
+                        message.reply('Ya existe un tema con este nombre. Por favor, elige un nombre diferente.');
+                      }
+                    } 
                     else
-                    if (Lenguaje == "Español")
                     {
-                      Suggested_Topic = `Tema sugerido: ${currentTopic}`;
-                    }
-                    
-                    if (currentTopic == "Closed Topic")
-                    {currentTopic = "Closed Topic.";}
-                    
-                    var MSG_TEXT = `${currentTopic}`;
-                    message.reply(Suggested_Topic);
-                    MSG = MSG_TEXT;
-                    mesCon = MSG;
-                    
-                    RestartEntornVars(true)
-                  }
-                  else
-                  if (Writing == false && NewValue == false)
-                  {
-                    OpenToCall = true;
+                      // Verificar si el autor no está unido a un tema recién creado
+                      const temaID = `${message.author.id}_${temas.size + 1}`;
+                      owners.push(message.author); // Agregar al usuario a la matriz de propietarios
+                      temas.set(temaID, { name: nombreDelTema, owners, abierto: true });
+                      TemaTituloUsuarios.set(message.author.id, nombreDelTema);
+                      usuariosEnTemas.set(message.author.id, temaID); // Registrar al usuario en el tema
+                      if (Lenguaje == "English")
+                      {
+                        message.reply(`Suggested Topic: ${nombreDelTema}`);
+                      }
+                      else
+                      if (Lenguaje == "Español")
+                      {
+                        message.reply(`Tema Sugerido: ${nombreDelTema}`);
+                      }
 
-                    currentTopic = topicName
-                    topicOpen = true;
-                    if (Lenguaje == "English")
-                    {
-                      Suggested_Topic = `Suggested Topic: ${currentTopic}`;
+                      var MSG_TEXT = `${nombreDelTema}`;
+                      MSG = MSG_TEXT;
+                      mesCon = MSG;
+
+                      const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
+                      TemaLengthUsuarios.set(message.author.id, 1);
+                      RealTemaName = TemaAlmacenado
+
+                      OpenToCall = true;
                     }
-                    else
-                    if (Lenguaje == "Español")
-                    {
-                      Suggested_Topic = `Tema sugerido: ${currentTopic}`;
-                    }
-                    
-                    if (currentTopic == "Closed Topic")
-                    {currentTopic = "Closed Topic.";}
-                    
-                    var MSG_TEXT = `${currentTopic}`;
-                    message.reply(Suggested_Topic);
-                    MSG = MSG_TEXT;
-                    mesCon = MSG;
-                    RestartEntornVars(true)
                   }
-                  else
-                  if (Writing == true && NewValue == false)
-                  {
-                    if (Lenguaje == "English")
-                    {
-                      message.reply("Reading the Values on streaming...");
-                    }
-                    else
-                    if (Lenguaje == "Español")
-                    {
-                      message.reply("Leyendo los valores en directo...");
-                    }
-                  }  
-              }
-            }
-            else
-            {
-              if (Lenguaje == "English")
-              {
-                message.reply("Reading the Values on streaming...");
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply("Leyendo los valores en directo...");
-              }
-            }
-          }
-            else if (args[0].toLowerCase() === 'status')
-            {
-              if (Lenguaje == "English")
-              {
-                if (topicOpen) {
-                  message.reply(`Topic Theme: ${currentTopic} (Open)`);
-                } else {
-                  message.reply(`Topic is Closed.`);
                 }
-              }
+              } 
               else
-              if (Lenguaje == "Español")
-              {
-                if (topicOpen) {
-                  message.reply(`Tema: ${currentTopic} (Abierto)`);
-                } else {
-                  message.reply(`Tema esta Cerrado.`);
-                }
-              }
-            } 
-            else if (args[0].toLowerCase() === 'close') {
-            // Comando !topic close para cerrar el tema
-            if (topicOpen) 
-            {
-              if (MessageNum >= MessageMax)
-              {
-                  if (Writing == false)
-                  {
-                    OpenToCall = 2;
-                    topicOpen = false;
-                    Writing = true;
-                    CheckTopic++;
-                    RestartFun(true)
-                    if (Lenguaje == "English")
-                    {
-                      message.reply('Topic Closed.');
-                    }
-                    else
-                    if (Lenguaje == "Español")
-                    {
-                      message.reply('Tema Cerrado.');
-                    }
-                  }
-                  else
-                  if (Writing == true && NewValue == true)
-                  {
-                    NewValue = false;
-                  }
-              }
-              else
-              if (MessageNum < MessageMax)
               {
                 if (Lenguaje == "English")
                 {
-                  message.reply(`Minimum number of messages is ${MessageNum}/${MessageMax}.`);
+                  message.reply('You cannot open a new topic while you are joined to one.');
                 }
                 else
                 if (Lenguaje == "Español")
                 {
-                  message.reply(`El Minimo de mensajes es ${MessageNum}/${MessageMax}.`);
+                  message.reply('No puedes abrir un nuevo tema mientras estás unido a uno.');
+                }
+              }
+            } 
+            else
+            {
+              if (Lenguaje == "English")
+              {
+                message.reply('You are already the owner of a topic.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('Ya eres el dueño de un tema.');
+              }
+            }
+          }
+          else
+          if (args[0].toLowerCase() === 'close') 
+          {
+            const temaID = usuariosEnTemas.get(message.author.id);
+
+            const tema = temas.get(temaID);
+
+            // Obtener las IDs de todos los usuarios en el mismo tema (sin duplicados)
+            const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
+
+            // Obtener los recuentos de mensajes para cada usuario en este tema
+            const talkCountsInTopic = usuariosEnEsteTema.map(userID => ({ userID, count: (talkCounts.get(temaID) && talkCounts.get(temaID).get(userID)) || 0 }));
+
+            // Obtener el máximo valor de mensajes (count) entre todos los usuarios en el tema
+            const maxMessageCount = Math.max(...talkCountsInTopic.map(user => user.count));
+
+            // Igualar el recuento de mensajes de todos los usuarios en este tema al valor máximo
+            usuariosEnEsteTema.forEach(userID => {
+              if (talkCounts.has(temaID)) {
+                talkCounts.get(temaID).set(userID, maxMessageCount);
+              }
+            });
+
+            if (maxMessageCount >= 2) 
+            {
+              if (tema && owners.includes(message.author)) 
+              {
+                // Eliminar al autor y otros usuarios del tema
+                usuariosEnTemas.forEach((value, key) => {
+                  if (value === temaID) {
+                    usuariosEnTemas.delete(key);
+                  }
+                });
+
+                // Eliminar los registros de usos de !talk del autor y otros usuarios
+                if (talkCounts.has(temaID)) {
+                  usuariosEnEsteTema.forEach(userID => {
+                    talkCounts.get(temaID).delete(userID);
+                  });
+                }
+              }
+            
+
+            if (temaID) 
+            {
+                const tema = temas.get(temaID);
+
+                if (maxMessageCount >= 2) 
+                {
+                    if (tema && owners.includes(message.author)) 
+                    {
+                      const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
+                
+                        // Eliminar el registro del tema y su estado
+                        temas.delete(temaID);
+                  
+                        // Eliminar al autor y otros usuarios del tema
+                        usuariosEnTemas.forEach((value, key) => {
+                          if (value === temaID) {
+                            usuariosEnTemas.delete(key);
+                          }
+                        });
+                  
+                        // Eliminar los registros de usos de !talk del autor y otros usuarios
+                        if (talkCounts.has(temaID)) {
+                          usuariosEnEsteTema.forEach(userID => {
+                            talkCounts.get(temaID).delete(userID);
+                          });
+                        }
+                      }
+
+                        owners.forEach(owner => talkCounts.delete(owner.id));
+
+                        talkCounts.delete(message.author.id);
+
+                        OpenToCall = 2;
+                        RestartFun(true)
+
+                        const valorActual = TemaLengthUsuarios.get(message.author.id);
+                        SizeOfTopic = valorActual
+
+                        const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
+                        RealTemaName = TemaAlmacenado
+
+                        if (Lenguaje == "English")
+                        {
+                          message.reply('The topic has been closed.');
+                        }
+                        else
+                        if (Lenguaje == "Español")
+                        {
+                          message.reply('El tema ha sido cerrado.');
+                        }
+                    }
+                    else 
+                    {
+                      if (Lenguaje == "English")
+                      {
+                        message.reply('You do not have permission to close the topic or you are not the owner.');
+                      }
+                      else
+                      if (Lenguaje == "Español")
+                      {
+                        message.reply('No tienes permiso para cerrar el tema o no eres el dueño.');
+                      }
+                    }
+                }
+                else
+                {
+                  if (Lenguaje == "English")
+                  {
+                    if (maxMessageCount == NaN)
+                    {
+                      message.reply(`You have registered (0 / 2) messages.`);
+                    }
+                    else
+                    {
+                      message.reply(`You have registered (${maxMessageCount} / 2) messages.`);
+                    }
+                  }
+                  else
+                  if (Lenguaje == "Español")
+                  {
+                    if (maxMessageCount == NaN)
+                    {
+                      message.reply(`Has registrado (0 / 2) mensajes.`);
+                    }
+                    else
+                    {
+                      message.reply(`Has registrado (${maxMessageCount} / 2) mensajes.`);
+                    } 
+                  }
+                }
+            }
+            else 
+            {
+              if (Lenguaje == "English")
+              {
+                message.reply('You are not in a topic to close.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('No estás en un tema para cerrar.');
+              }
+            }
+          }
+          else
+          if (args[0].toLowerCase() === 'cancel') 
+          {
+            const temaID = usuariosEnTemas.get(message.author.id);
+
+            if (temaID) {
+              const tema = temas.get(temaID);
+          
+              if (tema && owners.includes(message.author)) 
+              {
+                const usuariosEnEsteTema = [...new Set([...owners.map(owner => owner.id), ...usuariosEnTemas.keys()])];
+                
+                // Eliminar el registro del tema y su estado
+                temas.delete(temaID);
+          
+                // Eliminar al autor y otros usuarios del tema
+                usuariosEnTemas.forEach((value, key) => {
+                  if (value === temaID) {
+                    usuariosEnTemas.delete(key);
+                  }
+                });
+          
+                // Eliminar los registros de usos de !talk del autor y otros usuarios
+                if (talkCounts.has(temaID)) {
+                  usuariosEnEsteTema.forEach(userID => {
+                    talkCounts.get(temaID).delete(userID);
+                  });
+                }
+              }
+
+              if (Lenguaje == "English")
+              {
+                message.reply('Topic successfully cancelled.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('Tema cancelado correctamente.');
+              }
+
+              const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
+              TemaLengthUsuarios.set(message.author.id, 1);
+              RealTemaName = TemaAlmacenado
+
+              OpenToCall = 3;
+              RestartFun(true)
+            } 
+            else
+            {
+              if (Lenguaje == "English")
+              {
+                message.reply('You do not have a topic to cancel at this time.');
+              }
+              else
+              if (Lenguaje == "Español")
+              {
+                message.reply('No tienes un tema para cancelar en este momento.');
+              }
+            }
+          }
+          else
+          {
+            if (Lenguaje == "English")
+            {
+              message.reply('You must specify a subcommand (open, status, close, cancel) for the !topic command.');
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply('Debes especificar un subcomando (open, status, close, cancel) para el comando !topic.');
+            }
+          }
+        } 
+        else
+        if (command == 'talk') 
+        {
+          var character = args.shift(); // Obtener el nombre del personaje
+          CharacterToTalk = character;
+          const temaID = usuariosEnTemas.get(message.author.id);
+
+          if (temaID) 
+          {
+              const tema = temas.get(temaID);
+              if (tema && tema.abierto) 
+              {
+                  if (character) 
+                  {
+                      var messageContent = args.join(' '); // Obtener el contenido del mensaje
+                      if (messageContent)
+                      {
+                          if (messageContent.length > 1000) 
+                          {
+                            if (Lenguaje == "English")
+                            {
+                              message.reply('Message exceeds 1000 characters.');
+                            }
+                            else
+                            if (Lenguaje == "Español")
+                            {
+                              message.reply('El mensaje excede los 1000 caracteres.');
+                            }
+                          } 
+                          else
+                          if (messageContent.length <= 1000)
+                          {
+                            OpenToCall = 5;
+
+                            mesTex = messageContent;
+                            Chara = CharacterToTalk;
+
+                            // Registrar el mensaje del usuario en el tema
+                            tema.messages = tema.messages || [];
+                            tema.messages.push(`${message.author.username}: ${message.content}`);
+
+                            // Incrementar el contador de usos de !talk para el usuario
+                            if (!talkCounts.has(temaID)) 
+                            {
+                              talkCounts.set(temaID, new Map());
+                            }
+
+                            const TemaAlmacenado = TemaTituloUsuarios.get(message.author.id);
+                            const valorActual = TemaLengthUsuarios.get(message.author.id);
+                            TemaLengthUsuarios.set(message.author.id, valorActual + ValorASumar);
+                            
+                            SizeOfTopic  = valorActual
+                            RealTemaName = TemaAlmacenado
+                            
+                            const talkCount = talkCounts.get(temaID).get(message.author.id) || 0;
+                            talkCounts.get(temaID).set(message.author.id, talkCount + 1);
+                          }
+                      } 
+                      else 
+                      {
+                        if (Lenguaje == "English")
+                        {
+                          message.reply('Add a message.');
+                        }
+                        else
+                        if (Lenguaje == "Español")
+                        {
+                          message.reply('Añade un mensaje.');
+                        }
+                      }
+                  }
+                  else 
+                  {
+                    if (Lenguaje == "English")
+                    {
+                      message.reply('Add a character.\n**-Character list-**\n' + Names);
+                    }
+                    else
+                    if (Lenguaje == "Español")
+                    {
+                      message.reply('Añade un personaje.\n**-Lista de personajes-**\n' + Names);
+                    }
+                  }
+              }
+              else
+              {
+                if (Lenguaje == "English")
+                {
+                  message.reply('You must be in an open topic to use this command.');
+                }
+                else
+                if (Lenguaje == "Español")
+                {
+                  message.reply('Debes estar en un tema abierto para usar este comando.');
+                }
+              }
+          } 
+          else
+          {
+            if (Lenguaje == "English")
+            {
+              message.reply('You are not on a topic to use this command.');
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply('No estás en un tema para usar este comando.');
+            }
+          }
+        }
+        else
+        if (command == 'language')
+        {
+          if (args.length === 0) 
+          {
+            if (Lenguaje == "English")
+            {
+              message.reply('Select you language...\n**English** or **Spanish**.\n\nExample: !language ESP')
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply('Selecciona un idioma...\n**Ingles** o **Español**.\n\nEjemplo: !language ENG')
+            }
+          } 
+          else 
+          if (args[0].toLocaleUpperCase() === 'ENG')
+          {
+              if (temas.size === 0) 
+              {
+                OpenToCallLan = true
+                Lenguaje = "English"
+                SelectedLan = "English"
+                message.reply("Language Selected: English") 
+              }
+              else
+              {
+                if (Lenguaje == "English")
+                {message.reply("You Can't Select Languages during the open topic.") }
+                else
+                if (Lenguaje == "Español")
+                {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
+              }
+          } 
+          else 
+          if (args[0].toLocaleUpperCase() === 'ESP')
+          {
+            if (temas.size === 0) 
+            {
+              OpenToCallLan = true
+              Lenguaje = "Español"
+              SelectedLan = "Español"
+              message.reply("Idioma seleccionado: Español")
+            }
+            else
+            {
+              if (Lenguaje == "English")
+              {message.reply("You Can't Select Languages during the open topic.") }
+              else
+              if (Lenguaje == "Español")
+              {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
+            }
+          }
+          else
+          {
+            if (Lenguaje == "English")
+            {
+              message.reply('Invalid Language.')
+            }
+            else
+            if (Lenguaje == "Español")
+            {
+              message.reply('Idioma Invalido.')
+            }
+          }
+        }
+        else
+        if (command === 'join') 
+        {
+          const mentionedUser = message.mentions.users.first(); // Obtener el usuario mencionado
+    
+          if (mentionedUser) 
+          {
+            const temaID = usuariosEnTemas.get(mentionedUser.id);
+            if (temaID) 
+            {
+              // Verificar si el usuario mencionado está en un tema
+              if (!usuariosEnTemas.has(message.author.id)) 
+              {
+                const talkCount = talkCounts.get(mentionedUser.id); // Obtener el contador actual o establecerlo en 0
+                // Para cerrar el tema, establece el contador de usos de !talk en 2 o más
+                talkCounts.set(message.author.id, talkCount); // Incrementar el contador en 1
+
+                usuariosEnTemas.set(message.author.id, temaID); // Registrar al usuario en el mismo tema que el mencionado
+                
+                if (Lenguaje == "English")
+                {
+                  message.reply(`You have joined the topic together with ${mentionedUser.username}`);
+                }
+                else
+                if (Lenguaje == "Español")
+                {
+                  message.reply(`Te has unido al tema junto a ${mentionedUser.username}`);
+                }
+              } 
+              else 
+              {
+                if (Lenguaje == "English")
+                {
+                  message.reply('You are already joined to a topic.');
+                }
+                else
+                if (Lenguaje == "Español")
+                {
+                  message.reply('Ya estás unido a un tema.');
                 }
               }
             } 
@@ -288,147 +615,36 @@ client.on('messageCreate', (message) =>
             {
               if (Lenguaje == "English")
               {
-                message.reply('Topic is already Closed.');
+                message.reply('The named person is not in a topic.');
               }
               else
               if (Lenguaje == "Español")
               {
-                message.reply('Tema ya esta Cerrado.');
+                message.reply('La persona mencionada no está en un tema.');
               }
             }
           }
-      }
-      else
-      if (command == 'talk' && topicOpen) 
-      {
-          var character = args.shift(); // Obtener el nombre del personaje
-          CharacterToTalk = character;
-          
-          if (character) 
-          {
-            var messageContent = args.join(' '); // Obtener el contenido del mensaje
-            if (messageContent)
-            {
-              if (messageContent.length > 1000) 
-              {
-                 if (Lenguaje == "English")
-                 {
-                  message.reply('The message exceeds 1000 characters.');
-                 }
-                 else
-                 if (Lenguaje == "Español")
-                 {
-                  message.reply('El Message excede los 1000 caracteres.');
-                 }
-              }
-              else
-              if (messageContent.length <= 1000) 
-              {
-                OpenToCall = 5;
-                MessageNum++
-                EVENTPLUS++;
-                mesTex = messageContent;
-                Chara = CharacterToTalk;
-              }
-            }
-            else
-            {
-              if (Lenguaje == "English")
-              {
-                message.reply('Add a message.');
-              }
-              else
-              if (Lenguaje == "Español")
-              {
-                message.reply('Añade un mensaje.');
-              }
-            }
-          } 
           else 
           {
             if (Lenguaje == "English")
             {
-              message.reply('Add a character.\n**-Character List-**\n'+Names);
+              message.reply('You must mention the person you wish to join the topic with.')
             }
             else
             if (Lenguaje == "Español")
             {
-              message.reply('Añade un personaje.\n**-Lista de personajes-**\n'+Names);
+              message.reply('Debes mencionar a la persona con la que deseas unirte al tema.');
             }
           }
-      }
-      else
-      if (command == 'language')
-      {
-        if (args.length === 0) 
-        {
-          if (Lenguaje == "English")
-          {
-            message.reply('Select you language...\n**English** or **Spanish**.\n\nExample: !language esp')
-          }
-          else
-          if (Lenguaje == "Español")
-          {
-            message.reply('Selecciona un idioma...\n**Ingles** o **Español**.\n\nEjemplo: !language eng')
-          }
         } 
-        else 
-        if (args[0].toLowerCase() === 'eng')
-        {
-          if (TemaAbierto == false)
-          {
-            OpenToCallLan = true
-            SelectedLan = "English"
-            message.reply("Language Selected: English") 
-          }
-          else
-          {
-            if (Lenguaje == "English")
-            {message.reply("You Can't Select Languages during the open topic.") }
-            else
-            if (Lenguaje == "Español")
-            {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
-          }
-        } 
-        else 
-        if (args[0].toLowerCase() === 'esp')
-        {
-          if (TemaAbierto == false)
-          {
-            OpenToCallLan = true
-            SelectedLan = "Español"
-            message.reply("Idioma seleccionado: Español") 
-          }
-          else
-          {
-            if (Lenguaje == "English")
-            {message.reply("You Can't Select Languages during the open topic.") }
-            else
-            if (Lenguaje == "Español")
-            {message.reply("No se puedes seleccionar idiomas durante el tema abierto.") }
-          }
-        }
-        else
-        {
-          if (Lenguaje == "English")
-          {
-            message.reply('Invalid Language.')
-          }
-          else
-          if (Lenguaje == "Español")
-          {
-            message.reply('Idioma Invalido.')
-          }
-        }
-      }
-  }
+    }
 })
 
 
 wss.on("connection", ws => 
 {
   clientID++
-  console.log("Reconected "+clientID+" Times");
+  console.log("Reconnected "+clientID+" Times");
 
     ws.on("message", data => 
     {
@@ -445,15 +661,12 @@ wss.on("connection", ws =>
                   if (SelectedLan == "English")
                   {
                       console.log("Cambio de español a ingles")
-                      Lenguaje = "English";
                       CharLan = "English";
                   }
                   else
                   if (SelectedLan == "Español")
                   {
                       console.log("Cambio de ingles a español")
-                      
-                      Lenguaje = "Español";
                       CharLan = "Español";
                   }
 
@@ -469,86 +682,102 @@ wss.on("connection", ws =>
             break;
             case "Send_Topic":
               if (OpenToCall == true)
-              { 
-                TemaAbierto = true
+              {
                 CheckTopic = 0;
 
                 if (mesCon != MESSAGE){MESSAGE = mesCon}
-                                
+
                 var Topic_send = {
                   id: clientID,
-                  message_topic: mesCon
+                  message_topic: RealTemaName,
+                  topic_length: SizeOfTopic
                 }
+
                 Messages.push(Topic_send)
                 
                 ws.send(
                   JSON.stringify({
                     eventName: "Send_Topic",
                     id: clientID,
-                    message_topic: mesCon
+                    message_topic: RealTemaName,
+                    topic_length: SizeOfTopic
                   }
                   ));
-                  console.log("Send Topic")
+
                   OpenToCall = false
               }
             break;
             case "Send_Message":
-              if (OpenToCall == 5)
-              {
-                if (CharacterToTalk != Chara){CharacterToTalk = Chara;}
-                if (mesTex != MESSAGE){MESSAGE = mesTex}
-                                
+              if (OpenToCall == 5) {
+                if (CharacterToTalk != Chara) {
+                  CharacterToTalk = Chara;
+                }
+                if (mesTex != MESSAGE) {
+                  MESSAGE = mesTex;
+                }
+
                 var Messages_send = {
                   id: clientID,
                   message_nick: Chara,
                   message_text: mesTex,
-                  eventPlus: EVENTPLUS
-                }
-                
-                Messages.push(Messages_send)
-    
+                  message_topic: RealTemaName,
+                  topic_length: SizeOfTopic,
+                };
+
+                Messages.push(Messages_send);
+
                 ws.send(
                   JSON.stringify({
                     eventName: "Send_Message",
                     id: clientID,
                     message_nick: Chara,
                     message_text: mesTex,
-                    eventPlus: EVENTPLUS
-                  }));
-                  console.log("Send Message")
-                  OpenToCall = false;
-              }
+                    message_topic: RealTemaName,
+                    topic_length: SizeOfTopic
+                  })
+                );
+
+                console.log("Send Message");
+                OpenToCall = false;
+                }
             break;
             case "Close_Topic":
               if (OpenToCall == 2)
               {
+                var Messages_send = {
+                  changeNumber: CheckTopic,
+                  message_topic: RealTemaName,
+                  size_to_finish: SizeOfTopic
+                };
+
+                Messages.push(Messages_send);
+
                   ws.send(
                     JSON.stringify({
                       eventName: "Close_Topic",
-                      changeNumber: CheckTopic
+                      changeNumber: CheckTopic, 
+                      message_topic: RealTemaName,
+                      size_to_finish: SizeOfTopic
                     }));          
 
                   console.log("Close Topic")
-                  OpenToCall = 3;
+                  OpenToCall = 4;
               }
             break;
-            case "Restart_New": //TEMPORAL
-            if (OpenToCall == 3)
-            {
-                TemaAbierto = false
-                NewValue = true
+            case "Cancel_Topic":
+              if (OpenToCall == 3)
+              {
+                  ws.send(
+                    JSON.stringify({
+                      eventName: "Cancel_Topic",
+                      message_topic: RealTemaName,
+                      changeNumber: CheckTopic
+                    }));          
 
-                ws.send(
-                  JSON.stringify({
-                    id: clientID,
-                    eventName: "Restart_New",
-                    setNew: NewValue,
-                    setReading: Writing
-                  }));  
-                  console.log("Restarting")
-                OpenToCall = false;
-            }
-            break; //TEMPORAL
+                  console.log("Cancel Topic")
+                  OpenToCall = 4;
+              }
+            break;
         }
     })
     
@@ -602,7 +831,6 @@ function RestartEntornVars(Active)
 {
     if (Active = true)
     {
-        EVENTPLUS = 1
         CheckTopic = 1  
         Active = false
     }
