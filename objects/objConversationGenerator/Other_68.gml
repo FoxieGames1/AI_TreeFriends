@@ -63,6 +63,13 @@ switch(async_load[? "type"])
 					listLimit = i
 				}
 				
+				with(objVars)
+				{
+					audio_stop_sound(musJeopardy)
+					if Music = true {Music = false}
+					with(objCamera){WaitingANewRequester = false}
+				}
+				
 				ClosedTopicWaitToNext = true
 			}
 			break

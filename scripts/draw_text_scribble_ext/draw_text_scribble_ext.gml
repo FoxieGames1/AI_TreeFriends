@@ -14,9 +14,11 @@
 /// @param y            The y coordinate of the drawn string
 /// @param string       The string to draw
 /// @param width        The maximum width in pixels of the string before a line break
+/// @param sep          The Separation height in percentage
+/// @param scale        The Scale of the text
 /// @param [charCount]  The number of characters from the string to draw. If not specified, all characters will be drawn
 
-function draw_text_scribble_ext(_x, _y, _string, _width, _reveal = undefined)
+function draw_text_scribble_ext(_x, _y, _string, _width, _sep, _scale, _reveal = undefined)
 {
     static _scribble_state = __scribble_get_state();
     
@@ -35,7 +37,10 @@ function draw_text_scribble_ext(_x, _y, _string, _width, _reveal = undefined)
     .align(draw_get_halign(), draw_get_valign())
     .starting_format(_font, c_white)
     .blend(draw_get_color(), draw_get_alpha())
-    .wrap(_width);
+    .wrap(_width)
+	.line_spacing(_sep)
+	.scale(_scale)
+	
     if (_reveal != undefined) _element.reveal(_reveal);
     _element.draw(_x, _y);
     return _element;
