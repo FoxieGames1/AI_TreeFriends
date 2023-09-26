@@ -1,8 +1,7 @@
 with(objConversationGenerator)
 {
 	other.Event = Texto;
-	
-	//other.FirstName = NicksPending[0]
+	other.FirstName = NicksPending[0]
 }
 
 if TimeCard = false

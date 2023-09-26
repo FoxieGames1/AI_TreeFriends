@@ -29,7 +29,7 @@ function createFileWithDatetime(fileName)
 	}
 	else
 	{
-	    show_message("No se pudo abrir el archivo para escribir los datos.");
+	    show_debug_message("No se pudo abrir el archivo para escribir los datos.");
 	}
 }
 
@@ -42,6 +42,9 @@ function saveInfo(fileName, characterName, msg, topicname)
 	    // Obtén el número de línea actual (para X)
 	    var lineCount = file_text_open_append(fileName) + 1;
     
+	    // Reemplaza los caracteres de salto de línea al final de msg por espacios
+	    msg = string_replace_all(msg, "\n", " ");
+    
 	    // Formatea la información y guárdala en el archivo
 	    var dataToSave = string(characterName) + " " + msg + "\n";
     
@@ -51,7 +54,7 @@ function saveInfo(fileName, characterName, msg, topicname)
 	} 
 	else 
 	{
-	    show_message("No se pudo abrir el archivo para guardar los datos.");
+	    show_debug_message("No se pudo abrir el archivo para guardar los datos.");
 	}
 }
 
@@ -73,17 +76,18 @@ function loadInfo(fileName, pos)
 	    if (espacio != 0)
 		{
 			var nombrePersonaje = string_copy(linea, 1, espacio - 1); // Obtén el nombre del personaje
-			var mensaje = string_copy(linea, espacio + 1, string_length(linea)); // Obtén el mensaje completo
-
 			NicksPending[pos] = nombrePersonaje;
+			
+			var mensaje = string_copy(linea, espacio + 1, string_length(linea)); // Obtén el mensaje completo
 			TextPending[pos] = mensaje;
+		
 		}
 		
 	    file_text_close(fileHandle); // Cierra el archivo después de leerlo
 	}
 	else
 	{
-	    show_message("No se pudo abrir el archivo para leer los datos.");
+	    show_debug_message("No se pudo abrir el archivo para leer los datos.");
 	}
 }
 
