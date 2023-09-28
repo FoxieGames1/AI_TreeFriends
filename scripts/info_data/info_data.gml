@@ -1,9 +1,10 @@
-function createFileWithDatetime(fileName)
+ function createFileWithDatetime(fileName)
 {
-	var fileHandle = file_text_open_write(fileName);
-
-	if (fileHandle != -1)
+	if (!file_exists(fileName))
 	{
+		var fileHandle = file_text_open_write(fileName);
+		var TopicStatus = "Topic: Open" + "\n";
+		
 	    // Obtener la fecha y hora actual
 		var current_second_fix = 0;
 		if current_second < 10
@@ -22,8 +23,8 @@ function createFileWithDatetime(fileName)
 	    var timeStamp = "|" + string(current_day) + "/" + string(current_month) + "/" + string(current_year) + " | " + string(current_hour) + ":" + string(current_minute_fix) + ":" + string(current_second_fix) + "|";
 
 	    // Escribir la fecha y hora en el archivo
-	    file_text_write_string(fileHandle, "Fecha de Creación: " + string(timeStamp) + "\n");
-
+	    file_text_write_string(fileHandle, string(TopicStatus));
+		file_text_write_string(fileHandle, "Fecha de Creación: " + string(timeStamp) + "\n");
 
 	    file_text_close(fileHandle);
 	}
@@ -35,10 +36,9 @@ function createFileWithDatetime(fileName)
 
 function saveInfo(fileName, characterName, msg, topicname)
 {
-	var fileHandle = file_text_open_append(fileName);
-
-	if (fileHandle != -1)
+	if (file_exists(fileName))
 	{
+		var fileHandle = file_text_open_append(fileName);
 	    // Obtén el número de línea actual (para X)
 	    var lineCount = file_text_open_append(fileName) + 1;
     
@@ -60,34 +60,33 @@ function saveInfo(fileName, characterName, msg, topicname)
 
 function loadInfo(fileName, pos)
 {
-	var fileHandle = file_text_open_read(fileName);
-
-	if (fileHandle != -1)
+	if (file_exists(fileName))
 	{
-		repeat(pos+1)
+		
+		var fileHandle = file_text_open_read(fileName);
+		
+		repeat(pos+2)
 		{
 			file_text_readln(fileHandle);
 		}
-	    
+	   
 		var linea = file_text_readln(fileHandle); // Lee una línea del archivo
-
-	    // Divide la línea en nombre y mensaje utilizando el primer espacio como delimitador
-	    var espacio = string_pos(" ", linea);
-	    if (espacio != 0)
+		// Divide la línea en nombre y mensaje utilizando el primer espacio como delimitador
+		var espacio = string_pos(" ", linea);
+		if (espacio != 0)
 		{
 			var nombrePersonaje = string_copy(linea, 1, espacio - 1); // Obtén el nombre del personaje
 			NicksPending[pos] = nombrePersonaje;
 			
 			var mensaje = string_copy(linea, espacio + 1, string_length(linea)); // Obtén el mensaje completo
 			TextPending[pos] = mensaje;
-		
 		}
 		
-	    file_text_close(fileHandle); // Cierra el archivo después de leerlo
+		file_text_close(fileHandle); // Cierra el archivo después de leerlo
 	}
 	else
 	{
-	    show_debug_message("No se pudo abrir el archivo para leer los datos.");
+		show_debug_message("No se pudo abrir el archivo para leer los datos.");
 	}
 }
 
@@ -103,7 +102,8 @@ function delete_all_starter()
 
 	var fileSearch = file_find_first(directory + "*.*", 0);
 
-	while (fileSearch != "") {
+	while (fileSearch != "")
+	{
 	    // Elimina el archivo
 	    var filePath = directory + fileSearch;
 	    if (file_delete(filePath)) 
@@ -143,48 +143,12 @@ function readAndSortFilesByName()
 	var num_files = ds_list_size(file_list);
 	var file_name = ds_list_find_value(file_list, 0);
 	
-	var file_handle = file_text_open_read(string(directory) + string(file_name));
+	var TrueFileName = string(directory) + string(file_name);
 	
-	var I = 0;
-	var LINE = 0;
-	
-	while (!file_text_eof(file_handle))
+	if file_exists(TrueFileName)
 	{
-        var linea = file_text_readln(file_handle);
-		if (I == 0)
-		{
-			LINE++
-			linea = file_text_readln(file_handle);
-		}
-		I++
-		
-		LINE = I+1
-    }
-	
-	file_text_close(file_handle);
-	
-	with(objCamera){TimeCard = false TimeCardSound = false}
-	global.DisableModelsDuringPause = false
-	Texto = "Terminando"
-	
-	var FileNameForOpen = file_name
-	SizeOfTopic = LINE
-	
-	for (var i = 1; i <= SizeOfTopic; ++i)
-	{
-		loadInfo(string(directory) + string(FileNameForOpen), i-1)
-		listLimit = i
+		with(objCamera){alarm[2] = 1}
 	}
-	
-	// Realiza acciones con el archivo
-	show_debug_message("Siguiente Archivo: " + FileNameForOpen);
-	
-	LastFile = string(directory) + string(FileNameForOpen)
-	
-	// Limpia la lista de archivos
-	ds_list_destroy(file_list);
-	
-	ClosedTopicWaitToNext = 3
 }
 
 function CheckDirectory()
@@ -206,4 +170,53 @@ function CheckDirectory()
         // Se encontraron archivos en el directorio
         return true;
     }
+}
+
+function ReplaceStringToNew(fileName, textoReemplazar)
+{
+	if file_exists(fileName)
+	{
+		var fileHandle = file_text_open_read(fileName);
+	    var fileContent = "";
+		var textoOriginal = "Topic: Open";
+	
+	    if (fileHandle != -1)
+	    {
+			var linea = file_text_readln(fileHandle);
+			
+	        // Leer el contenido del archivo línea por línea
+	        while (!file_text_eof(fileHandle))
+	        {
+	            linea = file_text_readln(fileHandle);
+	            fileContent += linea;
+	        }
+		
+			file_text_close(fileHandle);
+		
+			var fileHandle2 = file_text_open_write(fileName);
+			string_delete(textoOriginal, 0, string_length(textoOriginal))
+			file_text_write_string(fileHandle2, textoReemplazar + "\n");
+			file_text_write_string(fileHandle2, fileContent)
+
+			file_text_close(fileHandle2);
+		}
+	}
+}
+
+function FindString(archivo, stringBuscado)
+{
+	if file_exists(archivo)
+	{
+		file_text_open_read(archivo);
+		var encontrado = false;
+		while (!file_text_eof(archivo)) 
+		{
+		    var linea = file_text_read_string(archivo);
+		    if (string_pos(stringBuscado, linea) != 0)
+			{
+		        encontrado = true;
+		        break;
+		    }
+		}
+	}
 }

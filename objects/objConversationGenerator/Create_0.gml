@@ -30,6 +30,7 @@ TopicRealCount = -1
 TopicNameFile = "";
 TopicID = 0
 TopicIDReal = 0
+TopicIDDef  = 0
 TextPendingList = ""
 NicksPendingList = ""
 

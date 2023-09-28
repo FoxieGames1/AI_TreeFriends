@@ -2,51 +2,58 @@ global.DisableModelsDuringPause = false
 
 with(objConversationGenerator)
 {
-	if ClosedTopicWaitToNext = -2
-	{
-		deleteInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt")
+	var FILE = "Topics" + "/" + string(TopicIDDef) + " [PENDING] "+string(NameOfTopic)+".txt";
 	
-		if file_exists(LastFile)
-		{deleteInfo(LastFile)}
-		
-		for(var I = 0; I < listMax; I++)
-		{
-			TextPending[I] = ""
-			NicksPending[I] = "" 
-		}
-		
-		scrDefaultValues()
-		listLimit = 1
-		
-		if (CheckDirectory())
-		{
-			readAndSortFilesByName()
-		}
-	}
-	else
-	if ClosedTopicWaitToNext = true
+	if file_exists(FILE)
 	{
-		deleteInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt")
-		
-		for(var I = 0; I < listMax; I++)
+		if ClosedTopicWaitToNext = -2
 		{
-			TextPending[I] = ""
-			NicksPending[I] = "" 
-		}
+			deleteInfo(FILE)
+			
+			if file_exists(LastFile)
+			{deleteInfo(LastFile)}
 		
-		scrDefaultValues()
-		listLimit = 1
+			for(var I = 0; I < listMax; I++)
+			{
+				TextPending[I] = ""
+				NicksPending[I] = "" 
+			}
 		
-		if (CheckDirectory() && ClosedTopicWaitToNext = 1)
-		{
-			ClosedTopicWaitToNext = 2
+			scrDefaultValues()
+			listLimit = 1
+		
+			if (CheckDirectory())
+			{
+				readAndSortFilesByName()
+			}
 		}
 		else
-		if (!CheckDirectory() && ClosedTopicWaitToNext = 1)
+		if ClosedTopicWaitToNext = true
 		{
-			ClosedTopicWaitToNext = -1
+			deleteInfo(FILE)
+	
+			if file_exists(LastFile)
+			{deleteInfo(LastFile)}
+		
+			for(var I = 0; I < listMax; I++)
+			{
+				TextPending[I] = ""
+				NicksPending[I] = "" 
+			}
+		
+			scrDefaultValues()
+			listLimit = 1
+			
+			if (CheckDirectory() && ClosedTopicWaitToNext = 1)
+			{
+				ClosedTopicWaitToNext = 2
+			}
+			else
+			if (!CheckDirectory() && ClosedTopicWaitToNext = 1)
+			{
+				ClosedTopicWaitToNext = -1
+			}
 		}
 	}
 }
-
 WaitingANewRequester = false

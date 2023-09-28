@@ -63,12 +63,18 @@ switch(async_load[? "type"])
 					listLimit = i
 				}
 				
+				var File = "Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt"
+				
+				ReplaceStringToNew(File, "Topic: Closed")				
+				
 				with(objVars)
 				{
 					audio_stop_sound(musJeopardy)
 					if Music = true {Music = false}
 					with(objCamera){WaitingANewRequester = false}
 				}
+				
+				TopicIDDef = TopicIDReal
 				
 				ClosedTopicWaitToNext = true
 			}
