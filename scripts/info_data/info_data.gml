@@ -144,10 +144,46 @@ function readAndSortFilesByName()
 	var file_name = ds_list_find_value(file_list, 0);
 	
 	var TrueFileName = string(directory) + string(file_name);
+	var LINE = 0;
 	
 	if file_exists(TrueFileName)
 	{
-		with(objCamera){alarm[2] = 1}
+		with(objCamera)
+		{TimeCard = false TimeCardSound = false}
+
+		global.DisableModelsDuringPause = false
+		Texto = "Terminando"
+	
+		if file_exists(TrueFileName)
+		{
+			var fileHandle = file_text_open_read(TrueFileName);
+		
+			while (!file_text_eof(fileHandle))
+	        {
+	            var line = file_text_readln(fileHandle);
+	            LINE++
+	        }
+		
+			file_text_close(fileHandle);
+			deleteInfo(fileHandle)
+		}
+		
+		SizeOfTopic = LINE 
+	
+		for (var i = 1; i <= SizeOfTopic; ++i)
+		{
+			loadInfo(string(TrueFileName), i-1)
+			listLimit = i
+		}
+	
+		// Realiza acciones con el archivo
+		show_debug_message("Siguiente Archivo: " + string(file_name));
+		LastFile = string(TrueFileName)
+		
+		// Limpia la lista de archivos
+		ds_list_destroy(file_list);
+	
+		ClosedTopicWaitToNext = 3
 	}
 }
 
