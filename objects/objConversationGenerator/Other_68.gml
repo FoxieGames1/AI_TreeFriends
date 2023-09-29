@@ -46,16 +46,14 @@ switch(async_load[? "type"])
 				ClosedTopicWaitToNext = false
 			}
 			
-			NameOfTopic = realData[? "message_topic"];
-			TopicIDReal = realData[? "topic_id_real"];
-			
-			var File = "Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt"
-			
 			if ClosedTopicWaitToNext = false
 			{
 				with(objCamera){TimeCard = false TimeCardSound = false}
 				
+				NameOfTopic = realData[? "message_topic"];
+				TopicIDReal = realData[? "topic_id_real"];
 				SizeOfTopic = realData[? "size_to_finish"];
+				
 				global.DisableModelsDuringPause = false
 				if (global.StartStream = true) {global.StartStream = false}
 				Texto = "Terminando"
@@ -73,12 +71,13 @@ switch(async_load[? "type"])
 					with(objCamera){WaitingANewRequester = false}
 				}
 				
-				TopicIDDef = TopicIDReal
-				
 				ClosedTopicWaitToNext = true
 			}
 			
+			var File = "Topics" + "/" + string(TopicIDRealSave) + " [PENDING] "+string(NameOfTopic)+".txt"
 			ReplaceStringToNew(File, "Topic: Closed")
+			
+			TopicIDRealSave = 0
 			
 			break
 			

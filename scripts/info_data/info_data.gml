@@ -145,15 +145,18 @@ function readAndSortFilesByName()
 	
 	var TrueFileName = string(directory) + string(file_name);
 	var LINE = 0;
+	var FindText = FindString(TrueFileName, "Topic: Closed")
 	
-	if file_exists(TrueFileName)
+	show_debug_message("FindText: "+string(FindText))
+	
+	if (FindText)
 	{
 		with(objCamera)
 		{TimeCard = false TimeCardSound = false}
 
 		global.DisableModelsDuringPause = false
 		Texto = "Terminando"
-	
+		
 		if file_exists(TrueFileName)
 		{
 			var fileHandle = file_text_open_read(TrueFileName);
@@ -165,10 +168,11 @@ function readAndSortFilesByName()
 	        }
 		
 			file_text_close(fileHandle);
-			deleteInfo(fileHandle)
 		}
 		
 		SizeOfTopic = LINE 
+		
+		ClosedTopicWaitToNext = 3
 	
 		for (var i = 1; i <= SizeOfTopic; ++i)
 		{
@@ -181,9 +185,7 @@ function readAndSortFilesByName()
 		LastFile = string(TrueFileName)
 		
 		// Limpia la lista de archivos
-		ds_list_destroy(file_list);
-	
-		ClosedTopicWaitToNext = 3
+		ds_list_destroy(file_list);	
 	}
 }
 
@@ -241,18 +243,25 @@ function ReplaceStringToNew(fileName, textoReemplazar)
 
 function FindString(archivo, stringBuscado)
 {
-	if file_exists(archivo)
-	{
-		file_text_open_read(archivo);
-		var encontrado = false;
-		while (!file_text_eof(archivo)) 
-		{
-		    var linea = file_text_read_string(archivo);
-		    if (string_pos(stringBuscado, linea) != 0)
-			{
-		        encontrado = true;
-		        break;
-		    }
-		}
-	}
+	var encontrado = false
+	
+	    if file_exists(archivo)
+	    {
+	        var fileHandle = file_text_open_read(archivo);
+
+	        while (!file_text_eof(fileHandle)) 
+	        {
+	            var linea = file_text_readln(fileHandle);
+            
+	            if (string_pos(stringBuscado, linea) > 0)
+	            {
+	                encontrado = true
+	                break;
+	            }
+	        }
+        
+	        file_text_close(fileHandle);
+	    }
+		
+    return encontrado;
 }

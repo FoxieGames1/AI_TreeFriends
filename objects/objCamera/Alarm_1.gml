@@ -2,12 +2,12 @@ global.DisableModelsDuringPause = false
 
 with(objConversationGenerator)
 {
-	var FILE = "Topics" + "/" + string(TopicIDDef) + " [PENDING] "+string(NameOfTopic)+".txt";
+	var FILE = "Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt";
 	
 	if ClosedTopicWaitToNext = -2
 	{
 		deleteInfo(FILE)
-			
+		
 		if file_exists(LastFile)
 		{deleteInfo(LastFile)}
 		
@@ -19,17 +19,12 @@ with(objConversationGenerator)
 		
 		scrDefaultValues()
 		listLimit = 1
-		
-		if (CheckDirectory())
-		{
-			readAndSortFilesByName()
-		}
 	}
 	else
 	if ClosedTopicWaitToNext = true
 	{
 		deleteInfo(FILE)
-
+		
 		if file_exists(LastFile)
 		{deleteInfo(LastFile)}
 		

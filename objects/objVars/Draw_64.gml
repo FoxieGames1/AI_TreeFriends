@@ -50,5 +50,28 @@ if global.StartStream = true
 	draw_sprite_ext(sprStartup, 0, VisualX/2, VisualY/2,0.7,0.7,0,c_white,1)
 }
 
+/*
+draw_set_color(c_white)
+draw_set_font(fntDmSans)
+*/
+
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
+draw_set_color(c_red)
+draw_set_font(fntDmSans)
+
+with(objConversationGenerator)
+{
+	draw_text(0,0,"TopicIDRealFollow: "+string(TopicIDReal))
+}
+
+with(objCamera)
+{
+	draw_text(0,32,"alarm[1]: "+string(alarm[1]))
+}
+
+draw_set_halign(fa_center);
+draw_set_valign(fa_center);
+
 draw_set_color(c_white)
 draw_set_font(fntDmSans)

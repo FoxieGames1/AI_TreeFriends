@@ -1,5 +1,3 @@
-/*
-//My PC VOICES
 function scrCharaTalk()
 {
 	if global.Language = "English"
@@ -24,37 +22,6 @@ function scrCharaTalk()
 			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(23, 50, 0, 0)	    global.Talker = 3 break;
 			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(22, 100, 0, 0)    global.Talker = 4 break;
 			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(24, 50, 0, 0)	    global.Talker = 5 break;
-			case "Public":	global.Character = "Public"   global.Talker = 10 break;
-		}
-	}
-}
-*/
-
-
-function scrCharaTalk()
-{
-	if global.Language = "English"
-	{
-		switch(NicksPending[listNumber])
-		{
-			case "Flaky":	global.Character = "Flaky"    dlc_tts_set_opt(1, 100, 0, 0)	global.Talker = 1 break;
-			case "Toothy":	global.Character = "Toothy"   dlc_tts_set_opt(1, 100, 0, 0)	global.Talker = 2 break;
-			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(1, 100, 0, 0)	global.Talker = 3 break;
-			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(1, 100, 0, 0)	global.Talker = 4 break;
-			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(1, 100, 0, 0)	global.Talker = 5 break;
-			case "Public":	global.Character = "Public"   global.Talker = 10 break;
-		}
-	}
-	else
-	if global.Language = "Español"
-	{
-		switch(NicksPending[listNumber])
-		{
-			case "Flaky":	global.Character = "Flaky"    dlc_tts_set_opt(0, 100, 0, 0)	global.Talker = 1 break;
-			case "Toothy":	global.Character = "Toothy"   dlc_tts_set_opt(0, 100, 0, 0)	global.Talker = 2 break;
-			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(0, 100, 0, 0)	global.Talker = 3 break;
-			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(0, 100, 0, 0) global.Talker = 4 break;
-			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(0, 100, 0, 0)	global.Talker = 5 break;
 			case "Public":	global.Character = "Public"   global.Talker = 10 break;
 		}
 	}
