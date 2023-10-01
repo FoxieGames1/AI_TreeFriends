@@ -26,7 +26,7 @@ if Texto = "Voces..."
 	{
 		if listNumber < listLimit-1
 		{
-			if NicksPending[listNumber] = "Public"
+			if NicksPending[listNumber] = "▯"
 			{
 				if Public = false
 				{

@@ -9,13 +9,11 @@ with(objConversationGenerator)
 	{
 		TopicIDRealFind = FindFirst();
 		FILE = "Topics" + "/" + string(TopicIDRealFind);
-		show_message("MESSAGE BORRADO: "+string(TopicIDRealFind))
 	}
 	else
 	{
 		TopicIDRealFind = FirstTalk
 		FILE = "Topics" + "/" + string(FirstTalk) +" [PENDING]"+".txt";
-		show_message("MESSAGE BORRADO: "+string(TopicIDRealFind))
 		TopicIDReal = FirstTalker
 	}
 	

@@ -38,6 +38,7 @@ switch(async_load[? "type"])
 			case "Send_Message": //DONE
 				TopicNameFile    = realData[? "message_topic"];
 				NicksPendingList = realData[? "message_nick"];
+				NicksPendingList = FixString(NicksPendingList)
 				TextPendingList  = realData[? "message_text"];
 				TopicIDReal      = realData[? "topic_id_real"];
 				

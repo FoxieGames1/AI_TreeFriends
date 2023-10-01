@@ -22,7 +22,7 @@ else
 if FirstName = "Petunia"
 {Player = 5;}
 else
-if FirstName = "Public"
+if FirstName = "▯"
 {Player = 10}
 
 if global.Talker > 0 && Player > 0

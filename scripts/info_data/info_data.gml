@@ -253,7 +253,7 @@ function FindString(archivo, stringBuscado)
     }
     else
     {
-        show_message("El archivo no existe.");
+        show_debug_message("El archivo no existe.");
         return false;
     }
 }
@@ -289,4 +289,61 @@ function FindLast()
     file_find_close();
 	
     return lastTxtFile;
+}
+
+function FixString(palabra)
+{
+    // Lista de nombres a verificar
+    var nombresIncorrectos = ["flaky", "toothy", "handy", "giggles", "petunia"]
+	
+	var nombresNormales = ["Flaky", "Toothy", "Handy", "Giggles", "Petunia"];
+    var encontrado = false;
+	
+	// Convierte la primera letra en mayúscula y las demás en minúscula
+	palabra = string_lower(string_copy(palabra, 1, string_length(palabra)));
+	
+	for (var i = 0; i < array_length_1d(nombresIncorrectos); i++)
+	{
+		var nombre = nombresIncorrectos[i];
+		
+		// Verifica si la palabra comienza con uno de los nombres
+        if (string_pos(nombre, palabra) == 1)
+        {
+			// Convierte la primera letra en mayúscula y las demás en minúscula
+			palabra = string_lower(string_copy(nombre, 1, string_length(nombre)));
+        
+			// Convierte la primera letra en mayúscula y las demás en minúscula
+			palabra = string_upper(string_copy(nombre, 1, 1)) + string_lower(string_copy(nombre, 2, string_length(nombre)));
+		}
+	}                
+	
+    for (var i = 0; i < array_length_1d(nombresNormales); i++)
+    {
+        var nombre = nombresNormales[i];
+		
+        // Verifica si la palabra comienza con uno de los nombres
+        if (string_pos(nombre, palabra) == 1)
+        {
+            encontrado = true;
+            
+            // Obtén las palabras adicionales después del nombre
+            var palabrasAdicionales = string_copy(palabra, string_length(nombre) + 1, string_length(palabra));
+            
+            // Si hay palabras adicionales, agrégalas al nombre
+            if (string_length(palabrasAdicionales) > 0)
+            {
+				palabra = nombre;
+			}
+            
+            break;
+        }
+    }
+    
+    if (!encontrado)
+    {
+        // Si no se encontró ninguno de los nombres, agrega "Flaky" por defecto
+        palabra = "Crowd"
+    }
+    
+    return palabra;
 }

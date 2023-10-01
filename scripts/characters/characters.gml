@@ -9,7 +9,7 @@ function scrCharaTalk()
 			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(18, 100, 0, 10)	global.Talker = 3 break;
 			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(9, 100, 0, 10)	global.Talker = 4 break;
 			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(5, 100, 0, 0)	    global.Talker = 5 break;
-			case "Public":	global.Character = "Public"   global.Talker = 10 break;
+			case "▯":	    global.Character = "▯"   global.Talker = 10								  break;
 		}
 	}
 	else
@@ -22,7 +22,7 @@ function scrCharaTalk()
 			case "Handy":	global.Character = "Handy"    dlc_tts_set_opt(23, 50, 0, 0)	    global.Talker = 3 break;
 			case "Giggles":	global.Character = "Giggles"  dlc_tts_set_opt(22, 100, 0, 0)    global.Talker = 4 break;
 			case "Petunia":	global.Character = "Petunia"  dlc_tts_set_opt(24, 50, 0, 0)	    global.Talker = 5 break;
-			case "Public":	global.Character = "Public"   global.Talker = 10 break;
+			case "▯":	    global.Character = "▯"   global.Talker = 10								  break;
 		}
 	}
 }
@@ -35,7 +35,7 @@ function scrCharactersFix()
 	|| NicksPending[listNumber] = "Giggles"
 	|| NicksPending[listNumber] = "Petunia")
 	{
-		NicksPending[listNumber] = "Public" 
+		NicksPending[listNumber] = "▯" 
 	}	
 }
 
@@ -250,7 +250,7 @@ function scrPosition()
 			global.PlayerYY[5] = y
 		}
 		else
-		if Character = "Public"
+		if Character = "▯"
 		{	
 			global.PlayerXX[10] = global.TalkerDirectionX
 			global.PlayerYY[10] = global.TalkerDirectionY

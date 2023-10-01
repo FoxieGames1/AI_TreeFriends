@@ -8,7 +8,7 @@ function scrDefaultValues()
 	dlc_initialize(true); // If not called first, every other extension function will always fail
 
 	global.VoiceID = -1
-	global.Character = "Public"
+	global.Character = "▯"
 
 	if global.VoiceID = -1
 	{global.VoiceID = 9}
