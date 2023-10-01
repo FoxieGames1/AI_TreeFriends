@@ -1,4 +1,4 @@
- function createFileWithDatetime(fileName)
+function createFileWithDatetime(fileName)
 {
 	if (!file_exists(fileName))
 	{
