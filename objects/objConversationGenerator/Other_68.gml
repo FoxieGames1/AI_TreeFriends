@@ -25,9 +25,13 @@ switch(async_load[? "type"])
 				TopicNameFile   = realData[? "message_topic"];
 				TopicIDReal		= realData[? "topic_id_real"];
 				
-				if !file_exists("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(TopicNameFile)+".txt")
+				NameOfTopicSAVE = TopicNameFile
+				
+				FirstTalker = TopicIDReal;
+				
+				if !file_exists("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt")
 				{
-					createFileWithDatetime("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(TopicNameFile)+".txt")
+					createFileWithDatetime("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt")
 				}
 			break;
 			
@@ -35,24 +39,39 @@ switch(async_load[? "type"])
 				TopicNameFile    = realData[? "message_topic"];
 				NicksPendingList = realData[? "message_nick"];
 				TextPendingList  = realData[? "message_text"];
-				TopicIDReal = realData[? "topic_id_real"];
+				TopicIDReal      = realData[? "topic_id_real"];
 				
-				saveInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(TopicNameFile)+".txt", NicksPendingList, TextPendingList, TopicNameFile)
+				saveInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt", NicksPendingList, TextPendingList, TopicNameFile)
 			break;
 			
 			case "Close_Topic": //DONE
-			if ClosedTopicWaitToNext = -2
+			if ClosedTopicWaitToNext = 1.5
 			{
-				ClosedTopicWaitToNext = false
+				ClosedTopicWaitToNext = 1	
 			}
+			
+			if ClosedTopicWaitToNext = 1
+			{
+				ClosedTopicWaitToNext = 1.25
+			}
+			
+			if ClosedTopicWaitToNext = -1
+			{ClosedTopicWaitToNext = 0}
+			
+			if ClosedTopicWaitToNext = 2
+			{ClosedTopicWaitToNext = 0}
 			
 			if ClosedTopicWaitToNext = false
 			{
 				with(objCamera){TimeCard = false TimeCardSound = false}
 				
-				NameOfTopic = realData[? "message_topic"];
 				TopicIDReal = realData[? "topic_id_real"];
 				SizeOfTopic = realData[? "size_to_finish"];
+				
+				TopicIDRealRead = TopicIDReal
+				
+				var File = "Topics" + "/" + string(TopicIDReal) + " [PENDING].txt"
+				ReplaceStringToNew(File, "Topic: Open", "Topic: Closed")
 				
 				global.DisableModelsDuringPause = false
 				if (global.StartStream = true) {global.StartStream = false}
@@ -60,7 +79,7 @@ switch(async_load[? "type"])
 				
 				for (var i = 1; i <= SizeOfTopic; ++i)
 				{
-				    loadInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt", i-1)
+				    loadInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt", i-1)
 					listLimit = i
 				}
 				
@@ -71,14 +90,22 @@ switch(async_load[? "type"])
 					with(objCamera){WaitingANewRequester = false}
 				}
 				
-				ClosedTopicWaitToNext = true
+				FirstTalk = TopicIDReal
+				LastTalker = realData[? "topic_id_real"];
+				
+				ClosedTopicWaitToNext = 1
 			}
 			
-			var File = "Topics" + "/" + string(TopicIDRealSave) + " [PENDING] "+string(NameOfTopic)+".txt"
-			ReplaceStringToNew(File, "Topic: Closed")
-			
-			TopicIDRealSave = 0
-			
+			if ClosedTopicWaitToNext = 1.25
+			{
+				TopicIDReal = realData[? "topic_id_real"];
+				SizeOfTopic = realData[? "size_to_finish"];
+				
+				var File = "Topics" + "/" + string(TopicIDReal) + " [PENDING].txt"
+				ReplaceStringToNew(File, "Topic: Open", "Topic: Closed")
+				
+				ClosedTopicWaitToNext = 1.5
+			}
 			break
 			
 			case "Send_Language": //DONE
@@ -87,7 +114,7 @@ switch(async_load[? "type"])
 			
 			case "Cancel_Topic": //DONE
 				TopicNameFile    = realData[? "message_topic"];
-				deleteInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(TopicNameFile)+".txt")
+				deleteInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt")
 			break;
 		}	
 	}

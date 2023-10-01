@@ -30,14 +30,11 @@ TopicRealCount = -1
 TopicNameFile = "";
 TopicID = 0
 TopicIDReal = 0
-TopicIDRealSave = 0
 TextPendingList = ""
 NicksPendingList = ""
 
 ClosedTopicWaitToNext = false
-NameOfTopic = ""
 
-LastFile = ""
 SizeOfTopic = 0
 
 for(var I = 0; I < listMax; I++)
@@ -47,3 +44,9 @@ for(var I = 0; I < listMax; I++)
 }
 
 delete_all_starter()
+
+NameOfTopicSAVE = ""
+TopicIDRealRead = 0;
+FirstTalker = 0;
+FirstTalk = 0
+LastTalker = 0

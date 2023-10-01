@@ -35,7 +35,5 @@ function scrDefaultValues()
 	global.TalkerDirectionX = global.PlayerXX[0]
 	global.TalkerDirectionY = global.PlayerYY[0]
 	
-	NameOfTopic = "";
-	
 	End = false
 }

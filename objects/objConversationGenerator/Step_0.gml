@@ -111,7 +111,10 @@ if Voces = 10
 
 if ClosedTopicWaitToNext = 2
 {
-	if (CheckDirectory())
+	var directory = "Topics" + "/"
+	var TopicIDRealFind = FindLast()
+
+	if (FindString(string(directory)+string(TopicIDRealFind), "Topic: Closed"))
 	{
 		readAndSortFilesByName()
 	}
@@ -122,10 +125,5 @@ if ClosedTopicWaitToNext = 3
 	with(objCamera)
 	{alarm[0] = -1 TimeCard = false TimeCardSound = false WaitingANewRequester = false}
 
-	ClosedTopicWaitToNext = -1
-}
-
-if ClosedTopicWaitToNext = -1
-{
-	ClosedTopicWaitToNext = -2
+	ClosedTopicWaitToNext = 1
 }

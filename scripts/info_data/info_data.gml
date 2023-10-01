@@ -25,7 +25,9 @@
 	    // Escribir la fecha y hora en el archivo
 	    file_text_write_string(fileHandle, string(TopicStatus));
 		file_text_write_string(fileHandle, "Fecha de Creación: " + string(timeStamp) + "\n");
-
+		
+		if instance_exists(objConversationGenerator)
+		{file_text_write_string(fileHandle, "Nombre: " + string(objConversationGenerator.NameOfTopicSAVE) + "\n")}
 	    file_text_close(fileHandle);
 	}
 	else
@@ -39,8 +41,6 @@ function saveInfo(fileName, characterName, msg, topicname)
 	if (file_exists(fileName))
 	{
 		var fileHandle = file_text_open_append(fileName);
-	    // Obtén el número de línea actual (para X)
-	    var lineCount = file_text_open_append(fileName) + 1;
     
 	    // Reemplaza los caracteres de salto de línea al final de msg por espacios
 	    msg = string_replace_all(msg, "\n", " ");
@@ -62,10 +62,11 @@ function loadInfo(fileName, pos)
 {
 	if (file_exists(fileName))
 	{
+		var NumberOfAdditions = 3
 		
 		var fileHandle = file_text_open_read(fileName);
 		
-		repeat(pos+2)
+		repeat(pos+NumberOfAdditions)
 		{
 			file_text_readln(fileHandle);
 		}
@@ -145,78 +146,66 @@ function readAndSortFilesByName()
 	
 	var TrueFileName = string(directory) + string(file_name);
 	var LINE = 0;
-	var FindText = FindString(TrueFileName, "Topic: Closed")
 	
-	show_debug_message("FindText: "+string(FindText))
-	
-	if (FindText)
+	with(objCamera)
+	{TimeCard = false TimeCardSound = false}
+
+	global.DisableModelsDuringPause = false
+	Texto = "Terminando"
+		
+	if file_exists(TrueFileName)
 	{
-		with(objCamera)
-		{TimeCard = false TimeCardSound = false}
-
-		global.DisableModelsDuringPause = false
-		Texto = "Terminando"
-		
-		if file_exists(TrueFileName)
-		{
-			var fileHandle = file_text_open_read(TrueFileName);
-		
-			while (!file_text_eof(fileHandle))
-	        {
-	            var line = file_text_readln(fileHandle);
-	            LINE++
-	        }
-		
-			file_text_close(fileHandle);
-		}
-		
-		SizeOfTopic = LINE 
-		
-		ClosedTopicWaitToNext = 3
+		var fileHandle = file_text_open_read(TrueFileName);
 	
-		for (var i = 1; i <= SizeOfTopic; ++i)
-		{
-			loadInfo(string(TrueFileName), i-1)
-			listLimit = i
-		}
-	
-		// Realiza acciones con el archivo
-		show_debug_message("Siguiente Archivo: " + string(file_name));
-		LastFile = string(TrueFileName)
+		while (!file_text_eof(fileHandle))
+	    {
+	        var line = file_text_readln(fileHandle);
+	        LINE++
+	    }
 		
-		// Limpia la lista de archivos
-		ds_list_destroy(file_list);	
+		file_text_close(fileHandle);
 	}
+		
+	SizeOfTopic = LINE-1
+	
+	for (var i = 1; i <= SizeOfTopic; i++)
+	{
+		loadInfo(string(TrueFileName), i-1)
+		listLimit = i-1
+	}
+	
+	// Realiza acciones con el archivo
+	show_debug_message("Siguiente Archivo: " + string(file_name));
+		
+	// Limpia la lista de archivos
+	ds_list_destroy(file_list);
+		
+	ClosedTopicWaitToNext = 3
 }
 
-function CheckDirectory()
+function FindLastTxtFileInDirectory()
 {
-    var directory = "Topics" + "/"; // Reemplaza con la ruta de tu directorio
-    var search = file_find_first(directory + "*.*", 0);
+    var directory = "Topics" + "/";
+    var lastTxtFile = "";
+    var search = file_find_first(directory + "*.txt", 0);
 
-    // Cierra la búsqueda antes de continuar
+    while (search != "")
+	{
+        lastTxtFile = search; // Guarda el nombre del archivo actual
+        search = file_find_next();
+    }
+
     file_find_close();
-
-    // Verifica si se encontraron archivos en el directorio
-    if (search == "")
-    {
-        // El directorio está vacío
-        return false;
-    }
-    else
-    {
-        // Se encontraron archivos en el directorio
-        return true;
-    }
+    
+    return (lastTxtFile != ""); // Devuelve true si se encontró un archivo TXT, false en caso contrario
 }
 
-function ReplaceStringToNew(fileName, textoReemplazar)
+function ReplaceStringToNew(fileName, textoOriginal, textoReemplazar)
 {
 	if file_exists(fileName)
 	{
 		var fileHandle = file_text_open_read(fileName);
 	    var fileContent = "";
-		var textoOriginal = "Topic: Open";
 	
 	    if (fileHandle != -1)
 	    {
@@ -243,25 +232,61 @@ function ReplaceStringToNew(fileName, textoReemplazar)
 
 function FindString(archivo, stringBuscado)
 {
-	var encontrado = false
-	
-	    if file_exists(archivo)
-	    {
-	        var fileHandle = file_text_open_read(archivo);
-
-	        while (!file_text_eof(fileHandle)) 
-	        {
-	            var linea = file_text_readln(fileHandle);
-            
-	            if (string_pos(stringBuscado, linea) > 0)
-	            {
-	                encontrado = true
-	                break;
-	            }
-	        }
+    if file_exists(archivo)
+    {
+        var fileHandle = file_text_open_read(archivo);
+        var encontrado = false;
+        var linea;
         
-	        file_text_close(fileHandle);
-	    }
-		
-    return encontrado;
+        while (!file_text_eof(fileHandle)) 
+        {
+            linea = file_text_readln(fileHandle);
+            if (string_pos(stringBuscado, linea) > 0)
+            {
+                encontrado = true;
+                break;
+            }
+        }
+        
+        file_text_close(fileHandle);
+        return encontrado;
+    }
+    else
+    {
+        show_message("El archivo no existe.");
+        return false;
+    }
+}
+
+function FindFirst()
+{
+    var directory = "Topics" + "/";
+    var search = file_find_first(directory + "*.txt", 0);
+    var firstTxtFile = "";
+
+    if (search != "") 
+    {
+        firstTxtFile = string(search);
+        file_find_close();
+    }
+
+    return firstTxtFile;
+}
+
+function FindLast()
+{
+    var directory = "Topics" + "/"
+    
+    var lastTxtFile = "";
+    var search = file_find_first(directory + "*.*", 0);
+
+    while (search != "") 
+    {
+        lastTxtFile = search;
+        search = file_find_next();
+    }
+
+    file_find_close();
+	
+    return lastTxtFile;
 }

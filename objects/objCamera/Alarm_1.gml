@@ -2,31 +2,26 @@ global.DisableModelsDuringPause = false
 
 with(objConversationGenerator)
 {
-	var FILE = "Topics" + "/" + string(TopicIDReal) + " [PENDING] "+string(NameOfTopic)+".txt";
+	var TopicIDRealFind = "";
+	var FILE = "";
 	
-	if ClosedTopicWaitToNext = -2
+	if (TopicIDReal = FirstTalker)
 	{
-		deleteInfo(FILE)
-		
-		if file_exists(LastFile)
-		{deleteInfo(LastFile)}
-		
-		for(var I = 0; I < listMax; I++)
-		{
-			TextPending[I] = ""
-			NicksPending[I] = "" 
-		}
-		
-		scrDefaultValues()
-		listLimit = 1
+		TopicIDRealFind = FindFirst();
+		FILE = "Topics" + "/" + string(TopicIDRealFind);
+		show_message("MESSAGE BORRADO: "+string(TopicIDRealFind))
 	}
 	else
-	if ClosedTopicWaitToNext = true
+	{
+		TopicIDRealFind = FirstTalk
+		FILE = "Topics" + "/" + string(FirstTalk) +" [PENDING]"+".txt";
+		show_message("MESSAGE BORRADO: "+string(TopicIDRealFind))
+		TopicIDReal = FirstTalker
+	}
+	
+	if ClosedTopicWaitToNext < 2
 	{
 		deleteInfo(FILE)
-		
-		if file_exists(LastFile)
-		{deleteInfo(LastFile)}
 		
 		for(var I = 0; I < listMax; I++)
 		{
@@ -36,15 +31,18 @@ with(objConversationGenerator)
 		
 		scrDefaultValues()
 		listLimit = 1
-			
-		if (CheckDirectory() && ClosedTopicWaitToNext = 1)
+		
+		if ClosedTopicWaitToNext < 2
 		{
-			ClosedTopicWaitToNext = 2
-		}
-		else
-		if (!CheckDirectory() && ClosedTopicWaitToNext = 1)
-		{
-			ClosedTopicWaitToNext = -1
+			if (FindLastTxtFileInDirectory())
+			{
+				ClosedTopicWaitToNext = 2
+			}
+			else
+			if (!FindLastTxtFileInDirectory())
+			{
+				ClosedTopicWaitToNext = -1
+			}
 		}
 	}
 }
