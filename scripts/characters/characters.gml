@@ -262,9 +262,9 @@ function scrIdleFun()
 {
 	switch(Character)
 	{
-		case "Flaky":   ANIM = "Flaky_Idle"; break;
+		case "Flaky":   ANIM = "Flaky_Idle";  break;
 		case "Toothy":  ANIM = "Toothy_Idle"; break;
-		case "Handy":   ANIM = "Handy_Idle"; break;
+		case "Handy":   ANIM = "Handy_Idle";   break;
 		case "Giggles": ANIM = "Giggles_Idle"; break;
 		case "Petunia": ANIM = "Petunia_Idle"; break;
 	}

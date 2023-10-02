@@ -39,8 +39,9 @@ switch(async_load[? "type"])
 				TopicNameFile    = realData[? "message_topic"];
 				NicksPendingList = realData[? "message_nick"];
 				NicksPendingList = FixString(NicksPendingList)
-				TextPendingList  = realData[? "message_text"];
-				TopicIDReal      = realData[? "topic_id_real"];
+				
+				TextPendingList = realData[? "message_text"];
+				TopicIDReal = realData[? "topic_id_real"];
 				
 				saveInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt", NicksPendingList, TextPendingList, TopicNameFile)
 			break;
@@ -114,7 +115,7 @@ switch(async_load[? "type"])
 			break;
 			
 			case "Cancel_Topic": //DONE
-				TopicNameFile    = realData[? "message_topic"];
+				TopicIDReal = realData[? "topic_id_real"];
 				deleteInfo("Topics" + "/" + string(TopicIDReal) + " [PENDING].txt")
 			break;
 		}	

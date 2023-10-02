@@ -20,6 +20,9 @@ with(objConversationGenerator)
 		var Width = 32*37
 		var STR = string(TextPending[listNumber-1]);
 	
+		var ALERT = "-ALERT-";
+	
+	
 		var Scale = 1.0;
 		var Separation = 40; 
 	
@@ -37,31 +40,18 @@ with(objConversationGenerator)
 		else
 		if (string_length(STR) > 1000+3)
 		{Scale = 1.0 Separation = 40 STR = "*SPAMMING TEXT*"}
-	
+		
 		draw_set_color(make_color_rgb(000,000,060))
 		draw_text_scribble_ext(VisualX/2+4,VisualY/2+224+4, STR, Width, Separation, Scale)
-		
-		draw_set_color(c_white)
-		draw_text_scribble_ext(VisualX/2,  VisualY/2+224,   STR, Width, Separation, Scale)
+
+		draw_set_color(c_white) 
+		draw_text_scribble_ext(VisualX/2,  VisualY/2+224, STR, Width, Separation, Scale)
 	}
 }
 if global.StartStream = true
 {	
 	draw_sprite_ext(sprStartup, 0, VisualX/2, VisualY/2,0.7,0.7,0,c_white,1)
 }
-
-/*
-draw_set_color(c_white)
-draw_set_font(fntDmSans)
-*/
-
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
-draw_set_color(c_red)
-draw_set_font(fntDmSans)
-
-draw_set_halign(fa_center);
-draw_set_valign(fa_center);
 
 draw_set_color(c_white)
 draw_set_font(fntDmSans)
