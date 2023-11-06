@@ -86,7 +86,7 @@
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.8.1.102",
+    "IDEVersion": "2023.8.2.108",
   },
   "resources": [
     {"id":{"name":"scribble_fallback_bulletpoint","path":"sprites/scribble_fallback_bulletpoint/scribble_fallback_bulletpoint.yy",},},
@@ -324,8 +324,8 @@
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"rmVars","path":"rooms/rmVars/rmVars.yy",},},
-    {"roomId":{"name":"rmWorld","path":"rooms/rmWorld/rmWorld.yy",},},
     {"roomId":{"name":"rmTestVoices","path":"rooms/rmTestVoices/rmTestVoices.yy",},},
+    {"roomId":{"name":"rmWorld","path":"rooms/rmWorld/rmWorld.yy",},},
   ],
   "templateType": null,
   "TextureGroups": [

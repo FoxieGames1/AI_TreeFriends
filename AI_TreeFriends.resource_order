@@ -101,7 +101,7 @@
     {"name":"mbuff_tesselate_uvs","order":13,"path":"scripts/mbuff_tesselate_uvs/mbuff_tesselate_uvs.yy",},
     {"name":"__scribble_get_krutidev_matra_lookup_map","order":12,"path":"scripts/__scribble_get_krutidev_matra_lookup_map/__scribble_get_krutidev_matra_lookup_map.yy",},
     {"name":"objModelGen","order":1,"path":"objects/objModelGen/objModelGen.yy",},
-    {"name":"rmTestVoices","order":2,"path":"rooms/rmTestVoices/rmTestVoices.yy",},
+    {"name":"rmTestVoices","order":1,"path":"rooms/rmTestVoices/rmTestVoices.yy",},
     {"name":"texpack_create","order":2,"path":"scripts/texpack_create/texpack_create.yy",},
     {"name":"__scribble_class_page","order":5,"path":"scripts/__scribble_class_page/__scribble_class_page.yy",},
     {"name":"scribble_anim_wobble","order":9,"path":"scripts/scribble_anim_wobble/scribble_anim_wobble.yy",},
@@ -248,6 +248,6 @@
     {"name":"cluck_set_light_point","order":6,"path":"scripts/cluck_set_light_point/cluck_set_light_point.yy",},
     {"name":"texpack_load_mtl","order":3,"path":"scripts/texpack_load_mtl/texpack_load_mtl.yy",},
     {"name":"mbuff_combine","order":1,"path":"scripts/mbuff_combine/mbuff_combine.yy",},
-    {"name":"rmWorld","order":1,"path":"rooms/rmWorld/rmWorld.yy",},
+    {"name":"rmWorld","order":2,"path":"rooms/rmWorld/rmWorld.yy",},
   ],
 }
